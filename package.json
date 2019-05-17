@@ -1,0 +1,12 @@
+{
+  "name": "todo_server",
+  "version": "1.0.0",
+  "description": "REST API for simple todo app",
+  "main": "app.js",
+  "repository": "https://github.com/simecek-m/todo_server.git",
+  "author": "Martin Simecek <simecek.m@seznam.cz>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.0"
+  }
+}
