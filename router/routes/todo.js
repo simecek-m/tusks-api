@@ -43,4 +43,11 @@ router.delete('/todos/:todoId/task/:taskId', function(req, res){
 		.catch(error => console.log(error));
 });
 
+// update specific task
+router.put('/todos/:todoId/task/:taskId', function(req, res){
+	Todo.updateOne({_id: req.params.todoId, 'tasks._id': req.params.taskId}, {'$set': {"tasks.$.completed": req.body.completed}})
+		.then(data => res.send(data))
+		.catch(error => console.log(error));
+});
+
 module.exports = router;
