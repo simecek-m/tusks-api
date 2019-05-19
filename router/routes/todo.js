@@ -21,9 +21,16 @@ router.post('/todos', function(req, res){
 		.catch(error => console.log(error));
 });
 
-// update todo list (rename title)
+// update todo list
 router.put('/todos/:id', function(req, res){
 	Todo.updateOne({ _id: req.params.id}, req.body)
+		.then(data => res.send(data))
+		.catch(error => console.log(error));
+});
+
+// delete todo list
+router.delete('/todos/:id', function(req, res){
+	Todo.deleteOne({_id: req.params.id})
 		.then(data => res.send(data))
 		.catch(error => console.log(error));
 });
