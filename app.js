@@ -1,7 +1,7 @@
 // imports
 const express = require('express');
 const mongoose = require('mongoose');
-const router = require('./routes/router');
+const router = require('./router');
 const bodyParser = require('body-parser');
 
 // create express app
