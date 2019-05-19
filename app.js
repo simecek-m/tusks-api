@@ -1,9 +1,13 @@
 // imports
 const express = require('express');
 const mongoose = require('mongoose');
+const router = require('./routes/router');
 
 // create express app
 const app = express();
+
+// api routes
+app.use('/api', router);
 
 // mongodb connection
 mongoose.connect('mongodb://localhost/todo-db', { useNewUrlParser: true}).then(
@@ -11,8 +15,7 @@ mongoose.connect('mongodb://localhost/todo-db', { useNewUrlParser: true}).then(
 	error => console.log('Error while connecting mongo database!', error)
 );
 
-
 // run express server on specific port
 app.listen(3000, () => {
-	console.log('server is running...')
+	console.log('server is running...');
 });
