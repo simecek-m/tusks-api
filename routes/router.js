@@ -12,5 +12,11 @@ router.get('/todos', function(req, res){
 		});
 });
 
+router.post('/todos', function(req, res){
+	Todo.create({title: 'Title'})
+		.then(data => res.send(data))
+		.catch(error => console.log(error));
+});
+
 
 module.exports = router;
