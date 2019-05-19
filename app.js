@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 // create express app
 const app = express();
 
+// middleware 
+app.use(bodyParser);
+
 // api routes
 app.use('/api', router);
 
