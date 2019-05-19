@@ -20,4 +20,11 @@ router.post('/todos', function(req, res){
 		.catch(error => console.log(error));
 });
 
+// update todo list (rename title)
+router.put('/todos/:id', function(req, res){
+	Todo.updateOne({ _id: req.params.id}, { title: req.body.title })
+		.then(data => res.send(data))
+		.catch(error => console.log(error));
+});
+
 module.exports = router;
