@@ -36,25 +36,25 @@ router.delete('/todos/:id', function(req, res){
 });
 
 // create task and add it to todo list
-router.post('/todos/:id/task', function(req, res){
+router.post('/todos/:id/tasks', function(req, res, next){
 	let task = new Task(req.body);
-	Todo.updateOne({_id: req.params.id}, {'$push': {tasks: task}})
-		.then(data => res.send(data))
-		.catch(error => console.log(error));
+	Todo.updateOne({_id: req.params.id}, {'$push': {tasks: task}}, {runValidators: true})
+				.then(data => res.send(data))
+				.catch(next);
 });
 
 // delete specific task
-router.delete('/todos/:todoId/task/:taskId', function(req, res){
+router.delete('/todos/:todoId/tasks/:taskId', function(req, res, next){
 	Todo.updateOne({_id: req.params.todoId}, {'$pull': {tasks: {_id: req.params.taskId}}})
 		.then(data => res.send(data))
-		.catch(error => console.log(error));
+		.catch(next);
 });
 
 // update specific task
-router.put('/todos/:todoId/task/:taskId', function(req, res){
-	Todo.updateOne({_id: req.params.todoId, tasks: { '$elemMatch': {_id: req.params.taskId}}}, {'$set': {'tasks.$.completed': req.body.completed}})
+router.put('/todos/:todoId/tasks/:taskId', function(req, res, next){
+	Todo.updateOne({_id: req.params.todoId, tasks: { '$elemMatch': {_id: req.params.taskId}}}, {'$set': {'tasks.$.completed': req.body.completed}}, {runValidators: true})
 		.then(data => res.send(data))
-		.catch(error => console.log(error));
+		.catch(next);
 });
 
 module.exports = router;
