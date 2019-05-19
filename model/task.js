@@ -9,7 +9,7 @@ const TaskSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	}
-}, { _id: false });
+});
 
 const Task = mongoose.model('task', TaskSchema);
 
