@@ -28,12 +28,11 @@ router.put('/todos/:id', function(req, res){
 		.catch(error => console.log(error));
 });
 
+// create task and add it to todo list
 router.post('/todos/:id/task', function(req, res){
-	Task.create({text: req.body.text})
-		.then(task => {
-			Todo.updateOne({_id: req.params.id}, {'$push': {tasks: task}})
-				.then(data => res.send(data))
-		})
+	let task = new Task(req.body);
+	Todo.updateOne({_id: req.params.id}, {'$push': {tasks: task}})
+		.then(data => res.send(data))
 		.catch(error => console.log(error));
 });
 
