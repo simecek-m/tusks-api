@@ -1,20 +1,24 @@
 // imports
 const express = require('express');
 const mongoose = require('mongoose');
-const router = require('./router');
 const bodyParser = require('body-parser');
+const router = require('./router');
+const errorHandler = require('./middleware/error');
 
 // create express app
 const app = express();
 
-// middleware 
+// parse json object from request body 
 app.use(bodyParser.json());
 
 // api routes
 app.use('/api', router);
 
+// error handling
+app.use(errorHandler);
+
 // mongodb connection
-mongoose.connect('mongodb://localhost/todo-db', { useNewUrlParser: true}).then(
+mongoose.connect('mongodb://localhost/todo-db', { useCreateIndex:true, useNewUrlParser: true}).then(
 	() => console.log('Mongo DB connected successfully!'),
 	error => console.log('Error while connecting mongo database!', error)
 );
