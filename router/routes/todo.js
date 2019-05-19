@@ -36,4 +36,11 @@ router.post('/todos/:id/task', function(req, res){
 		.catch(error => console.log(error));
 });
 
+// delete specific task
+router.delete('/todos/:todoId/task/:taskId', function(req, res){
+	Todo.updateOne({_id: req.params.todoId}, {'$pull': {tasks: {_id: req.params.taskId}}})
+		.then(data => res.send(data))
+		.catch(error => console.log(error));
+});
+
 module.exports = router;
