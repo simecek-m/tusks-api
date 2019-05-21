@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Task = require('./task');
+const Task = require('~model/task');
 
 const todoSchema = new mongoose.Schema({
 	title: {
