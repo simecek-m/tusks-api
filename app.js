@@ -27,3 +27,5 @@ mongoose.connect('mongodb://localhost/todo-db', { useCreateIndex:true, useNewUrl
 app.listen(3000, () => {
 	console.log('server is running...');
 });
+
+module.exports = app;
