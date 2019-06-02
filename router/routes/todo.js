@@ -21,6 +21,16 @@ router.post('/todos', function(req, res){
 		.catch(error => console.log(error));
 });
 
+// get specific todo list
+router.get('/todos/:id', function(req, res){
+	Todo.find({_id: req.params.id})
+		.then(data => res.send(data))
+		.catch(error => {
+			console.log(error);
+			res.end();
+		});
+});
+
 // update todo list
 router.put('/todos/:id', function(req, res){
 	Todo.updateOne({ _id: req.params.id}, req.body)
