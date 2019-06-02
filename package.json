@@ -11,15 +11,18 @@
     "mongoose": "^5.5.9"
   },
   "devDependencies": {
-    "link-module-alias": "^1.2.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "link-module-alias": "^1.2.0",
+    "mocha": "^6.1.4"
   },
   "scripts": {
-	"postinstall": "link-module-alias"
+    "postinstall": "link-module-alias"
   },
   "_moduleAliases": {
-	"~root": ".",
-	"~middleware": "middleware",
-	"~model": "model",
-	"~router": "router"
+    "~root": ".",
+    "~middleware": "middleware",
+    "~model": "model",
+    "~router": "router"
   }
 }
