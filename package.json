@@ -17,7 +17,9 @@
     "mocha": "^6.1.4"
   },
   "scripts": {
-    "postinstall": "link-module-alias"
+    "postinstall": "link-module-alias",
+    "start": "nodemon app",
+    "test": "mocha"
   },
   "_moduleAliases": {
     "~root": ".",
