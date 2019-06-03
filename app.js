@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const router = require('~router');
 const errorHandler = require('~middleware/error');
+const { port, mode, mongoDb } = require('./config')
 
 // create express app
 const app = express();
@@ -18,14 +19,15 @@ app.use('/api', router);
 app.use(errorHandler);
 
 // mongodb connection
-mongoose.connect('mongodb://localhost/todo-db', { useCreateIndex:true, useNewUrlParser: true}).then(
-	() => console.log('Mongo DB connected successfully!'),
+mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true}).then(
+	() => console.log(`Mongo DB located ${mongoDb} was connected successfully!`),
 	error => console.log('Error while connecting mongo database!', error)
 );
 
 // run express server on specific port
-app.listen(3000, () => {
-	console.log('server is running...');
+app.listen(port || 3000, () => {
+  console.log(`app is running in ${mode} mode`);
+	console.log(`server is listening on port: ${port}`);
 });
 
 module.exports = app;
