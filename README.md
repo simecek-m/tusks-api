@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/simecek-m/todo-server.svg?branch=master)](https://travis-ci.com/simecek-m/todo-server)
