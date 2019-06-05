@@ -1,6 +1,10 @@
 const dotenv = require('dotenv');
+const colors = require('colors');
+
 let path = '';
 
+
+// pick path for config file dependent on app mode
 switch(process.env.MODE){
   case 'dev': {
     path = 'config/.dev.env';
@@ -15,17 +19,21 @@ switch(process.env.MODE){
     break;
 };
 
+console.log(colors.blue(`App running in '${process.env.MODE}' mode, opening ${path} config file!`));
+
+// print result for opening config file into the console
 const result = dotenv.config({ path });
-
-if(result.error){
-  throw new Error(result.error.message);
-} else {
-  const config = {
-    mode: process.env.NODE_ENV,
-    port: process.env.PORT,
-    mongoDb: process.env.DB_MONGO
-  };
-
-  module.exports = config;
-
+if(result.error) {
+  console.log(colors.red(result.error.message));
+}else{
+  console.log(colors.green(`Config file ${path} loaded successfully`));
 }
+
+// set module variables by environmental variables 
+const config = {
+  mode: process.env.MODE,
+  port: process.env.PORT,
+  mongoDb: process.env.DB_MONGO
+};
+
+module.exports = config;
