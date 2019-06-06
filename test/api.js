@@ -50,6 +50,9 @@ describe('/todos', () => {
 });
 
 describe.skip('/todos', () => {
+  it('should GET specific todo list', done => {
+    done(new Error('not implemented yet'));
+  });
   it('should POST new todo list', done => {
     done(new Error('not implemented yet'));
   });
@@ -62,6 +65,9 @@ describe.skip('/todos', () => {
 });
 
 describe.skip('/todos/:id/task', () => {
+  it('should GET specific task from todo list', done => {
+    done(new Error('not implemented yet'));
+  });
   it('should POST new task into todo list', done => {
     done(new Error('not implemented yet'));
   });
