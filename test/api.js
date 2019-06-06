@@ -5,6 +5,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
 const app = require('../app.js');
+const colors = require('colors');
 const should = chai.should();
 
 // schemas for validation
@@ -31,7 +32,7 @@ describe('/todos', () => {
   beforeEach(done => {
     seeder.import(collections)
       .then(() => done())
-      .catch(err => console.log(err));
+      .catch(err => console.log(colors.red(err)));
   });
 
   it('should GET all todo lists', done => {

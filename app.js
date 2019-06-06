@@ -1,10 +1,11 @@
 // imports
+const { port, mode, mongoDb } = require('./config')
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const router = require('~router');
 const errorHandler = require('~middleware/error');
-const { port, mode, mongoDb } = require('./config')
+const colors = require('colors');
 
 // create express app
 const app = express();
@@ -20,8 +21,8 @@ app.use(errorHandler);
 
 // mongodb connection
 mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true}).then(
-	() => console.log(`Mongo DB located ${mongoDb} was connected successfully!`),
-	error => console.log('Error while connecting mongo database!', error)
+	() => console.log(colors.green(`Mongo DB located ${mongoDb} was connected successfully!`)),
+	error => console.log(colors.red('Error while connecting mongo database!', error))
 );
 
 // run express server on specific port
