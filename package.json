@@ -17,7 +17,8 @@
     "chai-http": "^4.3.0",
     "chai-json-schema": "^1.5.1",
     "link-module-alias": "^1.2.0",
-    "mocha": "^6.1.4"
+    "mocha": "^6.1.4",
+    "mongo-seeding": "^3.2.0-alpha.0"
   },
   "scripts": {
     "postinstall": "link-module-alias",
