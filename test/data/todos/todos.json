@@ -1,0 +1,31 @@
+[
+  {
+    "title": "Title",
+    "tasks": [
+      {
+        "completed": false,
+        "_id": "5ce1b62a4a3cf024bc3c6f17",
+        "text": "install windows"
+      },
+      {
+        "completed": true,
+        "_id": "5ce1b6334a3cf024bc3c6f19",
+        "text": "install windows"
+      }
+    ]
+  },
+  {
+    "title": "Title",
+    "tasks": [
+      {
+        "completed": false,
+        "_id": "5ce1bb35ea9e992fa84525bc",
+        "text": "watch hockey"
+      }
+    ]
+  },
+  {
+    "title": "house",
+    "tasks": []
+  }
+]
