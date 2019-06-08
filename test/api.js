@@ -5,7 +5,6 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
 const app = require('../app.js');
-const colors = require('colors');
 const should = chai.should();
 
 // schemas for validation
@@ -29,56 +28,44 @@ chai.use(jsonSchema);
 describe('/todos', () => {
 
   // drop current db and import startup data before each test
-  beforeEach(done => {
-    seeder.import(collections)
-      .then(() => done())
-      .catch(err => {
-        console.log(colors.red(err))
-        done(err)
-      });
+  beforeEach(async () => {
+    await seeder.import(collections)
   });
 
-  it('should GET all todo lists', done => {
-    chai.request(app)
-      .get('/api/todos')
-      .end((err, res) => {
-        should.not.exist(err);
-        should.exist(res);
-        res.should.have.status(200);
-        const body = res.body;
-        body.should.be.jsonSchema(todosSchema);
-        body.length.should.be.equal(3);
-        done();
-      });
+  it('should GET all todo lists', async () => {
+    const response = await chai.request(app).get('/api/todos');
+    response.should.have.status(200);
+    response.body.should.be.jsonSchema(todosSchema);
+    response.body.length.should.be.equal(3);
   });
 });
 
 describe.skip('/todos', () => {
-  it('should GET specific todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should GET specific todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should POST new todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should POST new todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should UPDATE specific todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should UPDATE specific todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should DELETE specific todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should DELETE specific todo list', async () => {
+    throw new Error('not implemented yet');
   });
 });
 
 describe.skip('/todos/:id/task', () => {
-  it('should GET specific task from todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should GET specific task from todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should POST new task into todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should POST new task into todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should UPDATE specific task in todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should UPDATE specific task in todo list', async () => {
+    throw new Error('not implemented yet');
   });
-  it('should DELETE specific task in todo list', done => {
-    done(new Error('not implemented yet'));
+  it('should DELETE specific task in todo list', async () => {
+    throw new Error('not implemented yet');
   });
 });
