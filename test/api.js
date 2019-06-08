@@ -32,7 +32,10 @@ describe('/todos', () => {
   beforeEach(done => {
     seeder.import(collections)
       .then(() => done())
-      .catch(err => console.log(colors.red(err)));
+      .catch(err => {
+        console.log(colors.red(err))
+        done(err)
+      });
   });
 
   it('should GET all todo lists', done => {
