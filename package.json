@@ -25,8 +25,8 @@
   },
   "scripts": {
     "postinstall": "link-module-alias",
-    "start": "env MODE='dev' nodemon app",
-    "lint": "eslint . --ext .js",
+    "start": "env MODE='dev' nodemon --exec \"yarn lint && node app\"",
+    "lint": "eslint .",
     "test": "env MODE='test' nyc --silent mocha --exit",
     "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
