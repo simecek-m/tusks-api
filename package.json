@@ -16,6 +16,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "chai-json-schema": "^1.5.1",
+    "codecov": "^3.5.0",
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
     "mongo-seeding": "^3.2.0-alpha.0",
