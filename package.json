@@ -26,7 +26,7 @@
     "postinstall": "link-module-alias",
     "start": "env MODE='dev' nodemon app",
     "test": "env MODE='test' nyc --silent mocha --exit",
-    "test-coverage": "nyc report | codecov --pipe"
+    "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "_moduleAliases": {
     "~root": ".",
