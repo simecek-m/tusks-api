@@ -25,7 +25,8 @@
   "scripts": {
     "postinstall": "link-module-alias",
     "start": "env MODE='dev' nodemon app",
-    "test": "env MODE='test' mocha --exit"
+    "test": "env MODE='test' mocha --exit",
+    "test-coverage": "nyc report --report=text-lcov > coverage.lcov && codecov"
   },
   "_moduleAliases": {
     "~root": ".",
