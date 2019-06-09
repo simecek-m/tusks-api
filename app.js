@@ -20,15 +20,15 @@ app.use('/api', router);
 app.use(errorHandler);
 
 // mongodb connection
-mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true}).then(
-	() => console.log(colors.green(`Mongo DB located ${mongoDb} was connected successfully!`)),
-	error => console.log(colors.red('Error while connecting mongo database!', error))
+mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true }).then(
+  () => console.log(colors.green(`Mongo DB located ${mongoDb} was connected successfully!`)),
+  error => console.log(colors.red('Error while connecting mongo database!', error))
 );
 
 // run express server on specific port
 app.listen(port || 3000, () => {
   console.log(`app is running in ${mode} mode`);
-	console.log(`server is listening on port: ${port}`);
+  console.log(`server is listening on port: ${port}`);
 });
 
 module.exports = app;

@@ -5,10 +5,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
 const app = require('../app.js');
-const should = chai.should();
 
 // schemas for validation
-const taskSchema = require('./schema/task');
 const todoSchema = require('./schema/todo');
 const todosSchema = require('./schema/todos');
 
@@ -24,6 +22,7 @@ const collections = seeder.readCollectionsFromPath(path.resolve('./test/data/'))
 // use chai middleware
 chai.use(chaiHttp);
 chai.use(jsonSchema);
+chai.should();
 
 describe('/todos', () => {
 
