@@ -38,13 +38,21 @@ describe('/todos', () => {
     response.body.should.be.jsonSchema(todosSchema);
     response.body.length.should.be.equal(3);
   });
+
+  it('should POST new todo list', async () => {
+    const response = await chai.request(app).post('/api/todos');
+    response.should.have.status(200);
+    response.body.should.have.jsonSchema(todoSchema);
+    response.body._id.should.be.an('string').that.is.not.empty;
+    response.body.title.should.be.an('string').that.is.equal('Title');
+    response.body.tasks.should.be.an('array').that.is.empty;
+    response.body.__v.should.be.an('number').that.is.equal(0);
+  });
+
 });
 
 describe.skip('/todos', () => {
   it('should GET specific todo list', async () => {
-    throw new Error('not implemented yet');
-  });
-  it('should POST new todo list', async () => {
     throw new Error('not implemented yet');
   });
   it('should UPDATE specific todo list', async () => {
