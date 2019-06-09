@@ -1,0 +1,33 @@
+env:
+  node: true
+  commonjs: true
+  es6: true
+  mocha: true
+extends: 'eslint:recommended'
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parserOptions:
+  ecmaVersion: 2018
+rules: 
+  no-console: off
+  quotes: 
+    - warn
+    - single
+  no-unused-vars: warn
+  indent: 
+    - error
+    - 2
+    - { SwitchCase: 1 }
+  object-curly-spacing:
+    - warn
+    - always
+    - { arraysInObjects: false, objectsInObjects: false }
+  space-before-function-paren:
+    - warn
+    - always
+  keyword-spacing: warn
+  space-before-blocks: warn
+  no-multiple-empty-lines: 
+    - error
+    - { max: 1}
