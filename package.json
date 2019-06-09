@@ -25,8 +25,8 @@
   "scripts": {
     "postinstall": "link-module-alias",
     "start": "env MODE='dev' nodemon app",
-    "test": "env MODE='test' mocha --exit",
-    "test-coverage": "env MODE='test' nyc --reporter=text-lcov mocha --exit | codecov --pipe"
+    "test": "env MODE='test' nyc --silent mocha --exit",
+    "test-coverage": "nyc report | codecov --pipe"
   },
   "_moduleAliases": {
     "~root": ".",
