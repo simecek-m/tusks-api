@@ -18,7 +18,8 @@
     "chai-json-schema": "^1.5.1",
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
-    "mongo-seeding": "^3.2.0-alpha.0"
+    "mongo-seeding": "^3.2.0-alpha.0",
+    "nyc": "^14.1.1"
   },
   "scripts": {
     "postinstall": "link-module-alias",
