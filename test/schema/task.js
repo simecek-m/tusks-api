@@ -13,6 +13,6 @@ const taskSchema = {
     }
   },
   required: ['_id', 'text', 'completed']
-}
+};
 
 module.exports = taskSchema;

@@ -28,7 +28,7 @@ describe('/todos', () => {
 
   // drop current db and import startup data before each test
   beforeEach(async () => {
-    await seeder.import(collections)
+    await seeder.import(collections);
   });
 
   it('should GET all todo lists', async () => {

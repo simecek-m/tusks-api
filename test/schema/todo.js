@@ -16,6 +16,6 @@ const todoSchema = {
     }
   },
   required: ['_id', 'title', 'tasks']
-}
+};
 
 module.exports = todoSchema;
