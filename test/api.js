@@ -48,12 +48,17 @@ describe('/todos', () => {
     response.body.__v.should.be.an('number').that.is.equal(0);
   });
 
+  it('should GET specific todo list', async () => {
+    const response = await chai.request(app).get('/api/todos/5cfe9d771b6ff31cc8e31fb4');
+    response.should.have.status(200);
+    response.body.should.have.jsonSchema(todoSchema);
+    response.body.title.should.be.an('string').that.is.equal('Free Time');
+    response.body.tasks.should.be.an('array').that.have.lengthOf(1);
+  });
+
 });
 
 describe.skip('/todos', () => {
-  it('should GET specific todo list', async () => {
-    throw new Error('not implemented yet');
-  });
   it('should UPDATE specific todo list', async () => {
     throw new Error('not implemented yet');
   });
