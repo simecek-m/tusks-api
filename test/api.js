@@ -56,12 +56,18 @@ describe('/todos', () => {
     response.body.tasks.should.be.an('array').that.have.lengthOf(1);
   });
 
+  it('should UPDATE specific todo list', async () => {
+    const updatedTitle = 'Updated Title';
+    const update = { title: updatedTitle };
+    const response = await chai.request(app).put('/api/todos/5cfe9d771b6ff31cc8e31fb4').send(update);
+    response.should.have.status(200);
+    response.body.ok.should.be.equal(1);
+    response.body.nModified.should.be.equal(1);
+    response.body.n.should.be.equal(1);
+  });
 });
 
 describe.skip('/todos', () => {
-  it('should UPDATE specific todo list', async () => {
-    throw new Error('not implemented yet');
-  });
   it('should DELETE specific todo list', async () => {
     throw new Error('not implemented yet');
   });
