@@ -65,11 +65,13 @@ describe('/todos', () => {
     response.body.nModified.should.be.equal(1);
     response.body.n.should.be.equal(1);
   });
-});
 
-describe.skip('/todos', () => {
   it('should DELETE specific todo list', async () => {
-    throw new Error('not implemented yet');
+    const response = await chai.request(app).delete('/api/todos/5cfe9d771b6ff31cc8e31fb4');
+    response.should.have.status(200);
+    response.body.ok.should.be.equal(1);
+    response.body.deletedCount.should.be.equal(1);
+    response.body.n.should.be.equal(1);
   });
 });
 
