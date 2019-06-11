@@ -9,7 +9,7 @@ globals:
   SharedArrayBuffer: readonly
 parserOptions:
   ecmaVersion: 2018
-rules: 
+rules:
   no-console: off
   quotes: 
     - warn
@@ -37,3 +37,8 @@ rules:
   eol-last:
     - error
     - always
+overrides: 
+  - files: "*.json"
+    rules: 
+      quotes: [error, double]
+      semi: off
