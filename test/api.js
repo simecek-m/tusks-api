@@ -34,6 +34,7 @@ describe('/todos', () => {
   it('should GET all todo lists', async () => {
     const response = await chai.request(app).get('/api/todos');
     response.should.have.status(200);
+    response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todosSchema);
     response.body.length.should.be.equal(3);
   });
@@ -41,6 +42,7 @@ describe('/todos', () => {
   it('should POST new todo list', async () => {
     const response = await chai.request(app).post('/api/todos');
     response.should.have.status(200);
+    response.body.should.not.be.empty;
     response.body.should.have.jsonSchema(todoSchema);
     response.body._id.should.be.an('string').that.is.not.empty;
     response.body.title.should.be.an('string').that.is.equal('Title');
@@ -57,21 +59,23 @@ describe('/todos', () => {
   });
 
   it('should UPDATE specific todo list', async () => {
-    const updatedTitle = 'Updated Title';
-    const update = { title: updatedTitle };
-    const response = await chai.request(app).put('/api/todos/5cfe9d771b6ff31cc8e31fb4').send(update);
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const update = { title: 'Updated Title' };
+    const response = await chai.request(app).put(`/api/todos/${todoListId}`).send(update);
     response.should.have.status(200);
-    response.body.ok.should.be.equal(1);
-    response.body.nModified.should.be.equal(1);
-    response.body.n.should.be.equal(1);
+    response.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body._id.should.be.an('string').that.is.equal(todoListId);
+    response.body.title.should.be.an('string').that.is.equal(update.title);
   });
 
   it('should DELETE specific todo list', async () => {
-    const response = await chai.request(app).delete('/api/todos/5cfe9d771b6ff31cc8e31fb4');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const response = await chai.request(app).delete(`/api/todos/${todoListId}`);
     response.should.have.status(200);
-    response.body.ok.should.be.equal(1);
-    response.body.deletedCount.should.be.equal(1);
-    response.body.n.should.be.equal(1);
+    response.body.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body._id.should.equal(todoListId);
   });
 });
 

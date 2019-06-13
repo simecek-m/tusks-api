@@ -20,7 +20,7 @@ app.use('/api', router);
 app.use(errorHandler);
 
 // mongodb connection
-mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true }).then(
+mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true, useFindAndModify: false }).then(
   () => console.log(colors.green(`Mongo DB located ${mongoDb} was connected successfully!`)),
   error => console.log(colors.red('Error while connecting mongo database!', error))
 );
