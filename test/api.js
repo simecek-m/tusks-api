@@ -7,6 +7,7 @@ const jsonSchema = require('chai-json-schema');
 const app = require('../app.js');
 
 // schemas for validation
+const errorSchema = require('./schema/error');
 const todoSchema = require('./schema/todo');
 const todosSchema = require('./schema/todos');
 
@@ -76,6 +77,15 @@ describe('/todos', () => {
     response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todoSchema);
     response.body._id.should.equal(todoListId);
+  });
+});
+
+describe('/todos - ERROR', () => {
+  it('should call error middleware after GET /api/todos/random', async () => {
+    const response = await chai.request(app).get('/api/todos/randomId');
+    response.should.have.status(400);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(errorSchema);
   });
 });
 
