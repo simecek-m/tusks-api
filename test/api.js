@@ -91,6 +91,11 @@ describe('/todos - ERROR', () => {
 });
 
 describe('/todos/:id/task', () => {
+
+  beforeEach(async () => {
+    await seeder.import(collections);
+  });
+
   it('should POST new task into todo list', async () => {
     const todoListId = '5cfe9d771b6ff31cc8e31fb4';
     const insertedTask = { text: 'install yarn' };
