@@ -102,13 +102,23 @@ describe('/todos/:id/task', () => {
     response.body.completed.should.be.an('boolean').that.is.equal(false);
     response.body.text.should.be.an('string').that.is.equal(insertedTask.text);
   });
+
+  it('should UPDATE specific task in todo list', async () => {
+    const todoListId = '5cfe9d771b6ff31cc8e31fb3';
+    const taskId = '5ce1b62a4a3cf024bc3c6f17';
+    const updatedTask = { completed: true };
+    const response = await chai.request(app).put(`/api/todos/${todoListId}/tasks/${taskId}`).send(updatedTask);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.equal(taskId);
+    response.body.text.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean').that.is.equal(updatedTask.completed);
+  });
 });
 
 describe.skip('/todos/:id/task', () => {
   it('should GET specific task from todo list', async () => {
-    throw new Error('not implemented yet');
-  });
-  it('should UPDATE specific task in todo list', async () => {
     throw new Error('not implemented yet');
   });
   it('should DELETE specific task in todo list', async () => {
