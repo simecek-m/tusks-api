@@ -7,6 +7,8 @@ const jsonSchema = require('chai-json-schema');
 const app = require('../app.js');
 
 // schemas for validation
+const errorSchema = require('./schema/error');
+const taskSchema = require('./schema/task');
 const todoSchema = require('./schema/todo');
 const todosSchema = require('./schema/todos');
 
@@ -34,6 +36,7 @@ describe('/todos', () => {
   it('should GET all todo lists', async () => {
     const response = await chai.request(app).get('/api/todos');
     response.should.have.status(200);
+    response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todosSchema);
     response.body.length.should.be.equal(3);
   });
@@ -41,6 +44,7 @@ describe('/todos', () => {
   it('should POST new todo list', async () => {
     const response = await chai.request(app).post('/api/todos');
     response.should.have.status(200);
+    response.body.should.not.be.empty;
     response.body.should.have.jsonSchema(todoSchema);
     response.body._id.should.be.an('string').that.is.not.empty;
     response.body.title.should.be.an('string').that.is.equal('Title');
@@ -56,28 +60,89 @@ describe('/todos', () => {
     response.body.tasks.should.be.an('array').that.have.lengthOf(1);
   });
 
-});
-
-describe.skip('/todos', () => {
   it('should UPDATE specific todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const update = { title: 'Updated Title' };
+    const response = await chai.request(app).put(`/api/todos/${todoListId}`).send(update);
+    response.should.have.status(200);
+    response.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body._id.should.be.an('string').that.is.equal(todoListId);
+    response.body.title.should.be.an('string').that.is.equal(update.title);
   });
+
   it('should DELETE specific todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const response = await chai.request(app).delete(`/api/todos/${todoListId}`);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body._id.should.equal(todoListId);
   });
 });
 
-describe.skip('/todos/:id/task', () => {
+describe('/todos - ERROR', () => {
+  it('should call error middleware after GET /api/todos/random', async () => {
+    const response = await chai.request(app).get('/api/todos/randomId');
+    response.should.have.status(400);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(errorSchema);
+  });
+});
+
+describe('/todos/:id/task', () => {
+
+  beforeEach(async () => {
+    await seeder.import(collections);
+  });
+  
   it('should GET specific task from todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb3';
+    const taskId = '5ce1b62a4a3cf024bc3c6f17';
+    const response = await chai.request(app).get(`/api/todos/${todoListId}/tasks/${taskId}`);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.equal(taskId);
+    response.body.text.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean');
   });
+  
   it('should POST new task into todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const insertedTask = { text: 'install yarn' };
+    const response = await chai.request(app).post(`/api/todos/${todoListId}/tasks`).send(insertedTask);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean').that.is.equal(false);
+    response.body.text.should.be.an('string').that.is.equal(insertedTask.text);
   });
+
   it('should UPDATE specific task in todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb3';
+    const taskId = '5ce1b62a4a3cf024bc3c6f17';
+    const updatedTask = { completed: true };
+    const response = await chai.request(app).put(`/api/todos/${todoListId}/tasks/${taskId}`).send(updatedTask);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.equal(taskId);
+    response.body.text.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean').that.is.equal(updatedTask.completed);
   });
+
   it('should DELETE specific task in todo list', async () => {
-    throw new Error('not implemented yet');
+    const todoListId = '5cfe9d771b6ff31cc8e31fb3';
+    const taskId = '5ce1b62a4a3cf024bc3c6f17';
+    const response = await chai.request(app).delete(`/api/todos/${todoListId}/tasks/${taskId}`);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.equal(taskId);
+    response.body.text.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean');
   });
+
 });
