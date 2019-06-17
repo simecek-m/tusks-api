@@ -49,15 +49,15 @@ router.post('/todos/:id/tasks', function (req, res, next) {
 
 // delete specific task
 router.delete('/todos/:todoId/tasks/:taskId', function (req, res, next) {
-  Todo.findOneAndUpdate({ _id: req.params.todoId,  tasks: { '$elemMatch': { _id: req.params.taskId }}}, { '$pull': { tasks: { _id: req.params.taskId }}}, { new: true })
-    .then(data => res.send(data.tasks[0]))
+  Todo.findOneAndUpdate({ _id: req.params.todoId, tasks: { '$elemMatch': { _id: req.params.taskId }}}, { '$pull': { tasks: { _id: req.params.taskId }}})
+    .then(data => res.send(data.tasks.find(task => task._id == req.params.taskId)))
     .catch(next);
 });
 
 // update specific task
 router.put('/todos/:todoId/tasks/:taskId', function (req, res, next) {
-  Todo.findOneAndUpdate({ _id: req.params.todoId,  tasks: { '$elemMatch': { _id: req.params.taskId }}}, { '$set': { 'tasks.$.completed': req.body.completed }}, { runValidators: true, new: true })
-    .then(data => res.send(data.tasks[0]))
+  Todo.findOneAndUpdate({ _id: req.params.todoId, tasks: { '$elemMatch': { _id: req.params.taskId }}}, { '$set': { 'tasks.$.completed': req.body.completed }}, { runValidators: true, new: true })
+    .then(data => res.send(data.tasks.find(task => task._id == req.params.taskId)))
     .catch(next);
 });
 
