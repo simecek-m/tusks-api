@@ -8,6 +8,7 @@ const app = require('../app.js');
 
 // schemas for validation
 const errorSchema = require('./schema/error');
+const taskSchema = require('./schema/task');
 const todoSchema = require('./schema/todo');
 const todosSchema = require('./schema/todos');
 
@@ -89,11 +90,22 @@ describe('/todos - ERROR', () => {
   });
 });
 
+describe('/todos/:id/task', () => {
+  it('should POST new task into todo list', async () => {
+    const todoListId = '5cfe9d771b6ff31cc8e31fb4';
+    const insertedTask = { text: 'install yarn' };
+    const response = await chai.request(app).post(`/api/todos/${todoListId}/tasks`).send(insertedTask);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.not.empty;
+    response.body.completed.should.be.an('boolean').that.is.equal(false);
+    response.body.text.should.be.an('string').that.is.equal(insertedTask.text);
+  });
+});
+
 describe.skip('/todos/:id/task', () => {
   it('should GET specific task from todo list', async () => {
-    throw new Error('not implemented yet');
-  });
-  it('should POST new task into todo list', async () => {
     throw new Error('not implemented yet');
   });
   it('should UPDATE specific task in todo list', async () => {
