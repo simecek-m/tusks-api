@@ -47,6 +47,13 @@ router.post('/todos/:id/tasks', function (req, res, next) {
     .catch(next);
 });
 
+// get specific task 
+router.get('/todos/:todoId/tasks/:taskId', function(req, res, next) {
+  Todo.findOne({ _id: req.params.todoId, tasks: { '$elemMatch': { _id: req.params.taskId }}})
+    .then(data => res.send(data.tasks.find(task => task._id == req.params.taskId)))
+    .catch(next);
+});
+
 // delete specific task
 router.delete('/todos/:todoId/tasks/:taskId', function (req, res, next) {
   Todo.findOneAndUpdate({ _id: req.params.todoId,  tasks: { '$elemMatch': { _id: req.params.taskId }}}, { '$pull': { tasks: { _id: req.params.taskId }}}, { new: true })
