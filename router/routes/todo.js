@@ -48,7 +48,7 @@ router.post('/todos/:id/tasks', function (req, res, next) {
 });
 
 // get specific task 
-router.get('/todos/:todoId/tasks/:taskId', function(req, res, next) {
+router.get('/todos/:todoId/tasks/:taskId', function (req, res, next) {
   Todo.findOne({ _id: req.params.todoId, tasks: { '$elemMatch': { _id: req.params.taskId }}})
     .then(data => res.send(data.tasks.find(task => task._id == req.params.taskId)))
     .catch(next);
