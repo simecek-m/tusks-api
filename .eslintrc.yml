@@ -16,7 +16,7 @@ rules:
     - single
   no-unused-vars: warn
   indent: 
-    - error
+    - warn
     - 2
     - { SwitchCase: 1 }
   object-curly-spacing:
@@ -29,13 +29,13 @@ rules:
   keyword-spacing: warn
   space-before-blocks: warn
   no-multiple-empty-lines: 
-    - error
+    - warn
     - { max: 1}
   semi: 
-    - error
+    - warn
     - always
   eol-last:
-    - error
+    - warn
     - always
 overrides: 
   - files: "*.json"
