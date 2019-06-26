@@ -4,13 +4,13 @@ const path = require('path');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
-const app = require('../app.js');
+const app = require('~root/app');
 
 // schemas for validation
-const errorSchema = require('./schema/error');
-const taskSchema = require('./schema/task');
-const todoSchema = require('./schema/todo');
-const todosSchema = require('./schema/todos');
+const errorSchema = require('~schema/error');
+const taskSchema = require('~schema/task');
+const todoSchema = require('~schema/todo');
+const todosSchema = require('~schema/todos');
 
 // create seeder object (initializing database before each test)
 const seeder = new Seeder({

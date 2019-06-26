@@ -1,4 +1,4 @@
-const todoSchema = require('./todo');
+const todoSchema = require('~schema/todo');
 
 const todosSchema = {
   title: 'todos schema v1',

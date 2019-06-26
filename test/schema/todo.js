@@ -1,4 +1,4 @@
-const taskSchema = require('./task');
+const taskSchema = require('~schema/task');
 
 const todoSchema = {
   title: 'todo schema v1',
