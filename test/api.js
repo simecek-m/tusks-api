@@ -1,4 +1,4 @@
-const { mongoDb } = require('~root/config');
+const { mongoDb } = require('~config');
 const { Seeder } = require('mongo-seeding');
 const path = require('path');
 const chai = require('chai');
