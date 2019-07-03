@@ -36,6 +36,8 @@
     "~model": "model",
     "~router": "router",
     "~config": "config",
-    "~schema": "test/schema"
+    "~schema": "test/schema",
+    "~server": "server",
+    "~database": "database"
   }
 }
