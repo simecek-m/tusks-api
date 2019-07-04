@@ -1,4 +1,4 @@
-const { mongoDb } = require('~config');
+const { mongoUrl } = require('~config');
 const { Seeder } = require('mongo-seeding');
 const path = require('path');
 const chai = require('chai');
@@ -14,7 +14,7 @@ const todosSchema = require('~schema/todos');
 
 // create seeder object (initializing database before each test)
 const seeder = new Seeder({
-  database: mongoDb,
+  database: mongoUrl,
   dropDatabase: true
 });
 

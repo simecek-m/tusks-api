@@ -1,39 +1,28 @@
 const fs = require('fs').promises;
 const colors = require('colors');
 const chai = require('chai');
+const defaults = require('~config/defaults');
 
 chai.should();
-
-// constants sets as env variables
-const envVariables = {
-  mode: 'test-config',
-  port: '4444',
-  mongoDb: 'mongodb://127.0.0.1/test'
-};
-
-// function for setting new env variables 
-function setEnvironmentVariables () {
-  process.env.MODE = envVariables.mode;
-  process.env.PORT = envVariables.port;
-  process.env.DB_MONGO = envVariables.mongoDb;
-}
 
 describe('config without .test.env file', () => {
   
   before(async () => {
-    // delete cached config module containing env variables 
+    // delete cached config module 
     delete require.cache[require.resolve('../config')];
 
+    // reset env variables 
+    resetEnvironmentVariables();
+    
     // rename original .test.env file if exists
     try {
       await fs.rename('./config/.test.env', './config/.original.test.env.');
+      console.log('rename .test.env');
     } catch (error) {
       console.log(colors.blue('error while renaming original .test.env file'));
       console.log(error.message);
     }
 
-    // set new env variables
-    setEnvironmentVariables();
   });
 
   after(async () => {
@@ -41,14 +30,21 @@ describe('config without .test.env file', () => {
     // rename back original .test.env file
     try {
       await fs.rename('./config/.original.test.env.', './config/.test.env');
+      console.log('rename back .test.env');
     } catch (error) {
       console.log(colors.blue('error while renaming back .test.env file'));
       console.log(error.message);
     }
   });
   
-  it('should set environment variables from process.env', () => {
+  it('should set default variables', () => {
     const config = require('~config');
-    config.should.be.eql(envVariables);
+    config.should.be.eql(defaults);
   });
 });
+
+function resetEnvironmentVariables () {
+  delete process.env.MODE;
+  delete process.env.PORT;
+  delete process.env.MONGO_URL;
+}

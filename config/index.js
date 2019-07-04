@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const colors = require('colors');
+const defaults = require('~config/defaults');
 
 let path = '';
 
@@ -30,9 +31,9 @@ if (result.error) {
 
 // set module variables by environmental variables 
 const config = {
-  mode: process.env.MODE,
-  port: process.env.PORT,
-  mongoDb: process.env.DB_MONGO
+  mode: process.env.MODE || defaults.mode,
+  port: process.env.PORT || defaults.port,
+  mongoUrl: process.env.MONGO_URL || defaults.mongoUrl
 };
 
 module.exports = config;
