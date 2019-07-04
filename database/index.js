@@ -1,11 +1,11 @@
-const { mongoDb } = require('~config');
+const { mongoUrl } = require('~config');
 const mongoose = require('mongoose');
 const colors = require('colors');
 
 const database = {
   async connect () {
     console.log(colors.blue('opening mongoose connection'));
-    return mongoose.connect(mongoDb, { useCreateIndex:true, useNewUrlParser: true, useFindAndModify: false });
+    return mongoose.connect(mongoUrl, { useCreateIndex:true, useNewUrlParser: true, useFindAndModify: false });
   },
   async disconnect () {
     console.log(colors.yellow('closing mongoose connection'));
