@@ -32,6 +32,7 @@ if (result.error) {
 // set module variables by environmental variables 
 const config = {
   mode: process.env.MODE || defaults.mode,
+  logLevel: process.env.LOG_LEVEL || defaults.logLevel,
   port: process.env.PORT || defaults.port,
   mongoUrl: process.env.MONGO_URL || defaults.mongoUrl
 };
