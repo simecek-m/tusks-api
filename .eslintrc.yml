@@ -12,30 +12,30 @@ parserOptions:
 rules:
   no-console: off
   quotes: 
-    - warn
+    - error
     - single
-  no-unused-vars: warn
+  no-unused-vars: error
   indent: 
-    - warn
+    - error
     - 2
     - { SwitchCase: 1 }
   object-curly-spacing:
-    - warn
+    - error
     - always
     - { arraysInObjects: false, objectsInObjects: false }
   space-before-function-paren:
-    - warn
+    - error
     - always
-  keyword-spacing: warn
-  space-before-blocks: warn
+  keyword-spacing: error
+  space-before-blocks: error
   no-multiple-empty-lines: 
-    - warn
+    - error
     - { max: 1}
   semi: 
-    - warn
+    - error
     - always
   eol-last:
-    - warn
+    - error
     - always
 overrides: 
   - files: "*.json"
