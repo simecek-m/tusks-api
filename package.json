@@ -20,6 +20,7 @@
     "chai-json-schema": "^1.5.1",
     "codecov": "^3.5.0",
     "eslint": "^5.16.0",
+    "husky": "^3.0.0",
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
     "mongo-seeding": "^3.2.0-alpha.0",
