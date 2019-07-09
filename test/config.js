@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
-const colors = require('colors');
 const chai = require('chai');
 const defaults = require('~config/defaults');
+const logger = require('~logger');
 
 chai.should();
 
@@ -17,10 +17,9 @@ describe('config without .test.env file', () => {
     // rename original .test.env file if exists
     try {
       await fs.rename('./config/.test.env', './config/.original.test.env.');
-      console.log('rename .test.env');
+      logger.info('Renaming original .test.env file.');
     } catch (error) {
-      console.log(colors.blue('error while renaming original .test.env file'));
-      console.log(error.message);
+      logger.warn(`Error while renaming original .test.env file: ${error.message}!`);
     }
 
   });
@@ -30,10 +29,9 @@ describe('config without .test.env file', () => {
     // rename back original .test.env file
     try {
       await fs.rename('./config/.original.test.env.', './config/.test.env');
-      console.log('rename back .test.env');
+      logger.info('Rename back .test.env file.');
     } catch (error) {
-      console.log(colors.blue('error while renaming back .test.env file'));
-      console.log(error.message);
+      logger.warn(`Error while renaming back .test.env file ${error.message}!`);
     }
   });
   
@@ -45,6 +43,7 @@ describe('config without .test.env file', () => {
 
 function resetEnvironmentVariables () {
   delete process.env.MODE;
+  delete process.env.LOG_LEVEL;
   delete process.env.PORT;
   delete process.env.MONGO_URL;
 }

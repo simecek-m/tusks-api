@@ -1,13 +1,13 @@
 const { port, mode } = require('~config');
 const database = require('~database');
-const colors = require('colors');
 const util = require('util'); 
 const http = require('http');
+const logger = require('~logger');
 
 const server = {
   connection: null,
   async start (app) {
-    console.log(colors.blue('opening http server'));
+    logger.info('Opening HTTP server.');
 
     // crate http server
     const httpServer = http.createServer(app);
@@ -18,18 +18,18 @@ const server = {
 
     // open http server
     await listenPromisify(port);
-    console.log(colors.blue(`app is running in ${mode} mode`));
+    logger.info(`App is running in ${mode} mode.`);
 
     // try to connect to db
     try {
       await database.connect();
     } catch (error) {
-      console.log(colors.red(error.message));
+      logger.warn(`Can't connect to database: ${error.message}!`);
     }
     return this.connection;
   },
   async close () {
-    console.log(colors.yellow('closing http server'));
+    logger.info('Closing HTTP server.');
     
     // promisify close function - use promise instead callback
     const httpServer = this.connection;
