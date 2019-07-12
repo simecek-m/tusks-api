@@ -7,15 +7,15 @@ let path = '';
 // pick path for config file dependent on app mode
 switch (process.env.MODE) {
   case 'dev': {
-    path = 'config/.dev.env';
+    path = 'config/env/.dev.env';
     break;
   }
   case 'test': {
-    path = 'config/.test.env';
+    path = 'config/env/.test.env';
     break;
   }
   default:
-    path = 'config/.env';
+    path = 'config/env/.env';
     break;
 }
 
