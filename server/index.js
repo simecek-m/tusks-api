@@ -1,4 +1,4 @@
-const { port, mode } = require('~config');
+const { port } = require('~config');
 const database = require('~database');
 const util = require('util'); 
 const http = require('http');
@@ -7,9 +7,9 @@ const logger = require('~logger');
 const server = {
   connection: null,
   async start (app) {
-    logger.info('Opening HTTP server.');
+    logger.info('Starting HTTP server.');
 
-    // crate http server
+    // create http server
     const httpServer = http.createServer(app);
     this.connection = httpServer;
 
@@ -18,13 +18,14 @@ const server = {
 
     // open http server
     await listenPromisify(port);
-    logger.info(`App is running in ${mode} mode.`);
+    logger.info(`HTTP server is running on ${port} port.`);
 
     // try to connect to db
     try {
       await database.connect();
+      logger.info('Sucessfully connected to Mongo database.');
     } catch (error) {
-      logger.warn(`Can't connect to database: ${error.message}!`);
+      logger.warn(`Can't connect to Mongo database: ${error.message}!`);
     }
     return this.connection;
   },
@@ -37,6 +38,7 @@ const server = {
 
     // close http server
     await closePromisify();
+    logger.info('HTTP server closed.');
     
     // disconnect from database
     await database.disconnect();
