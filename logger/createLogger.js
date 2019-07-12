@@ -26,8 +26,10 @@ function createLogger (logLevel) {
       }),
       new winston.transports.DailyRotateFile({
         format: fileLogFormat,
-        filename: './logs/%DATE%.log',
-        datePattern: 'YYYY-MM-DD'
+        dirname: 'logs',
+        filename: '%DATE%.log',
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true
       })
     ]
   });
