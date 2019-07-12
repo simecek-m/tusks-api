@@ -41,7 +41,9 @@
     "~schema": "test/schema",
     "~server": "server",
     "~database": "database",
-    "~logger": "logger"
+    "~logger": "logger",
+    "~defaults": "config/defaults.js",
+    "~constants": "config/constants.js"
   },
   "husky": {
     "hooks": {

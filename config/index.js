@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-const defaults = require('~config/defaults');
-const logger = require('~logger');
+const defaults = require('~defaults');
+const createLogger = require('~logger/createLogger');
 
 let path = '';
 
@@ -19,15 +19,8 @@ switch (process.env.MODE) {
     break;
 }
 
-logger.info(`App running in '${process.env.MODE}' mode, opening ${path} config file!`);
-
-// print result for opening config file into the console
-const result = dotenv.config({ path });
-if (result.error) {
-  logger.warn(`Error while reading dotenv file ${result.error.message}, Reading default values instead`);
-} else {
-  logger.info(`Config file ${path} loaded successfully`);
-}
+// open dotenv config file
+const openDotenvFileResult = dotenv.config({ path });
 
 // set module variables by environmental variables 
 const config = {
@@ -37,7 +30,13 @@ const config = {
   mongoUrl: process.env.MONGO_URL || defaults.mongoUrl
 };
 
-// using logger inside config script - undefined logLevel - delete cached version logger with info (default) log level
-delete require.cache[require.resolve('../logger')];
+// create logger with correct logging level
+const logger = createLogger(config.logLevel);
+logger.info(`Opening ${path} config file.`);
+if (openDotenvFileResult.error) {
+  logger.warn(`Error while reading dotenv file ${openDotenvFileResult.error.message}! Reading default values instead!`);
+} else {
+  logger.info(`Config file ${path} loaded successfully.`);
+}
 
 module.exports = config;

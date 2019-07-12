@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const chai = require('chai');
-const defaults = require('~config/defaults');
+const defaults = require('~defaults');
 const logger = require('~logger');
 
 chai.should();
@@ -29,7 +29,7 @@ describe('config without .test.env file', () => {
     // rename back original .test.env file
     try {
       await fs.rename('./config/.original.test.env.', './config/.test.env');
-      logger.info('Rename back .test.env file.');
+      logger.info('Renaming back .test.env file.');
     } catch (error) {
       logger.warn(`Error while renaming back .test.env file ${error.message}!`);
     }
