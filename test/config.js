@@ -3,6 +3,9 @@ const chai = require('chai');
 const defaults = require('~defaults');
 const logger = require('~logger');
 
+const ORIGINAL_ENV_FILE = './config/env/.test.env';
+const RENAMED_ENV_FILE = './config/env/.original.test.env';
+
 chai.should();
 
 describe('config without .test.env file', () => {
@@ -16,7 +19,7 @@ describe('config without .test.env file', () => {
     
     // rename original .test.env file if exists
     try {
-      await fs.rename('./config/.test.env', './config/.original.test.env.');
+      await fs.rename(ORIGINAL_ENV_FILE, RENAMED_ENV_FILE);
       logger.info('Renaming original .test.env file.');
     } catch (error) {
       logger.warn(`Error while renaming original .test.env file: ${error.message}!`);
@@ -28,7 +31,7 @@ describe('config without .test.env file', () => {
 
     // rename back original .test.env file
     try {
-      await fs.rename('./config/.original.test.env.', './config/.test.env');
+      await fs.rename(RENAMED_ENV_FILE, ORIGINAL_ENV_FILE);
       logger.info('Renaming back .test.env file.');
     } catch (error) {
       logger.warn(`Error while renaming back .test.env file ${error.message}!`);
