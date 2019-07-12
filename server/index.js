@@ -23,7 +23,7 @@ const server = {
     // try to connect to db
     try {
       await database.connect();
-      logger.info('Sucessfully connected to Mongo database.');
+      logger.info('Successfully connected to Mongo database.');
     } catch (error) {
       logger.warn(`Can't connect to Mongo database: ${error.message}!`);
     }
