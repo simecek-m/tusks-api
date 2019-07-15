@@ -27,7 +27,8 @@ const config = {
   mode: process.env.MODE || defaults.mode,
   logLevel: process.env.LOG_LEVEL || defaults.logLevel,
   port: process.env.PORT || defaults.port,
-  mongoUrl: process.env.MONGO_URL || defaults.mongoUrl
+  mongoUrl: process.env.MONGO_URL || defaults.mongoUrl,
+  ipAddress: process.env.IP_ADDRESS || defaults.ipAddress
 };
 
 // create logger with correct logging level

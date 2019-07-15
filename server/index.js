@@ -1,4 +1,4 @@
-const { port } = require('~config');
+const { ipAddress, port } = require('~config');
 const database = require('~database');
 const util = require('util'); 
 const http = require('http');
@@ -17,8 +17,8 @@ const server = {
     const listenPromisify = util.promisify(httpServer.listen.bind(httpServer));
 
     // open http server
-    await listenPromisify(port);
-    logger.info(`HTTP server is running on ${port} port.`);
+    await listenPromisify(port, ipAddress);
+    logger.info(`HTTP server is running on ${ipAddress}:${port}.`);
 
     // try to connect to db
     try {

@@ -3,7 +3,8 @@ const defaults = {
   mode: 'dev',
   logLevel: 'debug',
   port: 8080,
-  mongoUrl: 'mongodb://localhost/todo-db'
+  mongoUrl: 'mongodb://localhost/todo-db',
+  ipAddress: 'localhost'
 };
 
 module.exports = defaults;
