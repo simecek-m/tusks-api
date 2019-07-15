@@ -2,22 +2,8 @@ const dotenv = require('dotenv');
 const defaults = require('~defaults');
 const createLogger = require('~logger/createLogger');
 
-let path = '';
-
-// pick path for config file dependent on app mode
-switch (process.env.MODE) {
-  case 'dev': {
-    path = 'config/env/.dev.env';
-    break;
-  }
-  case 'test': {
-    path = 'config/env/.test.env';
-    break;
-  }
-  default:
-    path = 'config/env/.env';
-    break;
-}
+// dotenv config file path (dependent on app mode)
+const path = `config/env/.${process.env.MODE || defaults.mode }.env`;
 
 // open dotenv config file
 const openDotenvFileResult = dotenv.config({ path });
