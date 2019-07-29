@@ -45,7 +45,8 @@
     "~database": "database",
     "~logger": "logger",
     "~defaults": "config/defaults.js",
-    "~constants": "config/constants.js"
+    "~constants": "config/constants.js",
+    "~auth": "auth"
   },
   "husky": {
     "hooks": {

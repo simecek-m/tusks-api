@@ -6,7 +6,7 @@ const router = require('~router');
 const errorHandler = require('~middleware/error');
 const httpServer = require('~server');
 const logger = require('~logger');
-const auth = require('./auth');
+const auth = require('~auth');
 
 // create express app
 const app = express();
