@@ -14,7 +14,8 @@ const config = {
   logLevel: process.env.LOG_LEVEL || defaults.logLevel,
   port: process.env.PORT || defaults.port,
   mongoUrl: process.env.MONGO_URL || defaults.mongoUrl,
-  ipAddress: process.env.IP_ADDRESS || defaults.ipAddress
+  ipAddress: process.env.IP_ADDRESS || defaults.ipAddress,
+  googleJwtSignatureSecret: process.env.GOOGLE_JWT_SIGNATURE_SECRET
 };
 
 // create logger with correct logging level
