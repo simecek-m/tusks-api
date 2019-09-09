@@ -8,10 +8,14 @@ const logger = require('~logger');
 const auth = require('~auth');
 const protectedRoutes = require('~router/protectedRoutes');
 const cors = require('cors');
+const { fetchGooglePublickKeys } = require('~auth/google'); 
 
 // create express app
 const app = express();
 logger.info(`App is running in ${mode} mode.`);
+
+// initialize app
+fetchGooglePublickKeys();
 
 // parse json object from request body 
 app.use(bodyParser.json());
