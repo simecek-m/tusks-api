@@ -28,8 +28,16 @@ function decode (req, res, next) {
         googlePublicKeys[tokenDecoded.header.kid],
         { algorithms: ['RS256']}
       );
-      logger.info(`JWT token was successfully verified. User: ${payload.email}`);
-      next();
+      if (payload.email) {
+        logger.info(`JWT token was successfully verified. User: ${payload.email}`);
+        req.locals = payload.email;
+        next();
+      } else {
+        next({
+          status: 403,
+          message: 'JWT payload has no email field.'
+        });
+      }
     }
   } else {
     next({
