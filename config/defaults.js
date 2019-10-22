@@ -4,7 +4,8 @@ const defaults = {
   logLevel: 'debug',
   port: 8080,
   mongoUrl: 'mongodb://localhost/todo-db',
-  ipAddress: 'localhost'
+  ipAddress: 'localhost',
+  googleApiKeysUrl: 'https://www.googleapis.com/oauth2/v1/certs'
 };
 
 module.exports = defaults;
