@@ -49,4 +49,5 @@ function resetEnvironmentVariables () {
   delete process.env.LOG_LEVEL;
   delete process.env.PORT;
   delete process.env.MONGO_URL;
+  delete process.env.GOOGLE_JWT_SIGNATURE_SECRET;
 }

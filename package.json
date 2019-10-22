@@ -7,8 +7,11 @@
   "author": "Martin Simecek <simecek.m@seznam.cz>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.9",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.9.0"
@@ -30,6 +33,7 @@
     "postinstall": "link-module-alias",
     "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node app\"",
     "lint": "eslint . --ext .js,.json",
+    "lint:fix": "eslint . --ext .js,.json --fix",
     "test": "yarn lint && env MODE='test' nyc --silent mocha --exit",
     "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
@@ -44,7 +48,8 @@
     "~database": "database",
     "~logger": "logger",
     "~defaults": "config/defaults.js",
-    "~constants": "config/constants.js"
+    "~constants": "config/constants.js",
+    "~auth": "auth"
   },
   "husky": {
     "hooks": {
