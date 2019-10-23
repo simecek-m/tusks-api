@@ -12,9 +12,9 @@ router.get('/todos', function (req, res, next) {
     .catch(next);
 });
 
-// create new todo list with default title ('Title') end empty tasks
+// create new todo list
 router.post('/todos', function (req, res, next) {
-  Todo.create({ title: 'Title', author: req.locals })
+  Todo.create({ title: req.body.title, author: req.locals })
     .then(data => res.send(data))
     .catch(next);
 });
