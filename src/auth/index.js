@@ -7,7 +7,7 @@ const HTTP_STATUS_FORBIDDEN = 403;
 const AUTHORIZATION_HEADER = 'authorization';
 const GOOGLE_ISSUER = 'accounts.google.com';
 
-function decode (req, res, next) {
+function authenticate (req, res, next) {
   logger.info('Verifying JWT authorization token.');
   const authorizationHeader = req.header(AUTHORIZATION_HEADER);
   const googlePublicKeys = getGooglePublicKeys();
@@ -60,4 +60,10 @@ function decode (req, res, next) {
   }
 }
 
-module.exports = decode;
+module.exports = {
+  authenticate,
+  HTTP_STATUS_UNAUTHORIZED,
+  HTTP_STATUS_FORBIDDEN,
+  AUTHORIZATION_HEADER,
+  GOOGLE_ISSUER
+};
