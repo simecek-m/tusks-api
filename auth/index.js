@@ -2,24 +2,37 @@ const logger = require('~logger');
 const jwt = require('jsonwebtoken');
 const { getGooglePublicKeys } = require('~auth/google');
 
+const HTTP_STATUS_UNAUTHORIZED = 401;
+const HTTP_STATUS_FORBIDDEN = 403;
 const AUTHORIZATION_HEADER = 'authorization';
 const GOOGLE_ISSUER = 'accounts.google.com';
 
 function decode (req, res, next) {
   logger.info('Verifying JWT authorization token.');
-  const bearer = req.header(AUTHORIZATION_HEADER);
+  const authorizationHeader = req.header(AUTHORIZATION_HEADER);
   const googlePublicKeys = getGooglePublicKeys();
-  if (bearer) {
-    const token = bearer.slice(7);
+  if (authorizationHeader && authorizationHeader.includes('Bearer ')) {
+    const token = authorizationHeader.slice(7);
     const tokenDecoded = jwt.decode(token, { complete: true });
-    if (tokenDecoded.payload.iss != GOOGLE_ISSUER) {
+    if (!tokenDecoded) {
       next({
-        status: 401,
+        status: HTTP_STATUS_UNAUTHORIZED,
+        message: `Authorization token: ${token} could not be decoded!`
+      });
+    }
+    else if (!tokenDecoded.payload) {
+      next({
+        status: HTTP_STATUS_UNAUTHORIZED,
+        message: 'JWT has no payload!'
+      });
+    } else if (tokenDecoded.payload.iss != GOOGLE_ISSUER) {
+      next({
+        status: HTTP_STATUS_UNAUTHORIZED,
         message: `Issuer of the JWT is not ${GOOGLE_ISSUER}. Verification denied!`
       });
     } else if (!googlePublicKeys.hasOwnProperty(tokenDecoded.header.kid)) {
       next({
-        status: 401,
+        status: HTTP_STATUS_UNAUTHORIZED,
         message: 'No Google public key for verify signature! Verification denied!'
       });
     } else {
@@ -34,15 +47,15 @@ function decode (req, res, next) {
         next();
       } else {
         next({
-          status: 403,
+          status: HTTP_STATUS_UNAUTHORIZED,
           message: 'JWT payload has no email field.'
         });
       }
     }
   } else {
     next({
-      status: 401,
-      message: 'Authorization header (bearer token) is missing in the request!'
+      status: HTTP_STATUS_FORBIDDEN,
+      message: 'Authorization header is missing or has wrong format. Required \'Authorization:\': \'Bearer {TOKEN}\'!'
     });
   }
 }
