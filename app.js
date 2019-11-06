@@ -6,7 +6,7 @@ const cors = require('cors');
 const errorHandler = require('~middleware/error');
 const httpServer = require('~server');
 const logger = require('~logger');
-const auth = require('~auth');
+const { authenticate } = require('~auth');
 const { fetchGooglePublickKeys } = require('~auth/google'); 
 
 // imported routes
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // jwt middleware - verify request Authorization header
-app.use(auth);
+app.use(authenticate);
 
 // api protected routes
 app.use('/api', protectedRoutes);
