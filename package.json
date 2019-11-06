@@ -49,7 +49,7 @@
     "~model": "src/model",
     "~router": "src/router",
     "~server": "src/server",
-    "~schema": "test/schema"
+    "~test": "test"
   },
   "husky": {
     "hooks": {
