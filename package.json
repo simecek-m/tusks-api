@@ -39,17 +39,17 @@
   },
   "_moduleAliases": {
     "~root": ".",
-    "~middleware": "middleware",
-    "~model": "model",
-    "~router": "router",
-    "~config": "config",
-    "~schema": "test/schema",
-    "~server": "server",
-    "~database": "database",
-    "~logger": "logger",
-    "~defaults": "config/defaults.js",
-    "~constants": "config/constants.js",
-    "~auth": "auth"
+    "~auth": "src/auth",
+    "~config": "src/config",
+    "~constants": "src/config/constants.js",
+    "~defaults": "src/config/defaults.js",
+    "~database": "src/database",
+    "~logger": "src/logger",
+    "~middleware": "src/middleware",
+    "~model": "src/model",
+    "~router": "src/router",
+    "~server": "src/server",
+    "~schema": "test/schema"
   },
   "husky": {
     "hooks": {
