@@ -35,7 +35,7 @@
     "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node app\"",
     "lint": "eslint . --ext .js,.json",
     "lint:fix": "eslint . --ext .js,.json --fix",
-    "test": "yarn lint && cross-env MODE=test nyc --silent mocha --exit",
+    "test": "yarn lint && cross-env MODE=test nyc --silent mocha",
     "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "_moduleAliases": {
