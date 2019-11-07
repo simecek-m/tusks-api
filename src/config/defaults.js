@@ -2,6 +2,7 @@
 const defaults = {
   mode: 'dev',
   logLevel: 'debug',
+  logFolder: 'logs',
   port: 8080,
   mongoUrl: 'mongodb://localhost/todo-db',
   ipAddress: 'localhost',

@@ -17,7 +17,7 @@ const fileLogFormat = winston.format.combine(
   )
 );
 
-function createLogger (logLevel) {
+function createLogger (logLevel, logFolder) {
   const logger = winston.loggers.add(MAIN_LOGGER, {
     level: logLevel,
     transports: [
@@ -26,7 +26,7 @@ function createLogger (logLevel) {
       }),
       new winston.transports.DailyRotateFile({
         format: fileLogFormat,
-        dirname: 'logs',
+        dirname: logFolder,
         filename: '%DATE%.log',
         datePattern: 'YYYY-MM-DD',
         zippedArchive: true
