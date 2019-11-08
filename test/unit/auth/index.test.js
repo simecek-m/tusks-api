@@ -15,6 +15,7 @@ describe('auth middleware - check request header', () => {
     authenticateSpy.calledOnce.should.be.true;
     mockRequest.verify();
     mockMiddleware.verify();
+    authenticateSpy.restore();
   });
 
 });
