@@ -50,7 +50,8 @@
     "~model": "src/model",
     "~router": "src/router",
     "~server": "src/server",
-    "~test": "test"
+    "~test": "test",
+    "~mocks": "test/mock"
   },
   "husky": {
     "hooks": {
