@@ -6,7 +6,7 @@ const { googleApiKeysUrl } = require('~config');
 
 const should = chai.should();
 
-describe('authentication middleware', () => {
+describe('auth middleware - fetch google key for RSA', () => {
   it('load google public keys for verify JWT signature', async () => {
     const axiosGetMethodSpy = sinon.spy(axios, 'get');
     let result = google.getGooglePublicKeys();
