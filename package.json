@@ -51,7 +51,7 @@
     "~router": "src/router",
     "~server": "src/server",
     "~test": "test",
-    "~mocks": "test/mock"
+    "~mocks": "test/helper/mock"
   },
   "husky": {
     "hooks": {
