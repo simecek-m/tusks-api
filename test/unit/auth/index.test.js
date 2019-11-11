@@ -64,4 +64,20 @@ describe('auth middleware - check authorization header', () => {
     authenticateSpy.restore();
   });
 
+  it('JWT - no key identifier (kid)', () => {
+    const jwt = createJwt({ iss: auth.GOOGLE_ISSUER });
+    const token = `Bearer ${jwt}`;
+    const authenticateSpy = sinon.spy(auth, 'authenticate');
+    const req = middleware.request;
+    const mockRequest = sinon.mock(req);
+    mockRequest.expects('header').once().withArgs('authorization').returns(token);
+    const mockMiddleware = sinon.mock(middleware);
+    mockMiddleware.expects('next').once().withArgs({ message: auth.MESSAGE_GOOGLE_KEY_NOT_FOUND, status: auth.HTTP_STATUS_UNAUTHORIZED });
+    auth.authenticate(req, {}, middleware.next);
+    authenticateSpy.calledOnce.should.be.true;
+    mockRequest.verify();
+    mockMiddleware.verify();
+    authenticateSpy.restore();
+  });
+
 });
