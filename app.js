@@ -1,5 +1,5 @@
 // imports
-const { mode } = require('~config');
+const { MODE } = require('~config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -15,7 +15,7 @@ const unknownRoutes = require('~router/unknownRoutes');
 
 // create express app
 const app = express();
-logger.info(`App is running in ${mode} mode.`);
+logger.info(`App is running in ${MODE} mode.`);
 
 // initialize app - fetch google public keys for validation JWT signature
 fetchGooglePublickKeys();
