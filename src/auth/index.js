@@ -38,6 +38,11 @@ function authenticate (req, res, next) {
         status: HTTP_STATUS_UNAUTHORIZED,
         message: MESSAGE_WRONG_ISSUER
       });
+    } else if (!tokenDecoded.payload.email) {
+      next({
+        status: HTTP_STATUS_UNAUTHORIZED,
+        message: MESSAGE_NO_EMAIL_FIELD
+      });
     } else if (!googlePublicKeys.hasOwnProperty(tokenDecoded.header.kid)) {
       next({
         status: HTTP_STATUS_UNAUTHORIZED,
@@ -49,16 +54,9 @@ function authenticate (req, res, next) {
         googlePublicKeys[tokenDecoded.header.kid],
         { algorithms: ['RS256']}
       );
-      if (payload.email) {
-        logger.info(`JWT token was successfully verified. User: ${payload.email}`);
-        req.locals = payload.email;
-        next();
-      } else {
-        next({
-          status: HTTP_STATUS_UNAUTHORIZED,
-          message: MESSAGE_NO_EMAIL_FIELD
-        });
-      }
+      logger.info(`JWT token was successfully verified. User: ${payload.email}`);
+      req.locals = payload.email;
+      next();
     }
   } else {
     next({
