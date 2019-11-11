@@ -1,4 +1,3 @@
 #mocha.opts
-  -- file test/setup.js
   -- recursive "./test/**/*.test.js"
   -- exit

@@ -31,7 +31,8 @@ function createLogger (logLevel, logFolder) {
         datePattern: 'YYYY-MM-DD',
         zippedArchive: true
       })
-    ]
+    ],
+    silent: process.env.MODE === 'test'
   });
   logger.silly(`Logger with ${logLevel} logging level was created.`);
   return logger;
