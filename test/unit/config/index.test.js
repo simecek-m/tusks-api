@@ -1,6 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const dotenv = require('dotenv');
+const defaults = require('~defaults');
 const { restoreTestEnvVariables, deleteModuleCache } = require('~test-helper');
 chai.should();
 
@@ -32,6 +33,20 @@ describe('setup config variables', () => {
     const config = require('~config');
     Object.keys(config).length.should.be.equals(Object.keys(TEST_ENVIRONMENT_VARIABLES).length);
     config.should.be.eql(TEST_ENVIRONMENT_VARIABLES);
+    sinon.restore();
+    done();
+  });
+
+  it('use defaults as config variables - missing .env file', done => {
+    sinon.replace(dotenv, 'config', () => {
+      process.env = {  };
+      return {
+        parsed: { }
+      };
+    });
+    const config = require('~config');
+    Object.keys(config).length.should.be.equals(Object.keys(defaults).length);
+    config.should.be.eql(defaults);
     sinon.restore();
     done();
   });
