@@ -5,13 +5,13 @@ const NUMBER_OF_CONSTANTS = 7;
 describe('environment default values', () => {
   it('all neccessary values', done => {
     Object.keys(defaults).length.should.be.equals(NUMBER_OF_CONSTANTS);
-    defaults.mode.should.be.an('string').that.is.not.empty;
-    defaults.logLevel.should.be.an('string').that.is.not.empty;
-    defaults.logFolder.should.be.an('string').that.is.not.empty;
-    defaults.port.should.be.an('number');
-    defaults.mongoUrl.should.be.an('string').that.is.not.empty;
-    defaults.ipAddress.should.be.an('string').that.is.not.empty;
-    defaults.googleApiKeysUrl.should.be.an('string').that.is.not.empty;
+    defaults.MODE.should.exist.and.be.an('string').that.is.not.empty;
+    defaults.LOG_LEVEL.should.exist.and.be.an('string').that.is.not.empty;
+    defaults.LOG_FOLDER.should.exist.and.be.an('string').that.is.not.empty;
+    defaults.PORT.should.exist.and.be.an('number');
+    defaults.MONGO_URL.should.exist.and.be.an('string').that.is.not.empty;
+    defaults.IP_ADDRESS.should.exist.and.be.an('string').that.is.not.empty;
+    defaults.GOOGLE_API_KEYS_URL.should.exist.and.be.an('string').that.is.not.empty;
     done();
   });
 });
