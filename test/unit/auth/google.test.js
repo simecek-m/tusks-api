@@ -6,14 +6,21 @@ const { GOOGLE_API_KEYS_URL } = require('~config');
 
 const should = chai.should();
 
+const GOOGLE_KEYS_TEST = {
+  data: { 
+    kid: 'TEST'
+  }
+};
+
 describe('auth middleware - fetch google key for RSA', () => {
   it('load google public keys for verify JWT signature', async () => {
-    const axiosGetMethodSpy = sinon.spy(axios, 'get');
+    const axiosMock = sinon.mock(axios);
+    axiosMock.expects('get').once().withArgs(GOOGLE_API_KEYS_URL).returns(GOOGLE_KEYS_TEST);
     let result = google.getGooglePublicKeys();
     should.not.exist(result);
     await google.fetchGooglePublickKeys();
-    axiosGetMethodSpy.calledOnceWith(GOOGLE_API_KEYS_URL).should.be.true;
     result = google.getGooglePublicKeys();
-    result.should.be.an('object');
+    result.should.be.eql(GOOGLE_KEYS_TEST.data);
+    axiosMock.verify();
   });
 });
