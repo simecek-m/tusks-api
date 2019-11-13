@@ -17,7 +17,7 @@ const fileLogFormat = winston.format.combine(
   )
 );
 
-function createLogger (logLevel, logFolder) {
+function createLogger (logLevel = 'debug', logFolder = 'logs') {
   const logger = winston.loggers.add(MAIN_LOGGER, {
     level: logLevel,
     transports: [
