@@ -2,6 +2,8 @@ const sinon = require('sinon');
 const { loggers } = require('winston');
 const createLogger = require('~logger/createLogger');
 const { MAIN_LOGGER } = require('~constants');
+const chai = require('chai');
+chai.should();
 
 describe('logger - create', () => {
   it('create main logger', done => {

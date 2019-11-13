@@ -1,4 +1,6 @@
 const defaults = require('~defaults');
+const chai = require('chai');
+chai.should();
 
 const NUMBER_OF_CONSTANTS = 7;
 

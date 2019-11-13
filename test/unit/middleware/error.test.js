@@ -1,6 +1,8 @@
 const sinon = require('sinon');
 const errorHandler = require('~middleware/error');
 const middleware = require('~mocks/middleware');
+const chai = require('chai');
+chai.should();
 
 const TEST_ERROR = {
   status: 404,
