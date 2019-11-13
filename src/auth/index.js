@@ -43,7 +43,7 @@ function authenticate (req, res, next) {
         status: HTTP_STATUS_UNAUTHORIZED,
         message: MESSAGE_NO_EMAIL_FIELD
       });
-    } else if (!googlePublicKeys.hasOwnProperty(tokenDecoded.header.kid)) {
+    } else if (!googlePublicKeys || !googlePublicKeys.hasOwnProperty(tokenDecoded.header.kid)) {
       next({
         status: HTTP_STATUS_UNAUTHORIZED,
         message: MESSAGE_GOOGLE_KEY_NOT_FOUND
