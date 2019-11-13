@@ -1,4 +1,6 @@
 const constants = require('~constants');
+const chai = require('chai');
+chai.should();
 
 const NUMBER_OF_CONSTANTS = 1;
 

@@ -2,6 +2,8 @@ const sinon = require('sinon');
 const auth = require('~auth');
 const middleware = require('~mocks/middleware');
 const createJwt = require('~test-helper/jwt/createJwt');
+const chai = require('chai');
+chai.should();
 
 const EMAIL = 'todo@todo.com';
 
