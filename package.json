@@ -32,7 +32,7 @@
   },
   "scripts": {
     "postinstall": "link-module-alias",
-    "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node app\"",
+    "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node start\"",
     "lint": "eslint . --ext .js,.json",
     "lint:fix": "eslint . --ext .js,.json --fix",
     "test": "yarn lint && cross-env MODE=test nyc --silent mocha",
@@ -49,6 +49,7 @@
     "~middleware": "src/middleware",
     "~model": "src/model",
     "~router": "src/router",
+    "~schema": "test/data/schema",
     "~server": "src/server",
     "~test": "test",
     "~test-helper": "test/helper", 
