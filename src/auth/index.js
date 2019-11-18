@@ -1,6 +1,6 @@
 const logger = require('~logger');
-const jwt = require('jsonwebtoken');
-const { getGooglePublicKeys } = require('~auth/google');
+const jsonwebtoken = require('jsonwebtoken');
+const googleKeys = require('~auth/google');
 
 const AUTHORIZATION_HEADER = 'authorization';
 const GOOGLE_ISSUER = 'accounts.google.com';
@@ -18,10 +18,10 @@ const MESSAGE_WRONG_FORMAT = 'Authorization header is missing or has wrong forma
 function authenticate (req, res, next) {
   logger.info('Verifying JWT authorization token.');
   const authorizationHeader = req.header(AUTHORIZATION_HEADER);
-  const googlePublicKeys = getGooglePublicKeys();
+  const googlePublicKeys = googleKeys.getGooglePublicKeys();
   if (authorizationHeader && authorizationHeader.includes('Bearer ')) {
     const token = authorizationHeader.slice(7);
-    const tokenDecoded = jwt.decode(token, { complete: true });
+    const tokenDecoded = jsonwebtoken.decode(token, { complete: true });
     if (!tokenDecoded) {
       next({
         status: HTTP_STATUS_UNAUTHORIZED,
@@ -49,7 +49,7 @@ function authenticate (req, res, next) {
         message: MESSAGE_GOOGLE_KEY_NOT_FOUND
       });
     } else {
-      const payload = jwt.verify(
+      const payload = jsonwebtoken.verify(
         token,
         googlePublicKeys[tokenDecoded.header.kid],
         { algorithms: ['RS256']}
