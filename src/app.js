@@ -40,11 +40,13 @@ async function start () {
 
   // run HTTP server
   await httpServer.start(app);
+  return app;
 }
 
 async function stop () {
   logger.info('Application was stopped!');
   await httpServer.close();
+  return app;
 }
 
 module.exports = {
