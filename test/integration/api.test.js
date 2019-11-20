@@ -10,6 +10,7 @@ const { deleteModuleCache } = require('~test-helper/index');
 
 // schemas for validation
 const todosSchema = require('~schema/todos');
+const todoSchema = require('~schema/todo');
 
 // use chai middleware
 chai.use(chaiHttp);
@@ -17,6 +18,7 @@ chai.use(jsonSchema);
 const should = chai.should();
 
 const TEST_EMAIL = 'todo@todo.com';
+const TEST_TODO_LIST_TITLE = 'test';
 
 describe('/todos', () => {
 
@@ -64,6 +66,19 @@ describe('/todos', () => {
     response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todosSchema);
     response.body.length.should.be.equal(2);
+  });
+
+  it('should POST new todo list', async () => {
+    const response = await chai.request(this.server).post('/api/todos').send({ title: TEST_TODO_LIST_TITLE });
+    should.exist(response);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(todoSchema);
+    response.body._id.should.be.an('string').that.is.not.empty;
+    response.body.author.should.be.an('string').that.is.equal(TEST_EMAIL);
+    response.body.title.should.be.an('string').that.is.equal(TEST_TODO_LIST_TITLE);
+    response.body.tasks.should.be.an('array').that.is.empty;
+    response.body.__v.should.be.an('number').that.is.equal(0);
   });
 
 });
