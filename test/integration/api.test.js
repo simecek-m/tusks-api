@@ -111,4 +111,14 @@ describe('API endpoints', () => {
     response.body.tasks.should.be.empty;
   });
 
+  it('should DELETE specific todo list', async () => {
+    const response = await chai.request(this.server).delete(`/api/todos/${TEST_TODO_LIST_ID}`);
+    should.exist(response);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body._id.should.equal(TEST_TODO_LIST_ID);
+    response.body.author.should.be.equals(TEST_EMAIL);
+  });
+
 });
