@@ -11,6 +11,7 @@ const { deleteModuleCache } = require('~test-helper/index');
 // schemas for validation
 const todosSchema = require('~schema/todos');
 const todoSchema = require('~schema/todo');
+const taskSchema = require('~schema/task');
 const errorSchema = require('~schema/error');
 
 // use chai middleware
@@ -23,6 +24,8 @@ const TEST_TODO_LIST_TITLE = 'test';
 
 const TEST_TODO_LIST_ID = '5cfe9d771b6ff31cc8e31fb3';
 const TEST_TODO_TITLE = 'Work';
+const TEST_TASK_ID = '5ce1b62a4a3cf024bc3c6f17';
+const TEST_TASK_TEXT = 'install yarn';
 
 describe('API endpoints', () => {
 
@@ -120,6 +123,16 @@ describe('API endpoints', () => {
     response.body.should.be.jsonSchema(todoSchema);
     response.body._id.should.equal(TEST_TODO_LIST_ID);
     response.body.author.should.be.equals(TEST_EMAIL);
+  });
+
+  it('GET /api/todos/:id/tasks/:id', async () => {
+    const response = await chai.request(this.server).get(`/api/todos/${TEST_TODO_LIST_ID}/tasks/${TEST_TASK_ID}`);
+    response.should.have.status(200);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(taskSchema);
+    response.body._id.should.be.an('string').that.is.equal(TEST_TASK_ID);
+    response.body.text.should.be.an('string').that.is.equals(TEST_TASK_TEXT);
+    response.body.completed.should.be.an('boolean').that.is.false;
   });
 
 });
