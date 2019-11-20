@@ -62,7 +62,7 @@ describe('API endpoints', () => {
     await this.seeder.import(this.collections);
   });
 
-  it('should GET all todo lists', async () => {
+  it('GET /api/todos', async () => {
     const response = await chai.request(this.server).get('/api/todos');
     should.exist(response);
     response.should.have.status(200);
@@ -71,7 +71,7 @@ describe('API endpoints', () => {
     response.body.length.should.be.equal(2);
   });
 
-  it('should POST new todo list', async () => {
+  it('POST /api/todos', async () => {
     const response = await chai.request(this.server).post('/api/todos').send({ title: TEST_TODO_LIST_TITLE });
     should.exist(response);
     response.should.have.status(200);
@@ -84,7 +84,7 @@ describe('API endpoints', () => {
     response.body.__v.should.be.an('number').that.is.equal(0);
   });
 
-  it('should GET specific todo list', async () => {
+  it('GET /api/todos/:id', async () => {
     const response = await chai.request(this.server).get(`/api/todos/${TEST_TODO_LIST_ID}`);
     should.exist(response);
     response.should.have.status(200);
@@ -95,7 +95,7 @@ describe('API endpoints', () => {
     response.body.author.should.be.an('string').that.is.equals(TEST_EMAIL);
   });
 
-  it('should UPDATE specific todo list', async () => {
+  it('PUT /api/todos/:id', async () => {
     const update = { 
       title: 'Updated Title',
       tasks: []
@@ -111,7 +111,7 @@ describe('API endpoints', () => {
     response.body.tasks.should.be.empty;
   });
 
-  it('should DELETE specific todo list', async () => {
+  it('DELETE /api/todos/:id', async () => {
     const response = await chai.request(this.server).delete(`/api/todos/${TEST_TODO_LIST_ID}`);
     should.exist(response);
     response.should.have.status(200);
