@@ -14,7 +14,7 @@ const todosSchema = require('~schema/todos');
 // use chai middleware
 chai.use(chaiHttp);
 chai.use(jsonSchema);
-chai.should();
+const should = chai.should();
 
 const TEST_EMAIL = 'todo@todo.com';
 
@@ -59,6 +59,7 @@ describe('/todos', () => {
 
   it('should GET all todo lists', async () => {
     const response = await chai.request(this.server).get('/api/todos');
+    should.exist(response);
     response.should.have.status(200);
     response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todosSchema);
