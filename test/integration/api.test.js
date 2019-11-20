@@ -11,6 +11,7 @@ const { deleteModuleCache } = require('~test-helper/index');
 // schemas for validation
 const todosSchema = require('~schema/todos');
 const todoSchema = require('~schema/todo');
+const errorSchema = require('~schema/error');
 
 // use chai middleware
 chai.use(chaiHttp);
@@ -119,6 +120,44 @@ describe('API endpoints', () => {
     response.body.should.be.jsonSchema(todoSchema);
     response.body._id.should.equal(TEST_TODO_LIST_ID);
     response.body.author.should.be.equals(TEST_EMAIL);
+  });
+
+});
+
+describe('Wrong API endpoints', () => {
+  
+  const STATUS_NOT_FOUND = 404;
+  const STATUS_BAD_REQUEST = 400;
+
+  it('GET /random', async () => {
+    const PATH = '/random';
+    const ENDPOINT_NOT_EXIST_MESSAGE = `${PATH} is not valid API endpoint. Missing /api/ prefix!`;
+    const response = await chai.request(this.server).get(PATH);
+    should.exist(response);
+    response.should.have.status(STATUS_NOT_FOUND);
+    response.body.should.not.be.empty;
+    response.body.status.should.be.equals(STATUS_NOT_FOUND);
+    response.body.message.should.be.equals(ENDPOINT_NOT_EXIST_MESSAGE);
+  });
+
+  it('GET /api/random', async () => {
+    const PATH = '/api/random';
+    const ENDPOINT_NOT_EXIST_MESSAGE = `API endpoint ${PATH} doesn't exist`;
+    const response = await chai.request(this.server).get(PATH);
+    should.exist(response);
+    response.should.have.status(STATUS_NOT_FOUND);
+    response.body.should.not.be.empty;
+    response.body.status.should.be.equals(STATUS_NOT_FOUND);
+    response.body.message.should.be.equals(ENDPOINT_NOT_EXIST_MESSAGE);
+  });
+
+  it('GET /api/todos/random', async () => {
+    const PATH = '/api/todos/random';
+    const response = await chai.request(this.server).get(PATH);
+    should.exist(response);
+    response.should.have.status(STATUS_BAD_REQUEST);
+    response.body.should.not.be.empty;
+    response.body.should.have.jsonSchema(errorSchema);
   });
 
 });
