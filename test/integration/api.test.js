@@ -155,6 +155,19 @@ describe('API endpoints', () => {
       response.body.completed.should.be.an('boolean').that.is.false;
       response.body.text.should.be.an('string').that.is.equal(newTask.text);
     });
+
+    it('PUT /api/todos/:id/tasks/:id', async () => {
+      const updatedTask = { completed: true };
+      const response = await chai.request(this.server).put(`/api/todos/${TEST_TODO_LIST_ID}/tasks/${TEST_TASK_ID}`).send(updatedTask);
+      should.exist(response);
+      response.should.have.status(STATUS_OK);
+      response.body.should.not.be.empty;
+      response.body.should.have.jsonSchema(taskSchema);
+      response.body._id.should.be.an('string').that.is.equal(TEST_TASK_ID);
+      response.body.text.should.be.an('string').that.is.not.empty;
+      response.body.completed.should.be.an('boolean').that.is.equal(updatedTask.completed);
+    });
+
   });
 });
 
