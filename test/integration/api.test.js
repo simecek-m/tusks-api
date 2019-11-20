@@ -168,6 +168,17 @@ describe('API endpoints', () => {
       response.body.completed.should.be.an('boolean').that.is.equal(updatedTask.completed);
     });
 
+    it('DELETE /api/todos/:id/tasks/:id', async () => {
+      const response = await chai.request(this.server).delete(`/api/todos/${TEST_TODO_LIST_ID}/tasks/${TEST_TASK_ID}`);
+      should.exist(response);
+      response.should.have.status(STATUS_OK);
+      response.body.should.not.be.empty;
+      response.body.should.have.jsonSchema(taskSchema);
+      response.body._id.should.be.an('string').that.is.equal(TEST_TASK_ID);
+      response.body.text.should.be.an('string').that.is.not.empty;
+      response.body.completed.should.be.an('boolean');
+    });
+
   });
 });
 
