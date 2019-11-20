@@ -19,6 +19,11 @@ chai.use(chaiHttp);
 chai.use(jsonSchema);
 const should = chai.should();
 
+// HTTP status
+const STATUS_OK = 200;
+const STATUS_NOT_FOUND = 404;
+const STATUS_BAD_REQUEST = 400;
+
 const TEST_EMAIL = 'todo@todo.com';
 const TEST_TODO_LIST_TITLE = 'test';
 
@@ -69,7 +74,7 @@ describe('API endpoints', () => {
   it('GET /api/todos', async () => {
     const response = await chai.request(this.server).get('/api/todos');
     should.exist(response);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todosSchema);
     response.body.length.should.be.equal(2);
@@ -78,7 +83,7 @@ describe('API endpoints', () => {
   it('POST /api/todos', async () => {
     const response = await chai.request(this.server).post('/api/todos').send({ title: TEST_TODO_LIST_TITLE });
     should.exist(response);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.body.should.not.be.empty;
     response.body.should.have.jsonSchema(todoSchema);
     response.body._id.should.be.an('string').that.is.not.empty;
@@ -91,7 +96,7 @@ describe('API endpoints', () => {
   it('GET /api/todos/:id', async () => {
     const response = await chai.request(this.server).get(`/api/todos/${TEST_TODO_LIST_ID}`);
     should.exist(response);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.body.should.have.jsonSchema(todoSchema);
     response.body._id.should.be.an('string').that.is.equal(TEST_TODO_LIST_ID);
     response.body.title.should.be.an('string').that.is.equal(TEST_TODO_TITLE);
@@ -106,7 +111,7 @@ describe('API endpoints', () => {
     };
     const response = await chai.request(this.server).put(`/api/todos/${TEST_TODO_LIST_ID}`).send(update);
     should.exist(response);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.should.not.be.empty;
     response.body.should.be.jsonSchema(todoSchema);
     response.body.title.should.be.an('string').that.is.equal(update.title);
@@ -118,7 +123,7 @@ describe('API endpoints', () => {
   it('DELETE /api/todos/:id', async () => {
     const response = await chai.request(this.server).delete(`/api/todos/${TEST_TODO_LIST_ID}`);
     should.exist(response);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.body.should.not.be.empty;
     response.body.should.be.jsonSchema(todoSchema);
     response.body._id.should.equal(TEST_TODO_LIST_ID);
@@ -127,7 +132,7 @@ describe('API endpoints', () => {
 
   it('GET /api/todos/:id/tasks/:id', async () => {
     const response = await chai.request(this.server).get(`/api/todos/${TEST_TODO_LIST_ID}/tasks/${TEST_TASK_ID}`);
-    response.should.have.status(200);
+    response.should.have.status(STATUS_OK);
     response.body.should.not.be.empty;
     response.body.should.have.jsonSchema(taskSchema);
     response.body._id.should.be.an('string').that.is.equal(TEST_TASK_ID);
@@ -138,9 +143,6 @@ describe('API endpoints', () => {
 });
 
 describe('Wrong API endpoints', () => {
-  
-  const STATUS_NOT_FOUND = 404;
-  const STATUS_BAD_REQUEST = 400;
 
   it('GET /random', async () => {
     const PATH = '/random';
