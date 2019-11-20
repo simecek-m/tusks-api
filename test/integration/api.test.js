@@ -95,4 +95,20 @@ describe('API endpoints', () => {
     response.body.author.should.be.an('string').that.is.equals(TEST_EMAIL);
   });
 
+  it('should UPDATE specific todo list', async () => {
+    const update = { 
+      title: 'Updated Title',
+      tasks: []
+    };
+    const response = await chai.request(this.server).put(`/api/todos/${TEST_TODO_LIST_ID}`).send(update);
+    should.exist(response);
+    response.should.have.status(200);
+    response.should.not.be.empty;
+    response.body.should.be.jsonSchema(todoSchema);
+    response.body.title.should.be.an('string').that.is.equal(update.title);
+    response.body._id.should.be.an('string').that.is.equal(TEST_TODO_LIST_ID);
+    response.body.author.should.be.an('string').that.is.equals(TEST_EMAIL);
+    response.body.tasks.should.be.empty;
+  });
+
 });
