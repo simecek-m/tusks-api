@@ -40,6 +40,7 @@
   },
   "_moduleAliases": {
     "~root": ".",
+    "~app": "src/app",
     "~auth": "src/auth",
     "~config": "src/config",
     "~constants": "src/config/constants.js",
