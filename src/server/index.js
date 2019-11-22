@@ -1,6 +1,6 @@
 const { IP_ADDRESS, PORT } = require('~config');
 const database = require('~database');
-const util = require('util'); 
+const util = require('util');
 const http = require('http');
 const logger = require('~logger');
 
@@ -10,11 +10,10 @@ const server = {
     logger.info('Starting HTTP server.');
 
     // create http server
-    const httpServer = http.createServer(app);
-    this.connection = httpServer;
+    this.connection = http.createServer(app);
 
     // promisify listen function - use promise instead callback
-    const listenPromisify = util.promisify(httpServer.listen.bind(httpServer));
+    const listenPromisify = util.promisify(this.connection.listen.bind(this.connection));
 
     // open http server
     await listenPromisify(PORT, IP_ADDRESS);
@@ -33,8 +32,7 @@ const server = {
     logger.info('Closing HTTP server.');
     
     // promisify close function - use promise instead callback
-    const httpServer = this.connection;
-    const closePromisify = util.promisify(httpServer.close.bind(httpServer));
+    const closePromisify = util.promisify(this.connection.close.bind(this.connection));
 
     // close http server
     await closePromisify();
