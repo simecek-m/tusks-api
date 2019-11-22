@@ -1,3 +1,3 @@
-const app = require('~root/src/app');
+const app = require('~app');
 
 app.start();

@@ -7,7 +7,7 @@ const errorHandler = require('~middleware/error');
 const httpServer = require('~server');
 const logger = require('~logger');
 const auth = require('~auth');
-const { fetchGooglePublickKeys } = require('~auth/google'); 
+const { fetchGooglePublickKeys } = require('~auth/google');
 
 // imported routes
 const protectedRoutes = require('~router/protectedRoutes');
