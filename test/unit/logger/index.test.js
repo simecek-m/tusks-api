@@ -6,7 +6,7 @@ const chai = require('chai');
 chai.should();
 
 describe('logger', () => {
-  it('get main logger', done => {
+  it('should get main logger', done => {
     deleteModuleCache('~logger');
     const getLoggerSpy = sinon.spy(loggers, 'get');
     const logger = require('~logger');
