@@ -15,7 +15,7 @@ const GOOGLE_KEYS_TEST = {
 
 describe('auth middleware - fetch google key for RSA', () => {
   
-  it('load google public keys for verify JWT signature', async () => {
+  it('should load google public keys for verify JWT signature', async () => {
     deleteModuleCache('~auth/google');
     const googleApi = require('~auth/google');
     const axiosMock = sinon.mock(axios);

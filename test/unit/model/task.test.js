@@ -8,7 +8,7 @@ chai.should();
 const TASK_FIELDS = ['text', 'completed'];
 
 describe('task model', () => {
-  it('create schema for task model', done => {
+  it('should create schema for task model', done => {
     deleteMongooseModel('task');
     deleteModuleCache('~model/task');
     const mongooseSchemaSpy = sinon.spy(mongoose, 'Schema');

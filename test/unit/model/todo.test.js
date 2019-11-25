@@ -8,7 +8,7 @@ chai.should();
 const TODO_FIELDS = ['title', 'tasks', 'author'];
 
 describe('todo model', () => {
-  it('create schema for todo model', done => {
+  it('should create schema for todo model', done => {
     deleteMongooseModel('todo');
     deleteModuleCache('~model/todo');
     const mongooseSchemaSpy = sinon.spy(mongoose, 'Schema');

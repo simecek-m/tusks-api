@@ -30,7 +30,7 @@ beforeEach (done => {
 
 describe('setup config variables', () => {
 
-  it('load config from dotenv file', done => {
+  it('should load config from dotenv file', done => {
     sinon.replace(dotenv, 'config', () => {
       process.env = { ...TEST_ENVIRONMENT_VARIABLES };
       return {
@@ -44,7 +44,7 @@ describe('setup config variables', () => {
     done();
   });
 
-  it('use defaults as config variables - missing .env file', done => {
+  it('should use defaults as config variables - missing .env file', done => {
     sinon.replace(dotenv, 'config', () => {
       process.env = {  };
       return {
@@ -58,7 +58,7 @@ describe('setup config variables', () => {
     done();
   });
 
-  it('use mix of defaults and dotenv file - missing values in .env file', done => {
+  it('should use mix of defaults and dotenv file - missing values in .env file', done => {
     sinon.replace(dotenv, 'config', () => {
       process.env = { ...PARTIAL_TEST_ENVIRONMENT_VARIABLES };
       return {

@@ -5,7 +5,7 @@ chai.should();
 const NUMBER_OF_CONSTANTS = 7;
 
 describe('environment default values', () => {
-  it('all neccessary values', done => {
+  it('should contain all values', done => {
     Object.keys(defaults).length.should.be.equals(NUMBER_OF_CONSTANTS);
     defaults.MODE.should.exist.and.be.an('string').that.is.not.empty;
     defaults.LOG_LEVEL.should.exist.and.be.an('string').that.is.not.empty;

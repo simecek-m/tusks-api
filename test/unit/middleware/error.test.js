@@ -10,7 +10,7 @@ const TEST_ERROR = {
 };
 
 describe('error middleware', () => {
-  it('return error object in response', done => {
+  it('should return error object in response', done => {
     const response = middleware.response;
     const responseMock = sinon.mock(response);
     responseMock.expects('status').once().withArgs(TEST_ERROR.status).returns(response);

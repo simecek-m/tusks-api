@@ -12,7 +12,7 @@ const TEST_GOOGLE_KEY_ID = 'db02ab30e0b75b8ecd4f816bb9e1978f62849894';
 
 describe('auth middleware - check authorization header', () => {
 
-  it('no authorization header', done => {
+  it('should return 403 - wrong format (NO TOKEN)', done => {
     const req = middleware.request;
     const mockRequest = sinon.mock(req);
     mockRequest.expects('header').once().withArgs('authorization').returns(null);
@@ -24,7 +24,7 @@ describe('auth middleware - check authorization header', () => {
     done();
   });
 
-  it('authorization header - bad format', done => {
+  it('should return 403 - wrong format (BAD FORMAT)', done => {
     const req = middleware.request;
     const mockRequest = sinon.mock(req);
     mockRequest.expects('header').once().withArgs('authorization').returns('TOKEN');
@@ -36,7 +36,7 @@ describe('auth middleware - check authorization header', () => {
     done();
   });
 
-  it('authorization header - undecodable token', done => {
+  it('should return 401 - JWT not decoded', done => {
     const TOKEN = 'Bearer TOKEN';
     const req = middleware.request;
     const mockRequest = sinon.mock(req);
@@ -49,7 +49,7 @@ describe('auth middleware - check authorization header', () => {
     done();
   });
 
-  it('JWT - wrong issuer', done => {
+  it('should return 401 - wrong issuer', done => {
     const jwt = createJwt();
     const token = `Bearer ${jwt}`;
     const req = middleware.request;
@@ -63,7 +63,7 @@ describe('auth middleware - check authorization header', () => {
     done();
   });
 
-  it('JWT - missing email in payload', done => {
+  it('should return 401 - missing email', done => {
     const jwt = createJwt({ iss: auth.GOOGLE_ISSUER });
     const token = `Bearer ${jwt}`;
     const req = middleware.request;
@@ -77,7 +77,7 @@ describe('auth middleware - check authorization header', () => {
     done();
   });
 
-  it('JWT - no key identifier (kid)', done => {
+  it('should return 401 - missing key identifier (kid)', done => {
     const jwt = createJwt({ iss: auth.GOOGLE_ISSUER, email: TEST_EMAIL });
     const token = `Bearer ${jwt}`;
     const req = middleware.request;

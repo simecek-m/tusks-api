@@ -6,7 +6,7 @@ const chai = require('chai');
 chai.should();
 
 describe('logger - create', () => {
-  it('create main logger', done => {
+  it('should create main logger', done => {
     const addLoggerSpy = sinon.spy(loggers, 'add');
     createLogger();
     addLoggerSpy.callCount.should.be.equals(1);
