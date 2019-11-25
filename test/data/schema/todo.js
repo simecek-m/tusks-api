@@ -13,6 +13,9 @@ const todoSchema = {
     tasks: {
       type: 'array',
       items: taskSchema
+    },
+    author: {
+      type: 'string'
     }
   },
   required: ['_id', 'title', 'tasks']

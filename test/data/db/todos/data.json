@@ -13,7 +13,8 @@
         "_id" : { "$oid": "5ce1b6334a3cf024bc3c6f19" },
         "text": "check github"
       }
-    ]
+    ],
+    "author": "todo@todo.com"
   },
   {
     "title": "Free Time",
@@ -24,11 +25,13 @@
         "_id" : { "$oid": "5ce1bb35ea9e992fa84525bc" },
         "text": "watch hockey"
       }
-    ]
+    ],
+    "author": "user@todo.com"
   },
   {
     "_id" : { "$oid": "5cfe9d771b6ff31cc8e31fb5" },
     "title": "house",
-    "tasks": []
+    "tasks": [],
+    "author": "todo@todo.com"
   }
 ]

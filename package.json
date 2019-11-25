@@ -13,6 +13,7 @@
     "express": "^4.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.5",
+    "sinon": "^7.5.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.9.0"
   },
@@ -31,14 +32,15 @@
   },
   "scripts": {
     "postinstall": "link-module-alias",
-    "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node app\"",
+    "start": "cross-env MODE=dev nodemon --exec \"yarn lint && node start\"",
     "lint": "eslint . --ext .js,.json",
     "lint:fix": "eslint . --ext .js,.json --fix",
-    "test": "yarn lint && env MODE='test' nyc --silent mocha --exit",
+    "test": "yarn lint && cross-env MODE=test nyc --silent mocha",
     "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "_moduleAliases": {
     "~root": ".",
+    "~app": "src/app",
     "~auth": "src/auth",
     "~config": "src/config",
     "~constants": "src/config/constants.js",
@@ -48,8 +50,11 @@
     "~middleware": "src/middleware",
     "~model": "src/model",
     "~router": "src/router",
+    "~schema": "test/data/schema",
     "~server": "src/server",
-    "~schema": "test/schema"
+    "~test": "test",
+    "~test-helper": "test/helper", 
+    "~mocks": "test/helper/mock"
   },
   "husky": {
     "hooks": {

@@ -1,4 +1,4 @@
-const taskSchema = {
+const errorSchema = {
   title: 'task schema v1',
   type: 'object',
   properties: {
@@ -24,4 +24,4 @@ const taskSchema = {
   required: ['message', 'name', 'stringValue', 'kind', 'value', 'path']
 };
 
-module.exports = taskSchema;
+module.exports = errorSchema;
