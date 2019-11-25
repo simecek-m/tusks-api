@@ -32,15 +32,19 @@ const server = {
     logger.info('Closing HTTP server.');
     
     // promisify close function - use promise instead callback
-    const closePromisify = util.promisify(this.connection.close.bind(this.connection));
-
-    // close http server
-    await closePromisify();
-    logger.info('HTTP server closed.');
-    
-    // disconnect from database
-    await database.disconnect();
-    return this.connection;
+    if (this.connection) {
+      
+      const closePromisify = util.promisify(this.connection.close.bind(this.connection));
+      // close http server
+      await closePromisify();
+      logger.info('HTTP server closed.');
+      
+      // disconnect from database
+      await database.disconnect();
+      return this.connection;
+    } else {
+      logger.warn('HTTP server not running!');
+    }
   }
 };
 
