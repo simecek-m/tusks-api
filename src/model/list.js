@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Task = require('~model/task');
 
-const todoSchema = new mongoose.Schema({
+const listSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Title field of todo list is required!']
@@ -13,6 +13,6 @@ const todoSchema = new mongoose.Schema({
   }
 });
 
-const Todo = mongoose.model('todo', todoSchema);
+const List = mongoose.model('list', listSchema);
 
-module.exports = Todo;
+module.exports = List;

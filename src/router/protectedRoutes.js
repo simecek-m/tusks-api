@@ -3,9 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 // routes
-const todos = require('~router/routes/todo');
+const listsRoutes = require('~router/routes/lists');
+const tasksRoutes = require('~router/routes/tasks');
 
 // router middleware
-router.use(todos);
+router.use(listsRoutes);
+router.use(tasksRoutes);
 
 module.exports = router;

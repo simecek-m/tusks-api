@@ -1,7 +1,7 @@
 const taskSchema = require('~schema/task');
 
-const todoSchema = {
-  title: 'todo schema v1',
+const listSchema = {
+  title: 'list schema v1',
   type: 'object',
   properties: {
     _id: {
@@ -21,4 +21,4 @@ const todoSchema = {
   required: ['_id', 'title', 'tasks']
 };
 
-module.exports = todoSchema;
+module.exports = listSchema;
