@@ -28,6 +28,7 @@
     "link-module-alias": "^1.2.0",
     "mocha": "^6.1.4",
     "mongo-seeding": "^3.2.0-alpha.0",
+    "nodemon": "^2.0.16",
     "nyc": "^14.1.1"
   },
   "scripts": {
@@ -53,7 +54,7 @@
     "~schema": "test/data/schema",
     "~server": "src/server",
     "~test": "test",
-    "~test-helper": "test/helper", 
+    "~test-helper": "test/helper",
     "~mocks": "test/helper/mock"
   },
   "husky": {
