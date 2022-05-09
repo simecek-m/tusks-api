@@ -37,7 +37,7 @@
     "lint": "eslint . --ext .js,.json",
     "lint:fix": "eslint . --ext .js,.json --fix",
     "test": "npm run lint && cross-env MODE=test nyc --silent mocha",
-    "test-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "test:coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "_moduleAliases": {
     "~root": ".",
