@@ -3,4 +3,4 @@ node_js: "12"
 services: 
   - mongodb
 after_script: 
-  - yarn test-coverage
+  - npm run test:coverage
