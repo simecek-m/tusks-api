@@ -5,7 +5,6 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
 const sinon = require('sinon');
-const auth = require('~auth');
 const { deleteModuleCache } = require('~test-helper/index');
 
 // schemas for validation
@@ -34,16 +33,11 @@ const TEST_TASK_TEXT = 'install yarn';
 
 describe('API endpoints', () => {
 
-  // run application before tests begin & turn off authentication
+  // run application before tests begin
   before(async () => {
     // delete cached app instance
     deleteModuleCache('~root/src/app');
 
-    // replace auth middleware with this implementation
-    sinon.replace(auth, 'authenticate', (req, res, next) => {
-      req.locals = TEST_EMAIL;
-      next();
-    });
     this.app = require('~root/src/app');
 
     // create seeder object (initializing database)

@@ -6,8 +6,6 @@ const cors = require('cors');
 const errorHandler = require('~middleware/error');
 const httpServer = require('~server');
 const logger = require('~logger');
-const auth = require('~auth');
-const googleApi = require('~auth/google');
 
 // imported routes
 const protectedRoutes = require('~router/protectedRoutes');
@@ -19,17 +17,11 @@ const app = express();
 async function start () {
   logger.info(`App is running in ${MODE} mode.`);
 
-  // initialize app - fetch google public keys for validation JWT signature
-  await googleApi.fetchGooglePublickKeys();
-
   // parse json object from request body 
   app.use(bodyParser.json());
 
   // enable all CORS
   app.use(cors());
-
-  // jwt middleware - verify request Authorization header
-  app.use(auth.authenticate);
 
   // api protected routes
   app.use('/api', protectedRoutes);
