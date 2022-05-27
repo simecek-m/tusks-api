@@ -10,6 +10,7 @@ const logger = require('~logger');
 // imported routes
 const protectedRoutes = require('~router/protectedRoutes');
 const unknownRoutes = require('~router/unknownRoutes');
+const { checkJwt } = require('~auth');
 
 // create express app
 const app = express();
@@ -22,6 +23,9 @@ async function start () {
 
   // enable all CORS
   app.use(cors());
+
+  // authentication middleware
+  app.use(checkJwt);
 
   // api protected routes
   app.use('/api', protectedRoutes);
