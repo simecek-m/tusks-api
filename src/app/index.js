@@ -6,6 +6,7 @@ const cors = require('cors');
 const errorHandler = require('~middleware/error');
 const httpServer = require('~server');
 const logger = require('~logger');
+const morgan = require('morgan');
 
 // imported routes
 const protectedRoutes = require('~router/protectedRoutes');
@@ -23,6 +24,13 @@ async function start () {
 
   // enable all CORS
   app.use(cors());
+
+  // use morgan HTTP logger with winston logger
+  app.use(morgan('short', { 
+    stream: { 
+      write: (message) => logger.debug(message) 
+    }
+  }));
 
   // authentication middleware
   app.use(checkJwt);
