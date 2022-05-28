@@ -1,4 +1,3 @@
-const { MONGO_URL } = require('~config');
 const mongoose = require('mongoose');
 const logger = require('~logger');
 
@@ -6,7 +5,7 @@ const OPTIONS = { useCreateIndex:true, useNewUrlParser: true, useFindAndModify: 
 
 async function connect () {
   logger.info('Opening mongoose connection.');
-  return mongoose.connect(MONGO_URL, OPTIONS);
+  return mongoose.connect(process.env.MONGO_URL, OPTIONS);
 }
 
 async function disconnect () {

@@ -1,6 +1,6 @@
 const winston = require('winston');
+const { LOGGER_ID } = require('~constants');
 require('winston-daily-rotate-file');
-const { MAIN_LOGGER } = require('~constants');
 
 const colorizedLogFormat = winston.format.combine(
   winston.format.colorize(),
@@ -17,16 +17,16 @@ const fileLogFormat = winston.format.combine(
   )
 );
 
-function createLogger (logLevel = 'debug', logFolder = 'logs') {
-  const logger = winston.loggers.add(MAIN_LOGGER, {
-    level: logLevel,
+function createLogger () {
+  const logger = winston.loggers.add(LOGGER_ID, {
+    level: process.env.LOG_LEVEL,
     transports: [
       new winston.transports.Console({
         format: colorizedLogFormat
       }),
       new winston.transports.DailyRotateFile({
         format: fileLogFormat,
-        dirname: logFolder,
+        dirname: process.env.LOG_FOLDER,
         filename: '%DATE%.log',
         datePattern: 'YYYY-MM-DD',
         zippedArchive: true
@@ -34,7 +34,7 @@ function createLogger (logLevel = 'debug', logFolder = 'logs') {
     ],
     silent: process.env.MODE === 'test'
   });
-  logger.silly(`Logger with ${logLevel} logging level was created.`);
+  logger.silly(`Logger with ${process.env.LOG_LEVEL} logging level was created.`);
   return logger;
 }
 

@@ -1,5 +1,5 @@
 // imports
-const { MODE } = require('~config');
+require('~env');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -16,7 +16,7 @@ const { checkJwt } = require('~auth');
 const app = express();
 
 async function start () {
-  logger.info(`App is running in ${MODE} mode.`);
+  logger.info(`App is running in ${process.env.MODE} mode.`);
 
   // parse json object from request body 
   app.use(bodyParser.json());
