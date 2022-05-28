@@ -1,4 +1,3 @@
-const { MONGO_URL } = require('~config');
 const { Seeder } = require('mongo-seeding');
 const path = require('path');
 const chai = require('chai');
@@ -42,7 +41,7 @@ describe('API endpoints', () => {
 
     // create seeder object (initializing database)
     this.seeder = new Seeder({
-      database: MONGO_URL,
+      database: process.env.MONGO_URL,
       dropDatabase: true
     });
 

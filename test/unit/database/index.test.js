@@ -1,13 +1,12 @@
 const sinon = require('sinon');
 const database = require('~database');
 const mongoose = require('mongoose');
-const { MONGO_URL } = require('~config');
 
 describe('database', () => {
 
   it('should open database connection', async () => {
     const openConnectionMock = sinon.mock(mongoose);
-    openConnectionMock.expects('connect').once().withArgs(MONGO_URL, database.OPTIONS);
+    openConnectionMock.expects('connect').once().withArgs(process.env.MONGO_URL, database.OPTIONS);
     await database.connect();
     openConnectionMock.verify();
   });
