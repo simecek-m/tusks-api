@@ -42,6 +42,7 @@
     "~root": ".",
     "~app": "src/app",
     "~auth": "src/auth",
+    "~env": "src/env",
     "~constants": "src/constants",
     "~defaults": "src/config/defaults.js",
     "~database": "src/database",
