@@ -1,21 +1,21 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-function restoreTestEnvVariables () {
+function restoreTestEnvVariables() {
   process.env = {
-    MODE: 'test'
+    MODE: "test",
   };
 }
 
-function deleteModuleCache (moduleName) {
+function deleteModuleCache(moduleName) {
   delete require.cache[require.resolve(moduleName)];
 }
 
-function deleteMongooseModel (modelName) {
+function deleteMongooseModel(modelName) {
   delete mongoose.connection.models[modelName];
 }
 
 module.exports = {
   restoreTestEnvVariables,
   deleteModuleCache,
-  deleteMongooseModel
+  deleteMongooseModel,
 };

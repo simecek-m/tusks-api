@@ -1,18 +1,18 @@
 const taskSchema = {
-  title: 'task schema v1',
-  type: 'object',
+  title: "task schema v1",
+  type: "object",
   properties: {
     _id: {
-      type: 'string'
+      type: "string",
     },
     text: {
-      type: 'string'
+      type: "string",
     },
     completed: {
-      type: 'boolean'
-    }
+      type: "boolean",
+    },
   },
-  required: ['_id', 'text', 'completed']
+  required: ["_id", "text", "completed"],
 };
 
 module.exports = taskSchema;

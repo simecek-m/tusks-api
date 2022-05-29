@@ -23,12 +23,15 @@
     "chai-json-schema": "^1.5.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
     "husky": "^8.0.1",
     "link-module-alias": "^1.2.0",
+    "lint-staged": "^12.4.2",
     "mocha": "^10.0.0",
     "mongo-seeding": "^3.7.2",
     "nodemon": "^2.0.16",
     "nyc": "^15.1.0",
+    "prettier": "^2.6.2",
     "sinon": "^14.0.0"
   },
   "scripts": {
@@ -36,8 +39,17 @@
     "start": "cross-env MODE=dev nodemon --exec \"npm run lint && node start\"",
     "lint": "eslint . --ext .js,.json",
     "lint:fix": "eslint . --ext .js,.json --fix",
+    "format": "prettier **/*.js",
     "test": "cross-env MODE=test nyc --silent mocha",
-    "coverage": "nyc report --reporter=lcov"
+    "coverage": "nyc report --reporter=lcov",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
   },
   "_moduleAliases": {
     "~root": ".",

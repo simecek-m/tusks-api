@@ -1,3 +1,3 @@
-const LOGGER_ID = 'main';
+const LOGGER_ID = "main";
 
 module.exports = { LOGGER_ID };

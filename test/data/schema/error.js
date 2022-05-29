@@ -1,27 +1,27 @@
 const errorSchema = {
-  title: 'task schema v1',
-  type: 'object',
+  title: "task schema v1",
+  type: "object",
   properties: {
     message: {
-      type: 'string'
+      type: "string",
     },
     name: {
-      type: 'string'
+      type: "string",
     },
     stringValue: {
-      type: 'string'
+      type: "string",
     },
     kind: {
-      type: 'string'
+      type: "string",
     },
     value: {
-      type: 'string'
+      type: "string",
     },
     path: {
-      type: 'string'
-    }
+      type: "string",
+    },
   },
-  required: ['message', 'name', 'stringValue', 'kind', 'value', 'path']
+  required: ["message", "name", "stringValue", "kind", "value", "path"],
 };
 
 module.exports = errorSchema;

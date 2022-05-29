@@ -1,12 +1,12 @@
 const middleware = {
   request: {
-    header () {}
+    header() {},
   },
   response: {
-    status () {},
-    send () {}
+    status() {},
+    send() {},
   },
-  next () {}
+  next() {},
 };
 
 module.exports = middleware;

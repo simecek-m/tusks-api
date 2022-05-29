@@ -1,6 +1,6 @@
-const logger = require('~logger');
+const logger = require("~logger");
 
-function errorHandling (error, req, res, next) {
+function errorHandling(error, req, res, next) {
   logger.error(error.message);
   res.status(error.status || 400).send(error);
   next();
