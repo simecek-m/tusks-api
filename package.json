@@ -37,8 +37,8 @@
   "scripts": {
     "postinstall": "link-module-alias",
     "start": "cross-env MODE=dev nodemon --exec \"npm run lint && node start\"",
-    "lint": "eslint . --ext .js,.json",
-    "lint:fix": "eslint . --ext .js,.json --fix",
+    "lint": "eslint . --ext .js,",
+    "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier **/*.js",
     "test": "cross-env MODE=test nyc --silent mocha",
     "coverage": "nyc report --reporter=lcov",
