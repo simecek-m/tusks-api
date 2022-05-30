@@ -29,7 +29,7 @@ async function start() {
   app.use(
     morgan("short", {
       stream: {
-        write: (message) => logger.debug(message),
+        write: (message) => logger.debug(message.trim()),
       },
     })
   );
