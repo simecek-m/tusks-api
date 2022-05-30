@@ -7,7 +7,7 @@ const Task = require("~model/task");
 
 // get all tasks from specific todo list
 router.get("/lists/:id/tasks", function (req, res, next) {
-  List.findOne({ author: req.locals, _id: req.params.id })
+  List.findOne({ author: req.auth.payload.sub, _id: req.params.id })
     .then((data) => res.send(data.tasks))
     .catch(next);
 });
@@ -15,7 +15,7 @@ router.get("/lists/:id/tasks", function (req, res, next) {
 // get specific task from specific todo list
 router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
   List.findOne({
-    author: req.locals,
+    author: req.auth.payload.sub,
     _id: req.params.listId,
     tasks: { $elemMatch: { _id: req.params.taskId } },
   })
@@ -30,7 +30,7 @@ router.post("/lists/:id/tasks", function (req, res, next) {
   let task = new Task(req.body);
   List.findOneAndUpdate(
     {
-      author: req.locals,
+      author: req.auth.payload.sub,
       _id: req.params.id,
     },
     { $push: { tasks: task } },
@@ -44,7 +44,7 @@ router.post("/lists/:id/tasks", function (req, res, next) {
 router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
   List.findOneAndUpdate(
     {
-      author: req.locals,
+      author: req.auth.payload.sub,
       _id: req.params.listId,
       tasks: { $elemMatch: { _id: req.params.taskId } },
     },
@@ -61,7 +61,7 @@ router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
 router.delete("/lists/:listId/tasks/:taskId", function (req, res, next) {
   List.findOneAndUpdate(
     {
-      author: req.locals,
+      author: req.auth.payload.sub,
       _id: req.params.listId,
       tasks: { $elemMatch: { _id: req.params.taskId } },
     },

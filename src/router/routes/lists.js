@@ -6,21 +6,21 @@ const List = require("~model/list");
 
 // get all todo lists
 router.get("/lists", function (req, res, next) {
-  List.find({ author: req.locals })
+  List.find({ author: req.auth.payload.sub })
     .then((data) => res.send(data))
     .catch(next);
 });
 
 // create new todo list
 router.post("/lists", function (req, res, next) {
-  List.create({ title: req.body.title, author: req.locals })
+  List.create({ title: req.body.title, author: req.auth.payload.sub })
     .then((data) => res.send(data))
     .catch(next);
 });
 
 // get specific todo list
 router.get("/lists/:id", function (req, res, next) {
-  List.findOne({ author: req.locals, _id: req.params.id })
+  List.findOne({ author: req.auth.payload.sub, _id: req.params.id })
     .then((data) => {
       if (data) {
         res.send(data);
@@ -36,16 +36,20 @@ router.get("/lists/:id", function (req, res, next) {
 
 // update todo list
 router.put("/lists/:id", function (req, res, next) {
-  List.findOneAndUpdate({ author: req.locals, _id: req.params.id }, req.body, {
-    new: true,
-  })
+  List.findOneAndUpdate(
+    { author: req.auth.payload.sub, _id: req.params.id },
+    req.body,
+    {
+      new: true,
+    }
+  )
     .then((data) => res.send(data))
     .catch(next);
 });
 
 // delete todo list
 router.delete("/lists/:id", function (req, res, next) {
-  List.findOneAndDelete({ author: req.locals, _id: req.params.id })
+  List.findOneAndDelete({ author: req.auth.payload.sub, _id: req.params.id })
     .then((data) => res.send(data))
     .catch(next);
 });
