@@ -12,6 +12,10 @@ const ListSchema = new mongoose.Schema({
     type: String,
     required: [true, "Author field of todo list is required!"],
   },
+  icon: {
+    type: String,
+    required: [true, "Icon field of todo list is required!"],
+  },
 });
 
 ListSchema.set("toJSON", NORMALIZED_OUTPUT);

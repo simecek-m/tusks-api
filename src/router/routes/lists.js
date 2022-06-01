@@ -13,7 +13,11 @@ router.get("/lists", function (req, res, next) {
 
 // create new todo list
 router.post("/lists", function (req, res, next) {
-  List.create({ title: req.body.title, author: req.auth.payload.sub })
+  List.create({
+    title: req.body.title,
+    icon: req.body.icon,
+    author: req.auth.payload.sub,
+  })
     .then((data) => res.send(data))
     .catch(next);
 });
