@@ -1,7 +1,7 @@
 const sinon = require("sinon");
 const { loggers } = require("winston");
 const { deleteModuleCache } = require("~test-helper/index");
-const { MAIN_LOGGER } = require("~constants");
+const { MAIN_LOGGER } = require("~constants/logger");
 const chai = require("chai");
 chai.should();
 

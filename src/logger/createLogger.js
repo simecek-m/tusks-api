@@ -1,5 +1,5 @@
 const winston = require("winston");
-const { LOGGER_ID } = require("~constants");
+const { LOGGER_ID } = require("~constants/logger");
 require("winston-daily-rotate-file");
 
 const colorizedLogFormat = winston.format.combine(
