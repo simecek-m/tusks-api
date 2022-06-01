@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { NORMALIZED_OUTPUT } = require("../utils");
 
 const TaskSchema = new mongoose.Schema({
   text: {
@@ -11,6 +12,9 @@ const TaskSchema = new mongoose.Schema({
     required: [true, "State of task is required!"],
   },
 });
+
+TaskSchema.set("toJSON", NORMALIZED_OUTPUT);
+TaskSchema.set("toObject", NORMALIZED_OUTPUT);
 
 const Task = mongoose.model("task", TaskSchema);
 

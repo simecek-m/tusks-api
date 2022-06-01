@@ -61,7 +61,7 @@
     "~database": "src/database",
     "~logger": "src/logger",
     "~middleware": "src/middleware",
-    "~model": "src/model",
+    "~model": "src/database/model",
     "~router": "src/router",
     "~schema": "test/data/schema",
     "~server": "src/server",
