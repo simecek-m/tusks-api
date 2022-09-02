@@ -5,7 +5,7 @@ const { deleteModuleCache, deleteMongooseModel } = require("~test-helper");
 
 chai.should();
 
-const TASK_FIELDS = ["text", "completed"];
+const TASK_FIELDS = ["text", "isCompleted"];
 
 describe("task model", () => {
   it("should create schema for task model", (done) => {

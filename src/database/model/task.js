@@ -7,7 +7,7 @@ const TaskSchema = new mongoose.Schema(
       type: String,
       required: [true, "Text describing this Task is required!"],
     },
-    completed: {
+    isCompleted: {
       type: Boolean,
       default: false,
       required: [true, "State of task is required!"],

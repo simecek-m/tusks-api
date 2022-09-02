@@ -149,7 +149,7 @@ describe("API endpoints", () => {
       response.body.should.have.jsonSchema(taskSchema);
       response.body._id.should.be.an("string").that.is.equal(TEST_TASK_ID);
       response.body.text.should.be.an("string").that.is.equals(TEST_TASK_TEXT);
-      response.body.completed.should.be.an("boolean").that.is.false;
+      response.body.isCompleted.should.be.an("boolean").that.is.false;
     });
 
     it("POST /api/lists/:id/tasks", async () => {
@@ -163,12 +163,12 @@ describe("API endpoints", () => {
       response.body.should.not.be.empty;
       response.body.should.have.jsonSchema(taskSchema);
       response.body._id.should.be.an("string").that.is.not.empty;
-      response.body.completed.should.be.an("boolean").that.is.false;
+      response.body.isCompleted.should.be.an("boolean").that.is.false;
       response.body.text.should.be.an("string").that.is.equal(newTask.text);
     });
 
     it("PUT /api/lists/:id/tasks/:id", async () => {
-      const updatedTask = { completed: true };
+      const updatedTask = { isCompleted: true };
       const response = await chai
         .request(this.server)
         .put(`/api/lists/${TEST_TODO_LIST_ID}/tasks/${TEST_TASK_ID}`)
@@ -179,9 +179,9 @@ describe("API endpoints", () => {
       response.body.should.have.jsonSchema(taskSchema);
       response.body._id.should.be.an("string").that.is.equal(TEST_TASK_ID);
       response.body.text.should.be.an("string").that.is.not.empty;
-      response.body.completed.should.be
+      response.body.isCompleted.should.be
         .an("boolean")
-        .that.is.equal(updatedTask.completed);
+        .that.is.equal(updatedTask.isCompleted);
     });
 
     it("DELETE /api/lists/:id/tasks/:id", async () => {
@@ -194,7 +194,7 @@ describe("API endpoints", () => {
       response.body.should.have.jsonSchema(taskSchema);
       response.body._id.should.be.an("string").that.is.equal(TEST_TASK_ID);
       response.body.text.should.be.an("string").that.is.not.empty;
-      response.body.completed.should.be.an("boolean");
+      response.body.isCompleted.should.be.an("boolean");
     });
   });
 });

@@ -4,12 +4,12 @@
     "_id" : { "$oid": "5cfe9d771b6ff31cc8e31fb3" },
     "tasks": [
       {
-        "completed": false,
+        "isCompleted": false,
         "_id" : { "$oid": "5ce1b62a4a3cf024bc3c6f17" },
         "text": "install yarn"
       },
       {
-        "completed": true,
+        "isCompleted": true,
         "_id" : { "$oid": "5ce1b6334a3cf024bc3c6f19" },
         "text": "check github"
       }
@@ -21,7 +21,7 @@
     "_id" : { "$oid": "5cfe9d771b6ff31cc8e31fb4" },
     "tasks": [
       {
-        "completed": false,
+        "isCompleted": false,
         "_id" : { "$oid": "5ce1bb35ea9e992fa84525bc" },
         "text": "watch hockey"
       }

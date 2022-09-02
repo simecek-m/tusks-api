@@ -40,7 +40,7 @@ router.post("/lists/:id/tasks", function (req, res, next) {
     .catch(next);
 });
 
-// update specific task - only completed field is updated
+// update specific task - only isCompleted field is updated
 router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
   List.findOneAndUpdate(
     {
@@ -48,7 +48,7 @@ router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
       _id: req.params.listId,
       tasks: { $elemMatch: { _id: req.params.taskId } },
     },
-    { $set: { "tasks.$.completed": req.body.completed } },
+    { $set: { "tasks.$.isCompleted": req.body.isCompleted } },
     { runValidators: true, new: true }
   )
     .then((data) =>

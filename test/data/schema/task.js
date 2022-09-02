@@ -8,11 +8,11 @@ const taskSchema = {
     text: {
       type: "string",
     },
-    completed: {
+    isCompleted: {
       type: "boolean",
     },
   },
-  required: ["_id", "text", "completed"],
+  required: ["_id", "text", "isCompleted"],
 };
 
 module.exports = taskSchema;
