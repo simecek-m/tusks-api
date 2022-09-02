@@ -8,10 +8,12 @@ const httpServer = require("~server");
 const logger = require("~logger");
 const morgan = require("morgan");
 
+// import authentication middleware
+const { checkJwt } = require("~auth");
+
 // imported routes
 const protectedRoutes = require("~router/protectedRoutes");
-const unknownRoutes = require("~router/unknownRoutes");
-const { checkJwt } = require("~auth");
+const fallbackRoutes = require("~router/fallbackRoutes");
 
 // create express app
 const app = express();
@@ -41,7 +43,7 @@ async function start() {
   app.use("/api", protectedRoutes);
 
   // error handling
-  app.use("/", unknownRoutes);
+  app.use("/", fallbackRoutes);
   app.use(errorHandler);
 
   // run HTTP server
