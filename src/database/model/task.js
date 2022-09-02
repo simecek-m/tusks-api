@@ -1,17 +1,22 @@
 const mongoose = require("mongoose");
 const { NORMALIZED_OUTPUT } = require("../utils");
 
-const TaskSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    required: [true, "Text describing this Task is required!"],
+const TaskSchema = new mongoose.Schema(
+  {
+    text: {
+      type: String,
+      required: [true, "Text describing this Task is required!"],
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+      required: [true, "State of task is required!"],
+    },
   },
-  completed: {
-    type: Boolean,
-    default: false,
-    required: [true, "State of task is required!"],
-  },
-});
+  {
+    autoCreate: false,
+  }
+);
 
 TaskSchema.set("toJSON", NORMALIZED_OUTPUT);
 TaskSchema.set("toObject", NORMALIZED_OUTPUT);
