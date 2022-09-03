@@ -31,7 +31,7 @@ router.get("/lists/:id", function (req, res, next) {
       } else {
         next({
           status: 404,
-          message: `Todo list with id ${req.params.id} was not found!`,
+          message: `Todo list (${req.params.id}) was not found!`,
         });
       }
     })
@@ -45,16 +45,35 @@ router.put("/lists/:id", function (req, res, next) {
     req.body,
     {
       new: true,
+      runValidators: true,
     }
   )
-    .then((data) => res.send(data))
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.id}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
 // delete todo list
 router.delete("/lists/:id", function (req, res, next) {
   List.findOneAndDelete({ author: req.auth.payload.sub, _id: req.params.id })
-    .then((data) => res.send(data))
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.id}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
