@@ -8,7 +8,16 @@ const Task = require("~model/task");
 // get all tasks from specific todo list
 router.get("/lists/:id/tasks", function (req, res, next) {
   List.findOne({ author: req.auth.payload.sub, _id: req.params.id })
-    .then((data) => res.send(data.tasks))
+    .then((data) => {
+      if (data) {
+        res.send(data.tasks);
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.id}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
@@ -19,9 +28,16 @@ router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
     _id: req.params.listId,
     tasks: { $elemMatch: { _id: req.params.taskId } },
   })
-    .then((data) =>
-      res.send(data.tasks.find((task) => task._id == req.params.taskId))
-    )
+    .then((data) => {
+      if (data) {
+        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.listId}) or Task (${req.params.taskId}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
@@ -36,7 +52,16 @@ router.post("/lists/:id/tasks", function (req, res, next) {
     { $push: { tasks: task } },
     { runValidators: true, new: true }
   )
-    .then(() => res.send(task))
+    .then((data) => {
+      if (data) {
+        res.send(data.tasks.find((task) => task.id == task.id));
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.id}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
@@ -49,11 +74,21 @@ router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
       tasks: { $elemMatch: { _id: req.params.taskId } },
     },
     { $set: { "tasks.$.isCompleted": req.body.isCompleted } },
-    { runValidators: true, new: true }
+    {
+      runValidators: true,
+      new: true,
+    }
   )
-    .then((data) =>
-      res.send(data.tasks.find((task) => task._id == req.params.taskId))
-    )
+    .then((data) => {
+      if (data) {
+        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.listId}) or Task (${req.params.taskId}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
@@ -67,9 +102,16 @@ router.delete("/lists/:listId/tasks/:taskId", function (req, res, next) {
     },
     { $pull: { tasks: { _id: req.params.taskId } } }
   )
-    .then((data) =>
-      res.send(data.tasks.find((task) => task._id == req.params.taskId))
-    )
+    .then((data) => {
+      if (data) {
+        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+      } else {
+        next({
+          status: 404,
+          message: `Todo list (${req.params.listId}) or Task (${req.params.taskId}) was not found!`,
+        });
+      }
+    })
     .catch(next);
 });
 
