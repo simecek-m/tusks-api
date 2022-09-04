@@ -7,6 +7,7 @@ const List = require("~model/list");
 // get all todo lists
 router.get("/lists", function (req, res, next) {
   List.find({ author: req.auth.payload.sub })
+    .populate("tags")
     .then((data) => res.send(data))
     .catch(next);
 });
@@ -14,8 +15,7 @@ router.get("/lists", function (req, res, next) {
 // create new todo list
 router.post("/lists", function (req, res, next) {
   List.create({
-    title: req.body.title,
-    icon: req.body.icon,
+    ...req.body,
     author: req.auth.payload.sub,
   })
     .then((data) => res.send(data))
@@ -25,6 +25,7 @@ router.post("/lists", function (req, res, next) {
 // get specific todo list
 router.get("/lists/:id", function (req, res, next) {
   List.findOne({ author: req.auth.payload.sub, _id: req.params.id })
+    .populate("tags")
     .then((data) => {
       if (data) {
         res.send(data);
