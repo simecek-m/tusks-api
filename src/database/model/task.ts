@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { NORMALIZED_OUTPUT } = require("../utils");
+import mongoose from "mongoose";
+import { NORMALIZED_OUTPUT } from "database/utils";
 
 const TaskSchema = new mongoose.Schema(
   {
@@ -22,6 +22,4 @@ const TaskSchema = new mongoose.Schema(
 TaskSchema.set("toJSON", NORMALIZED_OUTPUT);
 TaskSchema.set("toObject", NORMALIZED_OUTPUT);
 
-const Task = mongoose.model("task", TaskSchema);
-
-module.exports = Task;
+export default mongoose.model("task", TaskSchema);

@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // models
-const Tag = require("~model/tag");
+import Tag from "database/model/tag";
 
 // get all tags
 router.get("/tags", function (req, res, next) {
@@ -38,4 +38,4 @@ router.delete("/tags/:id", function (req, res, next) {
     .catch(next);
 });
 
-module.exports = router;
+export default router;

@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // models
-const List = require("~model/list");
+import List from "database/model/list";
 
 router.get("/stats", async function (req, res, next) {
   try {
@@ -23,4 +23,4 @@ router.get("/stats", async function (req, res, next) {
   }
 });
 
-module.exports = router;
+export default router;

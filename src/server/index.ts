@@ -1,18 +1,19 @@
-const database = require("~database");
-const util = require("util");
-const http = require("http");
-const logger = require("~logger");
+import database from "database";
+import { promisify } from "util";
+import { createServer, Server } from "http";
+import logger from "logger";
+import { Application } from "express";
 
 const server = {
   connection: null,
-  async start(app) {
+  async start(app: Application) {
     logger.info("Starting HTTP server.");
 
     // create http server
-    this.connection = http.createServer(app);
+    this.connection = createServer(app);
 
     // promisify listen function - use promise instead callback
-    const listenPromisify = util.promisify(
+    const listenPromisify = promisify(
       this.connection.listen.bind(this.connection)
     );
 
@@ -36,7 +37,7 @@ const server = {
 
     // promisify close function - use promise instead callback
     if (this.connection) {
-      const closePromisify = util.promisify(
+      const closePromisify = promisify(
         this.connection.close.bind(this.connection)
       );
       // close http server
@@ -52,4 +53,4 @@ const server = {
   },
 };
 
-module.exports = server;
+export default server;

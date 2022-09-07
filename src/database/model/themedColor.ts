@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ThemedColorSchema = new mongoose.Schema(
   {
@@ -19,6 +19,4 @@ const ThemedColorSchema = new mongoose.Schema(
   }
 );
 
-const ThemedColor = mongoose.model("themedColor", ThemedColorSchema);
-
-module.exports = ThemedColor;
+export default mongoose.model("themedColor", ThemedColorSchema);

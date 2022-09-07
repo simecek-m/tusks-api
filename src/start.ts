@@ -1,3 +1,3 @@
-import app from "app";
+import { start } from "app";
 
-app.start();
+start();

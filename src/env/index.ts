@@ -1,5 +1,5 @@
-const dotenv = require("dotenv");
-const createLogger = require("~logger/createLogger");
+import dotenv from "dotenv";
+import { createLogger } from "logger/createLogger";
 
 // .env file path (dependent on app mode)
 const path = `.${process.env.MODE}.env`;
@@ -11,7 +11,7 @@ if (loadEnvFileResult.error) {
 }
 
 // create logger with correct logging level and folder
-const logger = createLogger(process.env.LOG_LEVEL, process.env.LOG_FOLDER);
+const logger = createLogger();
 
 // log state of loading .env file
 if (loadEnvFileResult.error) {

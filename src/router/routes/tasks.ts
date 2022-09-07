@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // models
-const List = require("~model/list");
-const Task = require("~model/task");
+import List from "database/model/list";
+import Task from "database/model/task";
 
 // get all tasks from specific todo list
 router.get("/lists/:id/tasks", function (req, res, next) {
@@ -115,4 +115,4 @@ router.delete("/lists/:listId/tasks/:taskId", function (req, res, next) {
     .catch(next);
 });
 
-module.exports = router;
+export default router;

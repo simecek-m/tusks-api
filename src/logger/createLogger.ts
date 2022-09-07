@@ -1,6 +1,6 @@
-const winston = require("winston");
-const { LOGGER_ID } = require("~constants/logger");
-require("winston-daily-rotate-file");
+import winston, { Logger } from "winston";
+import { LOGGER_ID } from "constants/logger";
+import "winston-daily-rotate-file";
 
 const colorizedLogFormat = winston.format.combine(
   winston.format.colorize(),
@@ -17,7 +17,7 @@ const fileLogFormat = winston.format.combine(
   )
 );
 
-function createLogger() {
+export function createLogger(): Logger {
   const logger = winston.loggers.add(LOGGER_ID, {
     level: process.env.LOG_LEVEL,
     transports: [
@@ -39,5 +39,3 @@ function createLogger() {
   );
   return logger;
 }
-
-module.exports = createLogger;

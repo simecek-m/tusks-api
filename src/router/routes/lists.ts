@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // models
-const List = require("~model/list");
+import List from "database/model/list";
 
 // get all todo lists
 router.get("/lists", function (req, res, next) {
@@ -78,4 +78,4 @@ router.delete("/lists/:id", function (req, res, next) {
     .catch(next);
 });
 
-module.exports = router;
+export default router;

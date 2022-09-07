@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const Task = require("~model/task");
-const { NORMALIZED_OUTPUT } = require("../utils");
-const Tag = require("./tag");
+import mongoose from "mongoose";
+import { NORMALIZED_OUTPUT } from "database/utils";
+import Tag from "database/model/tag";
+import Task from "database/model/task";
 
 const ListSchema = new mongoose.Schema(
   {
@@ -22,7 +22,7 @@ const ListSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "tag",
       validate: {
-        validator: async (tags) => {
+        validator: async (tags: [mongoose.Schema.Types.ObjectId]) => {
           const exitedTagsCount = await Tag.countDocuments({
             _id: { $in: tags },
           });
@@ -40,6 +40,4 @@ const ListSchema = new mongoose.Schema(
 ListSchema.set("toJSON", NORMALIZED_OUTPUT);
 ListSchema.set("toObject", NORMALIZED_OUTPUT);
 
-const List = mongoose.model("list", ListSchema);
-
-module.exports = List;
+export default mongoose.model("list", ListSchema);

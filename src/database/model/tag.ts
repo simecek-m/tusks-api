@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const ThemedColor = require("./themedColor");
-const { NORMALIZED_OUTPUT } = require("../utils");
+import mongoose from "mongoose";
+import ThemedColor from "database/model/themedColor";
+import { NORMALIZED_OUTPUT } from "database/utils";
 
 const TagSchema = new mongoose.Schema({
   owner: {
@@ -21,6 +21,4 @@ const TagSchema = new mongoose.Schema({
 TagSchema.set("toJSON", NORMALIZED_OUTPUT);
 TagSchema.set("toObject", NORMALIZED_OUTPUT);
 
-const Tag = mongoose.model("tag", TagSchema);
-
-module.exports = Tag;
+export default mongoose.model("tag", TagSchema);

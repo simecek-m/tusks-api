@@ -1,6 +1,6 @@
 // imports
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // unknown /api/ endpoints middleware
 router.use("/api/:path?", (req, res, next) => {
@@ -18,4 +18,4 @@ router.use("/", (req, res, next) => {
   });
 });
 
-module.exports = router;
+export default router;
