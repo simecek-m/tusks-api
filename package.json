@@ -66,10 +66,6 @@
     "~middleware": "src/middleware",
     "~model": "src/database/model",
     "~router": "src/router",
-    "~schema": "test/data/schema",
-    "~server": "src/server",
-    "~test": "test",
-    "~test-helper": "test/helper",
-    "~mocks": "test/helper/mock"
+    "~server": "src/server"
   }
 }
