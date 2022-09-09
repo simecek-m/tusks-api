@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import ThemedColor from "database/model/themedColor";
 import { NORMALIZED_OUTPUT } from "database/utils";
+import { ITag } from "types";
 
-const TagSchema = new mongoose.Schema({
+const TagSchema = new Schema<ITag>({
   owner: {
     type: String,
     required: [true, "Owner of tag is required field!"],
@@ -21,4 +22,4 @@ const TagSchema = new mongoose.Schema({
 TagSchema.set("toJSON", NORMALIZED_OUTPUT);
 TagSchema.set("toObject", NORMALIZED_OUTPUT);
 
-export default mongoose.model("tag", TagSchema);
+export default model<ITag>("tag", TagSchema);

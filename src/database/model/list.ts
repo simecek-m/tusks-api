@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+import { Schema, model, ObjectId } from "mongoose";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import Tag from "database/model/tag";
 import Task from "database/model/task";
+import { ITodoList } from "types";
 
-const ListSchema = new mongoose.Schema(
+const ListSchema = new Schema<ITodoList>(
   {
     author: {
       type: String,
@@ -19,10 +20,10 @@ const ListSchema = new mongoose.Schema(
     },
     tasks: [Task.schema],
     tags: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: [Schema.Types.ObjectId],
       ref: "tag",
       validate: {
-        validator: async (tags: [mongoose.Schema.Types.ObjectId]) => {
+        validator: async (tags: [ObjectId]) => {
           const exitedTagsCount = await Tag.countDocuments({
             _id: { $in: tags },
           });
@@ -40,4 +41,4 @@ const ListSchema = new mongoose.Schema(
 ListSchema.set("toJSON", NORMALIZED_OUTPUT);
 ListSchema.set("toObject", NORMALIZED_OUTPUT);
 
-export default mongoose.model("list", ListSchema);
+export default model<ITodoList>("list", ListSchema);

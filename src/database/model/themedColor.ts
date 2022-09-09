@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
+import { IThemedColor } from "types";
 
-const ThemedColorSchema = new mongoose.Schema(
+const ThemedColorSchema = new Schema<IThemedColor>(
   {
     light: {
       type: String,
@@ -19,4 +20,4 @@ const ThemedColorSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("themedColor", ThemedColorSchema);
+export default model<IThemedColor>("themedColor", ThemedColorSchema);

@@ -30,7 +30,9 @@ router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
   })
     .then((data) => {
       if (data) {
-        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+        res.send(
+          data.tasks.find((task) => task.id.toString() == req.params.taskId)
+        );
       } else {
         next({
           status: 404,
@@ -43,18 +45,18 @@ router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
 
 // create task and add it to todo list
 router.post("/lists/:id/tasks", function (req, res, next) {
-  let task = new Task(req.body);
+  let newTask = new Task(req.body);
   List.findOneAndUpdate(
     {
       author: req.auth.payload.sub,
       _id: req.params.id,
     },
-    { $push: { tasks: task } },
+    { $push: { tasks: { ...newTask } } },
     { runValidators: true, new: true }
   )
     .then((data) => {
       if (data) {
-        res.send(data.tasks.find((task) => task.id == task.id));
+        res.send(data.tasks.find((task) => task.id == newTask.id));
       } else {
         next({
           status: 404,
@@ -81,7 +83,9 @@ router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
   )
     .then((data) => {
       if (data) {
-        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+        res.send(
+          data.tasks.find((task) => task.id.toString() == req.params.taskId)
+        );
       } else {
         next({
           status: 404,
@@ -104,7 +108,9 @@ router.delete("/lists/:listId/tasks/:taskId", function (req, res, next) {
   )
     .then((data) => {
       if (data) {
-        res.send(data.tasks.find((task) => task.id == req.params.taskId));
+        res.send(
+          data.tasks.find((task) => task.id.toString() == req.params.taskId)
+        );
       } else {
         next({
           status: 404,

@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import { NORMALIZED_OUTPUT } from "database/utils";
+import { ITask } from "types";
 
-const TaskSchema = new mongoose.Schema(
+const TaskSchema = new Schema<ITask>(
   {
     text: {
       type: String,
@@ -14,6 +15,7 @@ const TaskSchema = new mongoose.Schema(
     },
   },
   {
+    _id: true,
     autoCreate: false,
     timestamps: true,
   }
@@ -22,4 +24,4 @@ const TaskSchema = new mongoose.Schema(
 TaskSchema.set("toJSON", NORMALIZED_OUTPUT);
 TaskSchema.set("toObject", NORMALIZED_OUTPUT);
 
-export default mongoose.model("task", TaskSchema);
+export default model<ITask>("task", TaskSchema);
