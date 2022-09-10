@@ -2,30 +2,30 @@ import { Schema, Types } from "mongoose";
 
 export interface Error {
   status?: number;
-  message: String;
+  message: string;
 }
 
 export interface IThemedColor {
-  light: String;
-  dark: String;
+  light: string;
+  dark: string;
 }
 
 export interface ITag {
-  owner: String;
-  label: String;
+  owner: string;
+  label: string;
   color: IThemedColor;
 }
 
 export interface ITask {
   id: Types.ObjectId;
-  text: String;
+  text: string;
   isCompleted: boolean;
 }
 
 export interface ITodoList {
-  author: String;
-  title: String;
-  icon: String;
+  author: string;
+  title: string;
+  icon: string;
   tasks: [ITask];
   tags: [Schema.Types.ObjectId];
 }

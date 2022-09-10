@@ -22,54 +22,42 @@
   },
   "devDependencies": {
     "@types/node": "^18.7.15",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "chai-json-schema": "^1.5.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
-    "husky": "^8.0.1",
-    "link-module-alias": "^1.2.0",
+    "husky": "^8.0.0",
     "lint-staged": "^12.4.2",
     "mocha": "^10.0.0",
     "mongo-seeding": "^3.7.2",
+    "nodemon": "^2.0.19",
     "nyc": "^15.1.0",
     "prettier": "^2.6.2",
     "sinon": "^14.0.0",
-    "ts-node-dev": "^2.0.0",
+    "ts-node": "^10.9.1",
+    "tsc-files": "^1.1.3",
     "typescript": "^4.8.2"
   },
   "scripts": {
-    "postinstall": "link-module-alias",
-    "build": "tsc",
-    "start": "cross-env MODE=dev NODE_PATH=src ts-node-dev --respawn src/start.ts",
+    "build": "eslint ./src --ext .ts & tsc",
+    "start": "cross-env MODE=dev NODE_PATH=src nodemon ./src/start.ts --exec \"npm run lint && ts-node\"",
     "start:prod": "cross-env MODE=prod NODE_PATH=dist node dist/start",
-    "lint": "eslint . --ext .js,",
-    "lint:fix": "eslint . --ext .js --fix",
-    "format": "prettier **/*.js",
+    "lint": "eslint ./src --ext .ts",
+    "format": "prettier **/*.ts",
     "test": "cross-env MODE=test nyc --silent mocha",
     "coverage": "nyc report --reporter=lcov",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.{js,ts}": [
       "prettier --write",
       "eslint",
-      "git add"
+      "tsc-files --p tsconfig.json --noEmit"
     ]
-  },
-  "_moduleAliases": {
-    "~root": ".",
-    "~app": "src/app",
-    "~auth": "src/auth",
-    "~env": "src/env",
-    "~constants": "src/constants",
-    "~defaults": "src/config/defaults.js",
-    "~database": "src/database",
-    "~logger": "src/logger",
-    "~middleware": "src/middleware",
-    "~model": "src/database/model",
-    "~router": "src/router",
-    "~server": "src/server"
   }
 }

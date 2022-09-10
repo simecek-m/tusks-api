@@ -45,7 +45,7 @@ router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
 
 // create task and add it to todo list
 router.post("/lists/:id/tasks", function (req, res, next) {
-  let newTask = new Task(req.body);
+  const newTask = new Task(req.body);
   List.findOneAndUpdate(
     {
       author: req.auth.payload.sub,

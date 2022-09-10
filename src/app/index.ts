@@ -16,7 +16,7 @@ import fallbackRoutes from "router/fallbackRoutes";
 // create express app
 const app: Application = express();
 
-export async function start() {
+export async function start(): Promise<Application> {
   logger.info(`App is running in ${process.env.MODE} mode.`);
 
   // parse json object from request body
@@ -49,7 +49,7 @@ export async function start() {
   return app;
 }
 
-export async function stop() {
+export async function stop(): Promise<Application> {
   await server.close();
   logger.info("Application was stopped!");
   return app;

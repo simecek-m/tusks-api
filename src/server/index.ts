@@ -1,6 +1,6 @@
 import database from "database";
 import { promisify } from "util";
-import { createServer, Server } from "http";
+import { createServer } from "http";
 import logger from "logger";
 import { Application } from "express";
 
