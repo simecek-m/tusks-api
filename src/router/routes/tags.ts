@@ -3,6 +3,8 @@ const router = Router();
 
 // models
 import Tag from "database/model/tag";
+import tagSchema from "dto/schema/tag";
+import { validate } from "middleware/validation/validate";
 
 // get all tags
 router.get("/tags", function (req, res, next) {
@@ -11,7 +13,7 @@ router.get("/tags", function (req, res, next) {
     .catch(next);
 });
 
-router.post("/tags", function (req, res, next) {
+router.post("/tags", validate(tagSchema), function (req, res, next) {
   Tag.create({ owner: req.auth.payload.sub, ...req.body })
     .then((data) => res.send(data))
     .catch((e) => {

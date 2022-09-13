@@ -1,14 +1,20 @@
+import { HttpError } from "error/HttpError";
+import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
 import logger from "logger";
-import { Error } from "types";
 
 export function errorHandler(
-  error: Error,
+  error: HttpError | ValidationError,
   _: Request,
   res: Response,
   next: NextFunction
 ) {
-  logger.error(error.message);
-  res.status(error.status || 400).send(error);
+  if (error instanceof ValidationError) {
+    logger.error("Error while validating DTO!");
+    res.status(400).send(error);
+  } else {
+    logger.error(error.message);
+    res.status(error.status || 400).send(error);
+  }
   next();
 }

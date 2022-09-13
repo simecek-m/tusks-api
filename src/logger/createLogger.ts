@@ -1,5 +1,5 @@
 import winston, { Logger } from "winston";
-import { LOGGER_ID } from "constants/logger";
+import { LOGGER_ID } from "constant";
 import "winston-daily-rotate-file";
 
 const colorizedLogFormat = winston.format.combine(

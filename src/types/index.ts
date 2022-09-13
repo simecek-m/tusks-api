@@ -1,7 +1,17 @@
 import { Schema, Types } from "mongoose";
 
-export interface Error {
+export interface IHttpError {
   status?: number;
+  message: string;
+}
+
+export interface IValidationError {
+  type: string;
+  errors: IParamError[];
+}
+
+export interface IParamError {
+  field: string;
   message: string;
 }
 
