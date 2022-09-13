@@ -1,10 +1,10 @@
-import { IParamError, IValidationError } from "types";
+import { IFieldError } from "types";
 
-export class ValidationError implements IValidationError {
+export class ValidationError {
   type: string;
-  errors: IParamError[];
+  errors: IFieldError[];
 
-  constructor(type: string, errors: IParamError[]) {
+  constructor(type: string, errors: IFieldError[]) {
     this.type = type;
     this.errors = errors;
   }

@@ -1,5 +1,7 @@
+import { HttpError } from "error/HttpError";
 import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
+import logger from "logger";
 import { AnyObjectSchema, ValidationError as YupValidationError } from "yup";
 
 export function validate(schema: AnyObjectSchema) {
@@ -12,13 +14,14 @@ export function validate(schema: AnyObjectSchema) {
       next();
     } catch (error) {
       if (error instanceof YupValidationError) {
-        const errors = error.inner.map((innerError) => ({
+        const formatErrors = error.inner.map((innerError) => ({
           field: innerError.path,
           message: innerError.message,
         }));
-        next(new ValidationError(error.name, errors));
+        next(new ValidationError(error.name, formatErrors));
       } else {
-        next(error);
+        logger.error("Unexpected validation error:", error);
+        next(new HttpError(500, "Unexpected validation error"));
       }
     }
   };

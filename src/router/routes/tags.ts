@@ -1,16 +1,20 @@
 import { Router } from "express";
-const router = Router();
-
-// models
 import Tag from "database/model/tag";
 import tagSchema from "dto/schema/tag";
 import { validate } from "middleware/validation/validate";
+import { HttpError } from "error/HttpError";
+import logger from "logger";
+
+const router = Router();
 
 // get all tags
 router.get("/tags", function (req, res, next) {
   Tag.find({ owner: req.auth.payload.sub })
     .then((data) => res.send(data))
-    .catch(next);
+    .catch((e) => {
+      logger.error("Unexpected error -> GET /tags endpoint: ", e);
+      next(new HttpError(500, "Unexpected error"));
+    });
 });
 
 router.post("/tags", validate(tagSchema), function (req, res, next) {
@@ -18,9 +22,10 @@ router.post("/tags", validate(tagSchema), function (req, res, next) {
     .then((data) => res.send(data))
     .catch((e) => {
       if (e.code === 11000) {
-        next({ status: 409, message: "Tag already exists!" });
+        next(new HttpError(409, "Tag already exists!"));
       } else {
-        next(e);
+        logger.error("Unexpected error -> POST /tags endpoint:", e);
+        next(new HttpError(500, "Unexpected error"));
       }
     });
 });
@@ -31,13 +36,13 @@ router.delete("/tags/:id", function (req, res, next) {
       if (data) {
         res.send(data);
       } else {
-        next({
-          status: 404,
-          message: `Tag (${req.params.id}) was not found!`,
-        });
+        next(new HttpError(404, `Tag (${req.params.id}) was not found!`));
       }
     })
-    .catch(next);
+    .catch((e) => {
+      logger.error("Unexpected error -> DELETE /tags/:id endpoint: ", e);
+      next(new HttpError(500, "Unexpected error"));
+    });
 });
 
 export default router;
