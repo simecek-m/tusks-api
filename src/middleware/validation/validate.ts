@@ -8,6 +8,7 @@ export function validate(schema: AnyObjectSchema) {
     try {
       const validatedSchema = await schema.validate(req.body, {
         abortEarly: false,
+        stripUnknown: true,
       });
       req.body = validatedSchema;
       next();

@@ -1,8 +1,12 @@
-import { COLOR_HEX_FORMAT } from "constant";
+import { COLOR_HEX_FORMAT, DEFAULT_XSS_OPTIONS } from "constant";
+import xss from "xss";
 import { object, string } from "yup";
 
 const tagSchema = object({
-  label: string().trim().required(),
+  label: string()
+    .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
+    .trim()
+    .required(),
   color: object({
     light: string()
       .matches(
