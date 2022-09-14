@@ -1,4 +1,5 @@
 import { Schema, Types } from "mongoose";
+import { IconType } from "./icon";
 
 export interface IFieldError {
   field: string;
@@ -25,7 +26,7 @@ export interface ITask {
 export interface ITodoList {
   author: string;
   title: string;
-  icon: string;
+  icon: IconType;
   tasks: [ITask];
   tags: [Schema.Types.ObjectId];
 }

@@ -1,15 +1,15 @@
 import { DATABASE_UUID_FORMAT, DEFAULT_XSS_OPTIONS } from "constant";
+import { AVAILABLE_ICONS, IconType } from "types/icon";
 import xss from "xss";
-import { array, object, string } from "yup";
+import { array, mixed, object, string } from "yup";
 
 const newListSchema = object({
   title: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()
     .required(),
-  icon: string()
-    .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
-    .trim()
+  icon: mixed<IconType>()
+    .oneOf(AVAILABLE_ICONS, "Unsupported icon type!")
     .required(),
   tags: array().of(
     string().matches(

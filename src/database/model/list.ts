@@ -3,6 +3,7 @@ import { NORMALIZED_OUTPUT } from "database/utils";
 import Tag from "database/model/tag";
 import Task from "database/model/task";
 import { ITodoList } from "types";
+import { AVAILABLE_ICONS } from "types/icon";
 
 const ListSchema = new Schema<ITodoList>(
   {
@@ -17,6 +18,12 @@ const ListSchema = new Schema<ITodoList>(
     icon: {
       type: String,
       required: [true, "Icon field of todo list is required!"],
+      validate: {
+        validator: async (icon: string) => {
+          return AVAILABLE_ICONS.includes(icon);
+        },
+        message: "Unsupported icon type!",
+      },
     },
     tasks: [Task.schema],
     tags: {
