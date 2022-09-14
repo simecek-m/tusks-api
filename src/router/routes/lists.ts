@@ -1,7 +1,10 @@
 import List from "database/model/list";
+import newListSchema from "dto/schema/list/new";
+import udateListSchema from "dto/schema/list/update";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
+import { validate } from "middleware/validation/validate";
 
 const router = Router();
 
@@ -14,7 +17,7 @@ router.get("/lists", function (req, res, next) {
 });
 
 // create new todo list
-router.post("/lists", function (req, res, next) {
+router.post("/lists", validate(newListSchema), function (req, res, next) {
   List.create({
     ...req.body,
     author: req.auth.payload.sub,
@@ -38,7 +41,7 @@ router.get("/lists/:id", function (req, res, next) {
 });
 
 // update todo list
-router.put("/lists/:id", function (req, res, next) {
+router.put("/lists/:id", validate(udateListSchema), function (req, res, next) {
   List.findOneAndUpdate(
     { author: req.auth.payload.sub, _id: req.params.id },
     req.body,
