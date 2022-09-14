@@ -1,7 +1,7 @@
-import { Router } from "express";
 import List from "database/model/list";
 import { HttpError } from "error/HttpError";
-import logger from "logger";
+import { UnexpectedError } from "error/UnexpectedError";
+import { Router } from "express";
 
 const router = Router();
 
@@ -10,10 +10,7 @@ router.get("/lists", function (req, res, next) {
   List.find({ author: req.auth.payload.sub })
     .populate("tags")
     .then((data) => res.send(data))
-    .catch((e) => {
-      logger.error("Unexpected error -> GET /lists endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // create new todo list
@@ -23,10 +20,7 @@ router.post("/lists", function (req, res, next) {
     author: req.auth.payload.sub,
   })
     .then((data) => res.send(data))
-    .catch((e) => {
-      logger.error("Unexpected error -> POST /lists endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // get specific todo list
@@ -40,10 +34,7 @@ router.get("/lists/:id", function (req, res, next) {
         next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
     })
-    .catch((e) => {
-      logger.error("Unexpected error -> GET /lists/:id endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // update todo list
@@ -63,10 +54,7 @@ router.put("/lists/:id", function (req, res, next) {
         next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
     })
-    .catch((e) => {
-      logger.error("Unexpected error -> PUT /lists/:id endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // delete todo list
@@ -79,10 +67,7 @@ router.delete("/lists/:id", function (req, res, next) {
         next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
     })
-    .catch((e) => {
-      logger.error("Unexpected error -> DELETE /lists/:id endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 export default router;

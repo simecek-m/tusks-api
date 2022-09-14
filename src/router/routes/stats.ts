@@ -1,7 +1,6 @@
-import { Router } from "express";
 import List from "database/model/list";
-import { HttpError } from "error/HttpError";
-import logger from "logger";
+import { UnexpectedError } from "error/UnexpectedError";
+import { Router } from "express";
 
 const router = Router();
 
@@ -20,8 +19,7 @@ router.get("/stats", async function (req, res, next) {
 
     res.send({ listsCount, unfinishedTasks, lastActiveList });
   } catch (e) {
-    logger.error("Unexpected error -> GET /stats endpoint:", e);
-    next(new HttpError(500, "Unexpected error"));
+    next(new UnexpectedError(e));
   }
 });
 

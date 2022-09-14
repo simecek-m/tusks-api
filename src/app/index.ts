@@ -60,7 +60,7 @@ export async function start(): Promise<Application> {
     await database.connect();
     logger.info("Successfully connected to Mongo database.");
   } catch (error) {
-    logger.warn(`Can't connect to Mongo database: ${error.message}!`);
+    logger.error(`Can't connect to Mongo database: ${error.message}!`);
   }
   return app;
 }

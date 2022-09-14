@@ -1,8 +1,8 @@
-import { Router } from "express";
 import List from "database/model/list";
 import Task from "database/model/task";
 import { HttpError } from "error/HttpError";
-import logger from "logger";
+import { UnexpectedError } from "error/UnexpectedError";
+import { Router } from "express";
 
 const router = Router();
 
@@ -16,10 +16,7 @@ router.get("/lists/:id/tasks", function (req, res, next) {
         next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
     })
-    .catch((e) => {
-      logger.error("Unexpected error -> GET /lists/:id/tasks endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // get specific task from specific todo list
@@ -43,13 +40,7 @@ router.get("/lists/:listId/tasks/:taskId", function (req, res, next) {
         );
       }
     })
-    .catch((e) => {
-      logger.error(
-        "Unexpected error -> GET /lists/:listId/tasks/:taskId endpoint: ",
-        e
-      );
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // create task and add it to todo list
@@ -70,10 +61,7 @@ router.post("/lists/:id/tasks", function (req, res, next) {
         next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
     })
-    .catch((e) => {
-      logger.error("Unexpected error -> POST /lists/:id/tasks endpoint: ", e);
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // update specific task - only isCompleted field is updated
@@ -104,13 +92,7 @@ router.put("/lists/:listId/tasks/:taskId", function (req, res, next) {
         );
       }
     })
-    .catch((e) => {
-      logger.error(
-        "Unexpected error -> PUT /lists/:listId/tasks/:taskId endpoint: ",
-        e
-      );
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 // delete specific task
@@ -137,13 +119,7 @@ router.delete("/lists/:listId/tasks/:taskId", function (req, res, next) {
         );
       }
     })
-    .catch((e) => {
-      logger.error(
-        "Unexpected error -> DELETE /lists/:listId/tasks/:taskId endpoint: ",
-        e
-      );
-      next(new HttpError(500, "Unexpected error"));
-    });
+    .catch((e) => next(new UnexpectedError(e)));
 });
 
 export default router;

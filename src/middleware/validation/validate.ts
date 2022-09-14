@@ -1,7 +1,6 @@
-import { HttpError } from "error/HttpError";
+import { UnexpectedError } from "error/UnexpectedError";
 import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
-import logger from "logger";
 import { AnyObjectSchema, ValidationError as YupValidationError } from "yup";
 
 export function validate(schema: AnyObjectSchema) {
@@ -20,8 +19,7 @@ export function validate(schema: AnyObjectSchema) {
         }));
         next(new ValidationError(error.name, formatErrors));
       } else {
-        logger.error("Unexpected validation error:", error);
-        next(new HttpError(500, "Unexpected validation error"));
+        next(new UnexpectedError(error));
       }
     }
   };
