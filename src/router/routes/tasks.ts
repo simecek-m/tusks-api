@@ -14,8 +14,8 @@ const router = Router();
 router.get(`/${ROUTE_LISTS}/:id/${ROUTE_TASKS}`, async (req, res, next) => {
   try {
     const result = await List.findOne({
-      author: req.auth.payload.sub,
       _id: req.params.id,
+      author: req.auth.payload.sub,
     });
     if (result) {
       res.send(result.tasks);
@@ -33,9 +33,9 @@ router.get(
   async (req, res, next) => {
     try {
       const result = await List.findOne({
-        author: req.auth.payload.sub,
         _id: req.params.listId,
         tasks: { $elemMatch: { _id: req.params.taskId } },
+        author: req.auth.payload.sub,
       });
       if (result) {
         res.send(
@@ -64,8 +64,8 @@ router.post(
       const newTask = new Task(req.body);
       const result = await List.findOneAndUpdate(
         {
-          author: req.auth.payload.sub,
           _id: req.params.id,
+          author: req.auth.payload.sub,
         },
         { $push: { tasks: { ...newTask } } },
         { runValidators: true, new: true }
@@ -89,9 +89,9 @@ router.put(
     try {
       const result = await List.findOneAndUpdate(
         {
-          author: req.auth.payload.sub,
           _id: req.params.listId,
           tasks: { $elemMatch: { _id: req.params.taskId } },
+          author: req.auth.payload.sub,
         },
         { $set: { "tasks.$.isCompleted": req.body.isCompleted } },
         {
@@ -124,9 +124,9 @@ router.delete(
     try {
       const result = await List.findOneAndUpdate(
         {
-          author: req.auth.payload.sub,
           _id: req.params.listId,
           tasks: { $elemMatch: { _id: req.params.taskId } },
+          author: req.auth.payload.sub,
         },
         { $pull: { tasks: { _id: req.params.taskId } } }
       );

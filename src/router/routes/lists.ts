@@ -42,8 +42,8 @@ router.post(
 router.get(`/${ROUTE_LISTS}/:id`, async (req, res, next) => {
   try {
     const result = await List.findOne({
-      author: req.auth.payload.sub,
       _id: req.params.id,
+      author: req.auth.payload.sub,
     }).populate("tags");
 
     if (result) {
@@ -63,7 +63,7 @@ router.put(
   async (req, res, next) => {
     try {
       const result = await List.findOneAndUpdate(
-        { author: req.auth.payload.sub, _id: req.params.id },
+        { _id: req.params.id, author: req.auth.payload.sub },
         req.body,
         {
           new: true,
@@ -85,8 +85,8 @@ router.put(
 router.delete(`/${ROUTE_LISTS}/:id`, async (req, res, next) => {
   try {
     const result = await List.findOneAndDelete({
-      author: req.auth.payload.sub,
       _id: req.params.id,
+      author: req.auth.payload.sub,
     });
 
     if (result) {

@@ -16,7 +16,7 @@ router.get(`/${ROUTE_TAGS}`, function (req, res, next) {
 });
 
 router.post(`/${ROUTE_TAGS}`, validate(tagSchema), function (req, res, next) {
-  Tag.create({ owner: req.auth.payload.sub, ...req.body })
+  Tag.create({ ...req.body, owner: req.auth.payload.sub })
     .then((data) => res.send(data))
     .catch((e) => {
       if (e.code === 11000) {
@@ -28,7 +28,7 @@ router.post(`/${ROUTE_TAGS}`, validate(tagSchema), function (req, res, next) {
 });
 
 router.delete(`/${ROUTE_TAGS}/:id`, function (req, res, next) {
-  Tag.findOneAndDelete({ owner: req.auth.payload.sub, _id: req.params.id })
+  Tag.findOneAndDelete({ _id: req.params.id, owner: req.auth.payload.sub })
     .then((data) => {
       if (data) {
         res.send(data);
