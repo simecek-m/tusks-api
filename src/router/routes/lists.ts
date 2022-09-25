@@ -1,3 +1,4 @@
+import { ROUTE_LISTS } from "constant";
 import List from "database/model/list";
 import newListSchema from "dto/schema/list/new";
 import updateListSchema from "dto/schema/list/update";
@@ -9,7 +10,7 @@ import { validate } from "middleware/validation/validate";
 const router = Router();
 
 // get all todo lists
-router.get("/lists", async (req, res, next) => {
+router.get(`/${ROUTE_LISTS}`, async (req, res, next) => {
   try {
     const result = await List.find({ author: req.auth.payload.sub }).populate(
       "tags"
@@ -21,20 +22,24 @@ router.get("/lists", async (req, res, next) => {
 });
 
 // create new todo list
-router.post("/lists", validate(newListSchema), async (req, res, next) => {
-  try {
-    const result = await List.create({
-      ...req.body,
-      author: req.auth.payload.sub,
-    });
-    res.send(result);
-  } catch (e) {
-    next(new UnexpectedError(e));
+router.post(
+  `/${ROUTE_LISTS}`,
+  validate(newListSchema),
+  async (req, res, next) => {
+    try {
+      const result = await List.create({
+        ...req.body,
+        author: req.auth.payload.sub,
+      });
+      res.send(result);
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
   }
-});
+);
 
 // get specific todo list
-router.get("/lists/:id", async (req, res, next) => {
+router.get(`/${ROUTE_LISTS}/:id`, async (req, res, next) => {
   try {
     const result = await List.findOne({
       author: req.auth.payload.sub,
@@ -52,28 +57,32 @@ router.get("/lists/:id", async (req, res, next) => {
 });
 
 // update todo list
-router.put("/lists/:id", validate(updateListSchema), async (req, res, next) => {
-  try {
-    const result = await List.findOneAndUpdate(
-      { author: req.auth.payload.sub, _id: req.params.id },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
+router.put(
+  `/${ROUTE_LISTS}/:id`,
+  validate(updateListSchema),
+  async (req, res, next) => {
+    try {
+      const result = await List.findOneAndUpdate(
+        { author: req.auth.payload.sub, _id: req.params.id },
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      if (result) {
+        res.send(result);
+      } else {
+        next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
       }
-    );
-    if (result) {
-      res.send(result);
-    } else {
-      next(new HttpError(404, `Todo list (${req.params.id}) was not found!`));
+    } catch (e) {
+      next(new UnexpectedError(e));
     }
-  } catch (e) {
-    next(new UnexpectedError(e));
   }
-});
+);
 
 // delete todo list
-router.delete("/lists/:id", async (req, res, next) => {
+router.delete(`/${ROUTE_LISTS}/:id`, async (req, res, next) => {
   try {
     const result = await List.findOneAndDelete({
       author: req.auth.payload.sub,

@@ -16,3 +16,9 @@ export const DEFAULT_XSS_OPTIONS: IFilterXSSOptions = {
   stripIgnoreTag: true,
   stripBlankChar: true,
 };
+
+// ROUTES
+export const ROUTE_STATS = "stats";
+export const ROUTE_TAGS = "tags";
+export const ROUTE_LISTS = "lists";
+export const ROUTE_TASKS = "tasks";

@@ -1,3 +1,4 @@
+import { ROUTE_TAGS } from "constant";
 import Tag from "database/model/tag";
 import tagSchema from "dto/schema/tag";
 import { HttpError } from "error/HttpError";
@@ -8,13 +9,13 @@ import { validate } from "middleware/validation/validate";
 const router = Router();
 
 // get all tags
-router.get("/tags", function (req, res, next) {
+router.get(`/${ROUTE_TAGS}`, function (req, res, next) {
   Tag.find({ owner: req.auth.payload.sub })
     .then((data) => res.send(data))
     .catch((e) => next(new UnexpectedError(e)));
 });
 
-router.post("/tags", validate(tagSchema), function (req, res, next) {
+router.post(`/${ROUTE_TAGS}`, validate(tagSchema), function (req, res, next) {
   Tag.create({ owner: req.auth.payload.sub, ...req.body })
     .then((data) => res.send(data))
     .catch((e) => {
@@ -26,7 +27,7 @@ router.post("/tags", validate(tagSchema), function (req, res, next) {
     });
 });
 
-router.delete("/tags/:id", function (req, res, next) {
+router.delete(`/${ROUTE_TAGS}/:id`, function (req, res, next) {
   Tag.findOneAndDelete({ owner: req.auth.payload.sub, _id: req.params.id })
     .then((data) => {
       if (data) {

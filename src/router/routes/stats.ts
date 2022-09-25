@@ -1,10 +1,11 @@
+import { ROUTE_STATS } from "constant";
 import List from "database/model/list";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/stats", async function (req, res, next) {
+router.get(`/${ROUTE_STATS}`, async function (req, res, next) {
   try {
     const lists = await List.find({ author: req.auth.payload.sub }).sort({
       updatedAt: -1,
