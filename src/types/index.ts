@@ -29,4 +29,5 @@ export interface ITodoList {
   icon: IconType;
   tasks: [ITask];
   tags: [Schema.Types.ObjectId];
+  color: IThemedColor;
 }

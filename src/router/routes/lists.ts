@@ -1,6 +1,6 @@
 import List from "database/model/list";
 import newListSchema from "dto/schema/list/new";
-import udateListSchema from "dto/schema/list/update";
+import updateListSchema from "dto/schema/list/update";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
@@ -52,7 +52,7 @@ router.get("/lists/:id", async (req, res, next) => {
 });
 
 // update todo list
-router.put("/lists/:id", validate(udateListSchema), async (req, res, next) => {
+router.put("/lists/:id", validate(updateListSchema), async (req, res, next) => {
   try {
     const result = await List.findOneAndUpdate(
       { author: req.auth.payload.sub, _id: req.params.id },

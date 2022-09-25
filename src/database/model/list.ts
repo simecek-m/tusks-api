@@ -4,6 +4,7 @@ import Tag from "database/model/tag";
 import Task from "database/model/task";
 import { ITodoList } from "types";
 import { AVAILABLE_ICONS } from "types/icon";
+import ThemedColor from "database/model/themedColor";
 
 const ListSchema = new Schema<ITodoList>(
   {
@@ -38,6 +39,10 @@ const ListSchema = new Schema<ITodoList>(
         },
         message: "Non-existent tag!",
       },
+    },
+    color: {
+      type: ThemedColor.schema,
+      required: [true, "Color of Todo List is required field!"],
     },
   },
   {
