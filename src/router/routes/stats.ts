@@ -10,15 +10,14 @@ router.get(`/${ROUTE_STATS}`, async function (req, res, next) {
     const lists = await List.find({ author: req.auth.payload.sub }).sort({
       updatedAt: -1,
     });
-    const lastActiveList = lists[0];
+    const lastActiveList = lists[0] ?? null;
     const listsCount = lists.length;
-    const unfinishedTasks = lists.reduce(
+    const unfinishedTasksCount = lists.reduce(
       (prev, curr) =>
         prev + curr.tasks.filter((task) => !task.isCompleted).length,
       0
     );
-
-    res.send({ listsCount, unfinishedTasks, lastActiveList });
+    res.send({ listsCount, unfinishedTasksCount, lastActiveList });
   } catch (e) {
     next(new UnexpectedError(e));
   }
