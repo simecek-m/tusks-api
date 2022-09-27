@@ -4,11 +4,16 @@ import { DEFAULT_DB_TIMEOUT } from "constant";
 
 async function connect(): Promise<typeof mongoose> {
   logger.info("Opening mongoose connection.");
-  return mongoose.connect(process.env.MONGO_URL, {
+  const url = `mongodb://${process.env.MONGO_USER}:${encodeURIComponent(
+    process.env.MONGO_PASSWORD
+  )}@${process.env.MONGO_SERVER}:${process.env.MONGO_PORT}`;
+  logger.info(url);
+  return mongoose.connect(url, {
     serverSelectionTimeoutMS: DEFAULT_DB_TIMEOUT,
     socketTimeoutMS: DEFAULT_DB_TIMEOUT,
     connectTimeoutMS: DEFAULT_DB_TIMEOUT,
     waitQueueTimeoutMS: DEFAULT_DB_TIMEOUT,
+    dbName: process.env.MONGO_DATABASE,
   });
 }
 
