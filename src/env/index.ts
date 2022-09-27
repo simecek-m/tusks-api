@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { createLogger } from "logger/createLogger";
 
 // .env file path (dependent on app mode)
-const path = `.${process.env.MODE}.env`;
+const path = `.env.${process.env.MODE}`;
 
 // load .env file
 const loadEnvFileResult = dotenv.config({ path });
@@ -15,8 +15,8 @@ const logger = createLogger();
 
 // log state of loading .env file
 if (loadEnvFileResult.error) {
-  logger.warn(`Missing ${path} file!`);
-  logger.info("Using generic .env file!");
+  logger.error(`Missing ${path} file!`);
+  process.exit(1);
 } else {
   logger.info(`${path} loaded successfully.`);
 }
