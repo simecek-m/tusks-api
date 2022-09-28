@@ -38,12 +38,13 @@ export async function start(): Promise<Application> {
     })
   );
 
-  // API monitoring & documentation middleware
-  useTreblle(app, {
-    apiKey: process.env.TREBLLE_API_KEY,
-    projectId: process.env.TREBLLE_PROJECT_ID,
-    showErrors: process.env.MODE === "development",
-  });
+  // API monitoring & documentation middleware - only in production
+  if (process.env.MODE === "production") {
+    useTreblle(app, {
+      apiKey: process.env.TREBLLE_API_KEY,
+      projectId: process.env.TREBLLE_PROJECT_ID,
+    });
+  }
 
   // authentication middleware
   app.use(checkJwt);
