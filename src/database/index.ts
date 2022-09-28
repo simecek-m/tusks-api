@@ -7,7 +7,6 @@ async function connect(): Promise<typeof mongoose> {
   const url = `mongodb://${process.env.MONGO_USER}:${encodeURIComponent(
     process.env.MONGO_PASSWORD
   )}@${process.env.MONGO_SERVER}:${process.env.MONGO_PORT}`;
-  logger.info(url);
   return mongoose.connect(url, {
     serverSelectionTimeoutMS: DEFAULT_DB_TIMEOUT,
     socketTimeoutMS: DEFAULT_DB_TIMEOUT,
