@@ -10,6 +10,7 @@ import logger from "logger";
 import { errorHandler } from "middleware/error";
 import morgan from "morgan";
 import server from "server";
+import { useTreblle } from "treblle";
 
 // import routes
 import database from "database";
@@ -36,6 +37,13 @@ export async function start(): Promise<Application> {
       },
     })
   );
+
+  // API monitoring & documentation middleware
+  useTreblle(app, {
+    apiKey: process.env.TREBLLE_API_KEY,
+    projectId: process.env.TREBLLE_PROJECT_ID,
+    showErrors: process.env.MODE === "development",
+  });
 
   // authentication middleware
   app.use(checkJwt);
