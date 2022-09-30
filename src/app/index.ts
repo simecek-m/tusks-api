@@ -2,7 +2,6 @@
 import "env";
 
 // imports
-import { checkJwt } from "auth";
 import { json } from "body-parser";
 import cors from "cors";
 import express, { Application } from "express";
@@ -11,11 +10,12 @@ import { errorHandler } from "middleware/error";
 import morgan from "morgan";
 import server from "server";
 import { useTreblle } from "treblle";
+import database from "database";
 
 // import routes
-import database from "database";
-import fallbackRoutes from "router/fallbackRoutes";
 import protectedRoutes from "router/protectedRoutes";
+import fallbackRoutes from "router/fallbackRoutes";
+import docRoutes from "router/docRoutes";
 
 // create express app
 const app: Application = express();
@@ -38,7 +38,7 @@ export async function start(): Promise<Application> {
     })
   );
 
-  // API monitoring & documentation middleware - only in production
+  // API monitoring middleware - only in production
   if (process.env.MODE === "production") {
     useTreblle(app, {
       apiKey: process.env.TREBLLE_API_KEY,
@@ -46,14 +46,16 @@ export async function start(): Promise<Application> {
     });
   }
 
-  // authentication middleware
-  app.use(checkJwt);
-
   // api protected routes
   app.use("/api", protectedRoutes);
 
+  // unknown api routes
+  app.use(fallbackRoutes);
+
+  // api documentation routes
+  app.use(docRoutes);
+
   // error handling
-  app.use("/", fallbackRoutes);
   app.use(errorHandler);
 
   // start HTTP server

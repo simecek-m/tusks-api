@@ -1,6 +1,10 @@
 // imports
+import { checkJwt } from "auth";
 import { Router } from "express";
 const router = Router();
+
+// authentication middleware
+router.use(checkJwt);
 
 // routes
 import statsRoutes from "router/routes/stats";
