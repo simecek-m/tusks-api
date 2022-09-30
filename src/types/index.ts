@@ -12,6 +12,7 @@ export interface IThemedColor {
 }
 
 export interface ITag {
+  id: Types.ObjectId;
   owner: string;
   label: string;
   color: IThemedColor;
@@ -24,6 +25,7 @@ export interface ITask {
 }
 
 export interface ITodoList {
+  id: Types.ObjectId;
   author: string;
   title: string;
   icon: IconType;

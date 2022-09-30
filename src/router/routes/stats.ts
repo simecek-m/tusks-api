@@ -7,9 +7,11 @@ const router = Router();
 
 router.get(`/${ROUTE_STATS}`, async function (req, res, next) {
   try {
-    const lists = await List.find({ author: req.auth.payload.sub }).sort({
-      updatedAt: -1,
-    });
+    const lists = await List.find({ author: req.auth.payload.sub })
+      .populate("tags")
+      .sort({
+        updatedAt: -1,
+      });
     const lastActiveList = lists[0] ?? null;
     const listsCount = lists.length;
     const unfinishedTasksCount = lists.reduce(
