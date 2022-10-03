@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import ThemedColor from "database/model/themedColor";
+import ThemedColor from "database/model/ThemedColor";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { ITag } from "types";
 
@@ -10,7 +10,6 @@ const TagSchema = new Schema<ITag>({
   },
   label: {
     type: String,
-    unique: true,
     required: [true, "Tag's label is required field!"],
   },
   color: {

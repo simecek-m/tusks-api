@@ -1,5 +1,5 @@
 import { ROUTE_TAGS } from "constant";
-import Tag from "database/model/tag";
+import Tag from "database/model/Tag";
 import tagSchema from "dto/schema/tag";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
@@ -19,11 +19,7 @@ router.post(`/${ROUTE_TAGS}`, validate(tagSchema), function (req, res, next) {
   Tag.create({ ...req.body, owner: req.auth.payload.sub })
     .then((data) => res.send(data))
     .catch((e) => {
-      if (e.code === 11000) {
-        next(new HttpError(409, "Tag already exists!"));
-      } else {
-        next(new UnexpectedError(e));
-      }
+      next(new UnexpectedError(e));
     });
 });
 

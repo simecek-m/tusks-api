@@ -3,19 +3,19 @@ import { checkJwt } from "auth";
 import { Router } from "express";
 const router = Router();
 
-// authentication middleware
-router.use(checkJwt);
-
 // routes
 import statsRoutes from "router/routes/stats";
 import tagsRoutes from "router/routes/tags";
-import listsRoutes from "router/routes/lists";
+import notebooksRoutes from "router/routes/notebooks";
 import tasksRoutes from "router/routes/tasks";
+
+// authentication middleware
+router.use(checkJwt);
 
 // router middleware
 router.use(statsRoutes);
 router.use(tagsRoutes);
-router.use(listsRoutes);
+router.use(notebooksRoutes);
 router.use(tasksRoutes);
 
 export default router;

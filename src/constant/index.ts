@@ -20,5 +20,5 @@ export const DEFAULT_XSS_OPTIONS: IFilterXSSOptions = {
 // ROUTES
 export const ROUTE_STATS = "stats";
 export const ROUTE_TAGS = "tags";
-export const ROUTE_LISTS = "lists";
+export const ROUTE_NOTEBOOKS = "notebooks";
 export const ROUTE_TASKS = "tasks";

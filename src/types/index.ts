@@ -22,14 +22,33 @@ export interface ITask {
   id: Types.ObjectId;
   text: string;
   isCompleted: boolean;
+  priority: number;
+  deadline: Date;
+  reminder: Date;
 }
 
-export interface ITodoList {
-  id: Types.ObjectId;
-  author: string;
-  title: string;
+export interface IPage {
+  name: string;
   icon: IconType;
-  tasks: [ITask];
-  tags: [Schema.Types.ObjectId];
   color: IThemedColor;
+  content: string;
+  tags: [Schema.Types.ObjectId];
+}
+
+export interface INotebookSettings {
+  visibleTasks: boolean;
+  visiblePages: boolean;
+}
+
+export interface INotebook {
+  id: Types.ObjectId;
+  name: string;
+  icon: IconType;
+  description: string;
+  author: string;
+  color: IThemedColor;
+  tags: [Schema.Types.ObjectId];
+  tasks: [ITask];
+  pages: [IPage];
+  settings: INotebookSettings;
 }
