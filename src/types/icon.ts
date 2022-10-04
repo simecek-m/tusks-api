@@ -1397,4 +1397,4 @@ export const AVAILABLE_ICONS = [
   "yen-sign",
   "yin-yang",
   "z",
-];
+] as const;

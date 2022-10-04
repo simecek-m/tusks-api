@@ -4,7 +4,7 @@ import Tag from "database/model/Tag";
 import Page from "database/model/Page";
 import Task from "database/model/Task";
 import { INotebook } from "types";
-import { AVAILABLE_ICONS } from "types/icon";
+import { AVAILABLE_ICONS, IconType } from "types/icon";
 import ThemedColor from "database/model/ThemedColor";
 
 const NotebookSchema = new Schema<INotebook>(
@@ -17,7 +17,7 @@ const NotebookSchema = new Schema<INotebook>(
       type: String,
       required: [true, "Icon field of Notebook is required!"],
       validate: {
-        validator: async (icon: string) => {
+        validator: async (icon: IconType) => {
           return AVAILABLE_ICONS.includes(icon);
         },
         message: "Unsupported icon type!",

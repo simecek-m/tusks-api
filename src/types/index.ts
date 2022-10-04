@@ -1,4 +1,5 @@
-import { Schema, Types } from "mongoose";
+import { AVAILABLE_ROLES } from "constant";
+import { ObjectId, Schema, Types } from "mongoose";
 import { IconType } from "./icon";
 
 export interface IFieldError {
@@ -9,6 +10,25 @@ export interface IFieldError {
 export interface IThemedColor {
   light: string;
   dark: string;
+}
+
+export type Role = typeof AVAILABLE_ROLES[number];
+
+export interface IMember {
+  user: string;
+  role: Role;
+}
+
+export interface ITeam {
+  name: string;
+  color: IThemedColor;
+  icon: IconType;
+  members: IMember[];
+}
+
+export interface IShare {
+  users: [string];
+  team: ITeam;
 }
 
 export interface ITag {
@@ -51,4 +71,5 @@ export interface INotebook {
   tasks: [ITask];
   pages: [IPage];
   settings: INotebookSettings;
+  share: IShare;
 }

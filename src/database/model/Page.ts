@@ -1,7 +1,7 @@
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IPage } from "types";
-import { AVAILABLE_ICONS } from "types/icon";
+import { AVAILABLE_ICONS, IconType } from "types/icon";
 import Tag from "./Tag";
 import ThemedColor from "./ThemedColor";
 
@@ -15,7 +15,7 @@ const PageSchema = new Schema<IPage>(
       type: String,
       required: [true, "Icon field of Page is required!"],
       validate: {
-        validator: async (icon: string) => {
+        validator: async (icon: IconType) => {
           return AVAILABLE_ICONS.includes(icon);
         },
         message: "Unsupported icon type!",
