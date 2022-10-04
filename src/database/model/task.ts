@@ -15,7 +15,6 @@ const TaskSchema = new Schema<ITask>(
     },
   },
   {
-    _id: true,
     autoCreate: false,
     timestamps: true,
   }

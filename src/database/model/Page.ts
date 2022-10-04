@@ -45,7 +45,6 @@ const PageSchema = new Schema<IPage>(
     },
   },
   {
-    _id: true,
     autoCreate: false,
     timestamps: true,
   }
