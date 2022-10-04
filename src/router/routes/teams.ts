@@ -54,4 +54,21 @@ router.put(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
   }
 });
 
+//delete team by id
+router.delete(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
+  try {
+    const result = await Team.findOneAndDelete({
+      _id: req.params.id,
+      members: { $elemMatch: { user: req.auth.payload.sub, role: "owner" } },
+    });
+    if (result) {
+      res.send(result);
+    } else {
+      next(new HttpError(404, `Team (${req.params.id}) was not found!`));
+    }
+  } catch (e) {
+    next(new UnexpectedError(e));
+  }
+});
+
 export default router;
