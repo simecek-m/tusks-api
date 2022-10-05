@@ -5,11 +5,10 @@ import { DEFAULT_DB_TIMEOUT } from "constant";
 const CONNECTION_STRING_STANDARD_PREFIX = "mongodb";
 const CONNECTION_STRING_DNS_PREFIX = "mongodb+srv";
 const DEFAULT_CONNECTION_OPTIONS: ConnectOptions = {
-  serverSelectionTimeoutMS: DEFAULT_DB_TIMEOUT,
-  socketTimeoutMS: DEFAULT_DB_TIMEOUT,
-  connectTimeoutMS: DEFAULT_DB_TIMEOUT,
-  waitQueueTimeoutMS: DEFAULT_DB_TIMEOUT,
   dbName: process.env.MONGO_DATABASE_NAME,
+  serverSelectionTimeoutMS: DEFAULT_DB_TIMEOUT,
+  connectTimeoutMS: DEFAULT_DB_TIMEOUT,
+  bufferCommands: false,
 };
 
 async function connect(): Promise<typeof mongoose> {
