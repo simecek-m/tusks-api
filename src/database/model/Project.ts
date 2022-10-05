@@ -1,21 +1,22 @@
+import { IProject } from "types";
+import { AVAILABLE_ICONS, IconType } from "types/icon";
 import { Schema, model, ObjectId } from "mongoose";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import Tag from "database/model/Tag";
 import Page from "database/model/Page";
 import Task from "database/model/Task";
-import { INotebook } from "types";
-import { AVAILABLE_ICONS, IconType } from "types/icon";
+import Share from "database/model/Share";
 import ThemedColor from "database/model/ThemedColor";
 
-const NotebookSchema = new Schema<INotebook>(
+const ProjectSchema = new Schema<IProject>(
   {
     name: {
       type: String,
-      required: [true, "Name field of Notebook is required!"],
+      required: [true, "Name field of Project is required!"],
     },
     icon: {
       type: String,
-      required: [true, "Icon field of Notebook is required!"],
+      required: [true, "Icon field of Project is required!"],
       validate: {
         validator: async (icon: IconType) => {
           return AVAILABLE_ICONS.includes(icon);
@@ -25,7 +26,7 @@ const NotebookSchema = new Schema<INotebook>(
     },
     author: {
       type: String,
-      required: [true, "Author field of Notebook is required!"],
+      required: [true, "Author field of Project is required!"],
     },
     description: {
       type: String,
@@ -46,10 +47,17 @@ const NotebookSchema = new Schema<INotebook>(
     },
     color: {
       type: ThemedColor.schema,
-      required: [true, "Color of Notebook is required field!"],
+      required: [true, "Color of Project is required field!"],
     },
     pages: {
       type: [Page.schema],
+    },
+    share: {
+      type: Share.schema,
+      default: {
+        users: [],
+        team: null,
+      },
     },
   },
   {
@@ -57,7 +65,7 @@ const NotebookSchema = new Schema<INotebook>(
   }
 );
 
-NotebookSchema.set("toJSON", NORMALIZED_OUTPUT);
-NotebookSchema.set("toObject", NORMALIZED_OUTPUT);
+ProjectSchema.set("toJSON", NORMALIZED_OUTPUT);
+ProjectSchema.set("toObject", NORMALIZED_OUTPUT);
 
-export default model<INotebook>("notebook", NotebookSchema);
+export default model<IProject>("project", ProjectSchema);

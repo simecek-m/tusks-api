@@ -1,15 +1,15 @@
-import { ROUTE_NOTEBOOKS } from "constant";
-import Notebook from "database/model/Notebook";
+import { ROUTE_PROJECTS } from "constant";
+import Project from "database/model/Project";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 
 const router = Router();
 
-// retrieve all user's notebooks
-router.get(`/${ROUTE_NOTEBOOKS}`, async (req, res, next) => {
+// retrieve all user's projects
+router.get(`/${ROUTE_PROJECTS}`, async (req, res, next) => {
   try {
-    const result = await Notebook.find({
+    const result = await Project.find({
       author: req.auth.payload.sub,
     }).populate("tags");
     res.send(result);
@@ -18,10 +18,10 @@ router.get(`/${ROUTE_NOTEBOOKS}`, async (req, res, next) => {
   }
 });
 
-// create new notebook
-router.post(`/${ROUTE_NOTEBOOKS}`, async (req, res, next) => {
+// create new project
+router.post(`/${ROUTE_PROJECTS}`, async (req, res, next) => {
   try {
-    const result = await Notebook.create({
+    const result = await Project.create({
       ...req.body,
       author: req.auth.payload.sub,
     });
@@ -31,10 +31,10 @@ router.post(`/${ROUTE_NOTEBOOKS}`, async (req, res, next) => {
   }
 });
 
-// retrieve one specific notebook by id
-router.get(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
+// retrieve one specific project by id
+router.get(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
   try {
-    const result = await Notebook.findOne({
+    const result = await Project.findOne({
       _id: req.params.id,
       author: req.auth.payload.sub,
     }).populate("tags");
@@ -42,17 +42,17 @@ router.get(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
     if (result) {
       res.send(result);
     } else {
-      next(new HttpError(404, `Notebook (${req.params.id}) was not found!`));
+      next(new HttpError(404, `Project (${req.params.id}) was not found!`));
     }
   } catch (e) {
     next(new UnexpectedError(e));
   }
 });
 
-// update one specific notebook by id
-router.put(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
+// update one specific project by id
+router.put(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
   try {
-    const result = await Notebook.findOneAndUpdate(
+    const result = await Project.findOneAndUpdate(
       { _id: req.params.id, author: req.auth.payload.sub },
       req.body,
       {
@@ -63,17 +63,17 @@ router.put(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
     if (result) {
       res.send(result);
     } else {
-      next(new HttpError(404, `Notebook (${req.params.id}) was not found!`));
+      next(new HttpError(404, `Project (${req.params.id}) was not found!`));
     }
   } catch (e) {
     next(new UnexpectedError(e));
   }
 });
 
-// delte one notebook by id
-router.delete(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
+// delte one project by id
+router.delete(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
   try {
-    const result = await Notebook.findOneAndDelete({
+    const result = await Project.findOneAndDelete({
       _id: req.params.id,
       author: req.auth.payload.sub,
     });
@@ -81,7 +81,7 @@ router.delete(`/${ROUTE_NOTEBOOKS}/:id`, async (req, res, next) => {
     if (result) {
       res.send(result);
     } else {
-      next(new HttpError(404, `Notebook (${req.params.id}) was not found!`));
+      next(new HttpError(404, `Project (${req.params.id}) was not found!`));
     }
   } catch (e) {
     next(new UnexpectedError(e));

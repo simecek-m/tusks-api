@@ -28,7 +28,7 @@ const PageSchema = new Schema<IPage>(
     },
     color: {
       type: ThemedColor.schema,
-      required: [true, "Color of Notebook is required field!"],
+      required: [true, "Color field of Page is required!"],
     },
     tags: {
       type: [Schema.Types.ObjectId],

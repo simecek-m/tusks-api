@@ -1,6 +1,6 @@
 import { AVAILABLE_ROLES } from "constant";
-import { ObjectId, Schema, Types } from "mongoose";
-import { IconType } from "./icon";
+import { ObjectId, Types } from "mongoose";
+import { IconType } from "types/icon";
 
 export interface IFieldError {
   field: string;
@@ -23,23 +23,23 @@ export interface ITeam {
   name: string;
   color: IThemedColor;
   icon: IconType;
-  members: IMember[];
+  members: Array<IMember>;
 }
 
 export interface IShare {
-  users: [string];
-  team: ITeam;
+  users: Array<string>;
+  team?: ITeam;
 }
 
 export interface ITag {
-  id: Types.ObjectId;
+  id: ObjectId;
   owner: string;
   label: string;
   color: IThemedColor;
 }
 
 export interface ITask {
-  id: Types.ObjectId;
+  id: ObjectId;
   text: string;
   isCompleted: boolean;
   priority: number;
@@ -52,24 +52,24 @@ export interface IPage {
   icon: IconType;
   color: IThemedColor;
   content: string;
-  tags: [Schema.Types.ObjectId];
+  tags: Array<ObjectId>;
 }
 
-export interface INotebookSettings {
+export interface IProjectSettings {
   visibleTasks: boolean;
   visiblePages: boolean;
 }
 
-export interface INotebook {
+export interface IProject {
   id: Types.ObjectId;
   name: string;
   icon: IconType;
   description: string;
   author: string;
   color: IThemedColor;
-  tags: [Schema.Types.ObjectId];
-  tasks: [ITask];
-  pages: [IPage];
-  settings: INotebookSettings;
+  tags: Array<ObjectId>;
+  tasks: Array<ITask>;
+  pages: Array<IPage>;
+  settings: IProjectSettings;
   share: IShare;
 }
