@@ -38,7 +38,18 @@ function getConnectionOptions(): ConnectOptions {
       }
     : DEFAULT_CONNECTION_OPTIONS;
 }
+
+function enableLoggers() {
+  mongoose.connection.on("connected", () => {
+    logger.info("Database connected!");
+  });
+  mongoose.connection.on("disconnected", () => {
+    logger.error("Database disconnected!");
+  });
+}
+
 export default {
   connect,
   disconnect,
+  enableLoggers,
 };

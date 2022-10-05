@@ -71,6 +71,7 @@ export async function start(): Promise<Application> {
   // connect to database
   try {
     await database.connect();
+    database.enableLoggers();
     logger.info("Successfully connected to Mongo database.");
   } catch (error) {
     logger.error(`Can't connect to Mongo database: ${error.message}!`);
