@@ -7,6 +7,7 @@ import Page from "database/model/Page";
 import Task from "database/model/Task";
 import Share from "database/model/Share";
 import ThemedColor from "database/model/ThemedColor";
+import ProjectSettings from "./ProjectSettings";
 
 const ProjectSchema = new Schema<IProject>(
   {
@@ -57,6 +58,13 @@ const ProjectSchema = new Schema<IProject>(
       default: {
         users: [],
         team: null,
+      },
+    },
+    settings: {
+      type: ProjectSettings.schema,
+      default: {
+        visiblePages: true,
+        visibleTasks: true,
       },
     },
   },
