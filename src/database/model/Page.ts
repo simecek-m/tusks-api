@@ -23,8 +23,7 @@ const PageSchema = new Schema<IPage>(
     },
     content: {
       type: String,
-      required: [true, "Content field of Page is required!"],
-      // TODO: validate .md format
+      default: "",
     },
     color: {
       type: ThemedColor.schema,

@@ -23,6 +23,7 @@ export const ROUTE_TAGS = "tags";
 export const ROUTE_PROJECTS = "projects";
 export const ROUTE_TASKS = "tasks";
 export const ROUTE_TEAMS = "teams";
+export const ROUTE_PAGES = "pages";
 
 // type values
 export const AVAILABLE_ROLES = ["owner", "admin", "user"] as const;

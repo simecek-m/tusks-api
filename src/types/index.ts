@@ -48,6 +48,7 @@ export interface ITask {
 }
 
 export interface IPage {
+  id: Types.ObjectId;
   name: string;
   icon: IconType;
   color: IThemedColor;
