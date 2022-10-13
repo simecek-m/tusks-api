@@ -53,7 +53,7 @@
     "start:dev": "cross-env MODE=development NODE_PATH=src nodemon ./src/start.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier **/*.ts",
-    "test": "cross-env MODE=test nyc --silent mocha",
+    "test": "cross-env MODE=test nyc --silent mocha ./test/**/**.ts",
     "coverage": "nyc report --reporter=lcov",
     "pre-commit": "lint-staged",
     "prepare": "husky install"
