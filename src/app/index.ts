@@ -61,9 +61,7 @@ export async function start(): Promise<Application> {
   // start HTTP server
   try {
     await server.start(app);
-    logger.info(
-      `HTTP server is running on port: ${process.env.EXPRESS_SERVER_PORT}.`
-    );
+    logger.info(`HTTP server is running on port: ${process.env.PORT}.`);
   } catch (e) {
     logger.error("Error while starting HTTP server", e);
   }

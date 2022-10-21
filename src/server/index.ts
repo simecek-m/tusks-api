@@ -7,10 +7,7 @@ export async function start(app: Application): Promise<void> {
   const server: Server = createServer(app);
   function promisifyStart(): Promise<void> {
     return new Promise((res, rej) => {
-      server
-        .on("listening", res)
-        .on("error", rej)
-        .listen(process.env.EXPRESS_SERVER_PORT);
+      server.on("listening", res).on("error", rej).listen(process.env.PORT);
     });
   }
   return promisifyStart();
