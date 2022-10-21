@@ -15,7 +15,9 @@ jobs:
         run: npm run test
       - name: generate test coverage
         run: npm run coverage
+        # TODO: enable this step when tests are implemented
       - name: codacy coverage report
+        if: false
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
