@@ -55,10 +55,13 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-*.env
-
+.env*
+!.env.template
 # next.js build output
 .next
 
 # test coverage
 *.lcov
+
+# compiled typescript
+dist

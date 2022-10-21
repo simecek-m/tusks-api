@@ -1,0 +1,383 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "todo",
+    "description": "todo rest api",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://todo-os6n.onrender.com/api"
+    }
+  ],
+  "security": [
+    {
+      "token": []
+    }
+  ],
+  "paths": {
+    "/stats": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "description": "Retrieve statistics of currently logged in user",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stats"
+                },
+                "example": {
+                  "lastActiveList": {
+                    "id": "633768ee42a241766a98f8d8",
+                    "author": "xuser",
+                    "title": "shopping",
+                    "icon": "shop",
+                    "tags": [
+                      {
+                        "id": "6337686d42a241766a98f8d0",
+                        "owner": "xuser",
+                        "label": "shopping",
+                        "color": {
+                          "light": "#E6A020",
+                          "dark": "#FFDA96"
+                        }
+                      },
+                      {
+                        "id": "6337687542a241766a98f8d2",
+                        "owner": "xuser",
+                        "label": "important",
+                        "color": {
+                          "light": "#FF1418",
+                          "dark": "#FF9698"
+                        }
+                      }
+                    ],
+                    "tasks": [
+                      {
+                        "id": "20b12abc-4045-11ed-b878-0242ac120002",
+                        "text": "buy milk",
+                        "isCompleted": false,
+                        "updatedAt": "2022-09-02T22:15:17.431Z",
+                        "createdAt": "2022-08-13T15:18:24.894Z"
+                      },
+                      {
+                        "id": "493c4408-4045-11ed-b878-0242ac120002",
+                        "text": "buy tea",
+                        "isCompleted": true,
+                        "updatedAt": "2022-09-30T20:06:32.128Z",
+                        "createdAt": "2022-08-14T14:52:42.747Z"
+                      },
+                      {
+                        "id": "5d7a0c52-4045-11ed-b878-0242ac120002",
+                        "text": "buy vegetables",
+                        "isCompleted": false,
+                        "updatedAt": "2022-08-06T07:36:21.476Z",
+                        "createdAt": "2022-08-05T13:39:37.366Z"
+                      }
+                    ],
+                    "color": {
+                      "light": "#00D18B",
+                      "dark": "#82FFD5"
+                    },
+                    "createdAt": "2022-07-12T14:08:46.255Z",
+                    "updatedAt": "2022-09-23T18:43:14.132Z"
+                  },
+                  "listsCount": 4,
+                  "unfinishedTasksCount": 13
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access token is missing out or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "code": 401,
+                  "message": "Unauthorized",
+                  "description": "Access token is missing out or invalid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource could not be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "code": 404,
+                  "message": "Not Found",
+                  "description": "Resource could not be found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "code": 500,
+                  "message": "Internal Server Error",
+                  "description": "Unexpected server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Color": {
+        "required": [
+          "dark",
+          "light"
+        ],
+        "type": "object",
+        "properties": {
+          "light": {
+            "type": "string"
+          },
+          "dark": {
+            "type": "string"
+          }
+        }
+      },
+      "Tag": {
+        "required": [
+          "color",
+          "id",
+          "label",
+          "owner"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          }
+        }
+      },
+      "Task": {
+        "required": [
+          "createdAt",
+          "id",
+          "isCompleted",
+          "text",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "TodoList": {
+        "required": [
+          "author",
+          "color",
+          "createdAt",
+          "icon",
+          "id",
+          "tags",
+          "tasks",
+          "title",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Stats": {
+        "required": [
+          "listsCount",
+          "unfinishedTasksCount"
+        ],
+        "type": "object",
+        "properties": {
+          "lastActiveList": {
+            "$ref": "#/components/schemas/TodoList"
+          },
+          "listsCount": {
+            "type": "number"
+          },
+          "unfinishedTasksCount": {
+            "type": "number"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Access token is missing out or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "code": 401,
+              "message": "Unauthorized",
+              "description": "Access token is missing out or invalid"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "You don't have permission for this action",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "code": 403,
+              "message": "Forbidden",
+              "description": "You don't have permission for this action"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Resource could not be found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "code": 404,
+              "message": "Not Found",
+              "description": "Resource could not be found"
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Resource already exists",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "code": 409,
+              "message": "Conflict",
+              "description": "Resource already exists"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Unexpected server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "code": 500,
+              "message": "Internal Server Error",
+              "description": "Unexpected server error"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "description": "Access token in JWT format",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
