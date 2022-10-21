@@ -16,7 +16,7 @@ export function errorHandler(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): void {
   if (error instanceof ValidationError) {
     logger.error("Error while validating DTO!");
     res.status(400).send(error);

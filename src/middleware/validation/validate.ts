@@ -3,7 +3,9 @@ import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
 import { AnyObjectSchema, ValidationError as YupValidationError } from "yup";
 
-export function validate(schema: AnyObjectSchema) {
+export function validate(
+  schema: AnyObjectSchema
+): (req: Request, _: Response, next: NextFunction) => Promise<void> {
   return async (req: Request, _: Response, next: NextFunction) => {
     try {
       const validatedSchema = await schema.validate(req.body, {

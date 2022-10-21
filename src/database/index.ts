@@ -39,7 +39,7 @@ function getConnectionOptions(): ConnectOptions {
     : DEFAULT_CONNECTION_OPTIONS;
 }
 
-function enableLoggers() {
+function enableLoggers(): void {
   mongoose.connection.on("connected", () => {
     logger.info("Database connected!");
   });
