@@ -130,7 +130,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "owner": {
             "type": "string"
@@ -153,7 +154,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "text": {
             "type": "string"
@@ -175,10 +177,14 @@
             "format": "date-time"
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
           }
         },
         "required": [
@@ -227,10 +233,6 @@
               "$ref": "#/components/schemas/Page"
             }
           },
-          "createdAt": {
-            "type": "string",
-            "readOnly": true
-          },
           "content": {
             "oneOf": [
               {
@@ -241,8 +243,14 @@
               }
             ]
           },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
           "updatedAt": {
             "type": "string",
+            "format": "date-time",
             "readOnly": true
           }
         },
@@ -281,10 +289,10 @@
         ],
         "properties": {
           "listsCount": {
-            "type": "number"
+            "type": "integer"
           },
           "unfinishedTasksCount": {
-            "type": "number"
+            "type": "integer"
           }
         }
       },
@@ -296,7 +304,7 @@
         ],
         "properties": {
           "code": {
-            "type": "number"
+            "type": "integer"
           },
           "message": {
             "type": "string"
@@ -305,8 +313,173 @@
             "type": "string"
           }
         },
-        "title": "",
         "description": "Generic HTTP Error"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "profilePicture": {
+            "type": "string",
+            "format": "uri"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "username",
+          "profilePicture",
+          "email"
+        ]
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "privilege": {
+            "type": "string",
+            "enum": [
+              "viewer",
+              "editor",
+              "admin",
+              "owner"
+            ]
+          }
+        },
+        "required": [
+          "user",
+          "privilege"
+        ]
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Member"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "icon",
+          "color",
+          "members"
+        ]
+      },
+      "Share": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          }
+        },
+        "required": [
+          "users",
+          "teams"
+        ]
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Page"
+            }
+          },
+          "defaultPageId": {
+            "type": "string"
+          },
+          "share": {
+            "$ref": "#/components/schemas/Share"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "icon",
+          "tags",
+          "color",
+          "pages",
+          "defaultPageId",
+          "share"
+        ]
       }
     },
     "responses": {
