@@ -65,12 +65,11 @@ export interface IProject {
   id: Types.ObjectId;
   name: string;
   icon: IconType;
+  owner: string;
   description: string;
-  author: string;
-  color: IThemedColor;
   tags: Array<ObjectId>;
-  tasks: Array<ITask>;
+  color: IThemedColor;
   pages: Array<IPage>;
-  settings: IProjectSettings;
   share: IShare;
+  defaultPage?: IPage;
 }

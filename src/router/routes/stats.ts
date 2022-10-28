@@ -14,12 +14,7 @@ router.get(`/${ROUTE_STATS}`, async function (req, res, next) {
       });
     const lastActiveProject = projects[0] ?? null;
     const projectsCount = projects.length;
-    const unfinishedTasksCount = projects.reduce(
-      (prev, curr) =>
-        prev + curr.tasks.filter((task) => !task.isCompleted).length,
-      0
-    );
-    res.send({ lastActiveProject, projectsCount, unfinishedTasksCount });
+    res.send({ lastActiveProject, projectsCount });
   } catch (e) {
     next(new UnexpectedError(e));
   }

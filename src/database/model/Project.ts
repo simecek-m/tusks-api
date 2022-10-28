@@ -1,13 +1,11 @@
+import Page from "database/model/Page";
+import Share from "database/model/Share";
+import Tag from "database/model/Tag";
+import ThemedColor from "database/model/ThemedColor";
+import { NORMALIZED_OUTPUT } from "database/utils";
+import { model, ObjectId, Schema } from "mongoose";
 import { IProject } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
-import { Schema, model, ObjectId } from "mongoose";
-import { NORMALIZED_OUTPUT } from "database/utils";
-import Tag from "database/model/Tag";
-import Page from "database/model/Page";
-import Task from "database/model/Task";
-import Share from "database/model/Share";
-import ThemedColor from "database/model/ThemedColor";
-import ProjectSettings from "./ProjectSettings";
 
 const ProjectSchema = new Schema<IProject>(
   {
@@ -25,14 +23,13 @@ const ProjectSchema = new Schema<IProject>(
         message: "Unsupported icon type!",
       },
     },
-    author: {
+    owner: {
       type: String,
-      required: [true, "Author field of Project is required!"],
+      required: [true, "Owner field of Project is required!"],
     },
     description: {
       type: String,
     },
-    tasks: [Task.schema],
     tags: {
       type: [Schema.Types.ObjectId],
       ref: "tag",
@@ -52,20 +49,19 @@ const ProjectSchema = new Schema<IProject>(
     },
     pages: {
       type: [Page.schema],
+      required: [true, "Pages of Project is required field!"],
+      default: [],
     },
     share: {
       type: Share.schema,
+      required: [true, "Share settings of Project is required field!"],
       default: {
         users: [],
         team: null,
       },
     },
-    settings: {
-      type: ProjectSettings.schema,
-      default: {
-        visiblePages: true,
-        visibleTasks: true,
-      },
+    defaultPage: {
+      type: Page.schema,
     },
   },
   {

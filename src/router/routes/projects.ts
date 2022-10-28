@@ -23,7 +23,7 @@ router.post(`/${ROUTE_PROJECTS}`, async (req, res, next) => {
   try {
     const result = await Project.create({
       ...req.body,
-      author: req.auth.payload.sub,
+      owner: req.auth.payload.sub,
     });
     res.send(result);
   } catch (e) {
