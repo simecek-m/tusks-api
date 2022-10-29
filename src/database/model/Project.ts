@@ -54,7 +54,7 @@ const ProjectSchema = new Schema<IProject>(
     },
     share: {
       type: Share.schema,
-      required: [true, "Share settings of Project is required field!"],
+      required: [true, "Share of Project is required field!"],
       default: {
         users: [],
         team: null,

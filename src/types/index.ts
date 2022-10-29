@@ -56,11 +56,6 @@ export interface IPage {
   tags: Array<ObjectId>;
 }
 
-export interface IProjectSettings {
-  visibleTasks: boolean;
-  visiblePages: boolean;
-}
-
 export interface IProject {
   id: Types.ObjectId;
   name: string;
