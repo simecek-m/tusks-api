@@ -6,6 +6,10 @@ export const LOGGER_ID = "main";
 // regex patterns
 export const COLOR_HEX_FORMAT = /^#(?:[0-9a-fA-F]{3}){1,2}$/g;
 export const DATABASE_UUID_FORMAT = /^[a-f\d]{24}$/i;
+export const DATE_FORMAT = /^\d{4}(-\d{2}){2}(T)(\d{2}:){2}\d{2}\.\d{3}Z/g;
+export const EMAIL_ADDRESS_FORMAT = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+export const URL_ADDRESS_FORMAT =
+  /^(http(s):\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/gi;
 
 // database
 export const DEFAULT_DB_TIMEOUT = 3000;
@@ -26,4 +30,9 @@ export const ROUTE_TEAMS = "teams";
 export const ROUTE_PAGES = "pages";
 
 // type values
-export const AVAILABLE_ROLES = ["owner", "admin", "user"] as const;
+export const AVAILABLE_MEMEBR_ROLES = [
+  "owner",
+  "admin",
+  "editor",
+  "view",
+] as const;
