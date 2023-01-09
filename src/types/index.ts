@@ -1,4 +1,4 @@
-import { AVAILABLE_ROLES } from "constant";
+import { AVAILABLE_MEMEBR_ROLES } from "constant";
 import { ObjectId, Types } from "mongoose";
 import { IconType } from "types/icon";
 
@@ -12,7 +12,7 @@ export interface IThemedColor {
   dark: string;
 }
 
-export type Role = typeof AVAILABLE_ROLES[number];
+export type Role = typeof AVAILABLE_MEMEBR_ROLES[number];
 
 export interface IMember {
   user: string;
@@ -24,6 +24,7 @@ export interface ITeam {
   color: IThemedColor;
   icon: IconType;
   members: Array<IMember>;
+  description?: string;
 }
 
 export interface IShare {
@@ -68,3 +69,5 @@ export interface IProject {
   share: IShare;
   defaultPage?: IPage;
 }
+
+export type PAGE_TYPE = "tasklist" | "markdown";
