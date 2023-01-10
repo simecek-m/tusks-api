@@ -70,4 +70,13 @@ export interface IProject {
   defaultPage?: IPage;
 }
 
+export interface IUser {
+  id: Types.ObjectId;
+  username: string;
+  firstName: string;
+  lastName: string;
+  profilePicture: string;
+  email: string;
+}
+
 export type PAGE_TYPE = "tasklist" | "markdown";
