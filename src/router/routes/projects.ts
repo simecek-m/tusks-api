@@ -44,7 +44,6 @@ router.get(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
       _id: req.params.id,
       author: req.auth.payload.sub,
     }).populate("tags");
-
     if (result) {
       res.send(result);
     } else {
@@ -56,25 +55,29 @@ router.get(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
 });
 
 // update one specific project by id
-router.put(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
-  try {
-    const result = await Project.findOneAndUpdate(
-      { _id: req.params.id, author: req.auth.payload.sub },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
+router.put(
+  `/${ROUTE_PROJECTS}/:id`,
+  validate(projectSchema),
+  async (req, res, next) => {
+    try {
+      const result = await Project.findOneAndUpdate(
+        { _id: req.params.id, author: req.auth.payload.sub },
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      if (result) {
+        res.send(result);
+      } else {
+        next(new HttpError(404, `Project (${req.params.id}) was not found!`));
       }
-    );
-    if (result) {
-      res.send(result);
-    } else {
-      next(new HttpError(404, `Project (${req.params.id}) was not found!`));
+    } catch (e) {
+      next(new UnexpectedError(e));
     }
-  } catch (e) {
-    next(new UnexpectedError(e));
   }
-});
+);
 
 // delte one project by id
 router.delete(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
