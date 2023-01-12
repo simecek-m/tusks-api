@@ -7,14 +7,15 @@ import pageSchema from "./page";
 import shareSchema from "./share";
 import tagSchema from "./tag";
 
-const ALL_ICONS = [...AVAILABLE_ICONS];
-
 const projectSchema = object({
   name: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()
     .required(),
-  icon: string().oneOf(ALL_ICONS).trim().required(),
+  icon: string()
+    .oneOf([...AVAILABLE_ICONS])
+    .trim()
+    .required(),
   description: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()

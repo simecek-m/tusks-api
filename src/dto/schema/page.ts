@@ -5,14 +5,15 @@ import { array, object, string, mixed } from "yup";
 import tagSchema from "./tag";
 import taskSchema from "./task";
 
-const ALL_ICONS = [...AVAILABLE_ICONS];
-
 const basePageSchema = object({
   name: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()
     .required(),
-  icon: string().oneOf(ALL_ICONS).trim().required(),
+  icon: string()
+    .oneOf([...AVAILABLE_ICONS])
+    .trim()
+    .required(),
   description: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim(),
