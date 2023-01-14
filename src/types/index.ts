@@ -12,6 +12,11 @@ export interface IThemedColor {
   dark: string;
 }
 
+export interface IPageContent {
+  tasks: object;
+  template: string;
+}
+
 export type Role = typeof AVAILABLE_MEMEBR_ROLES[number];
 
 export interface IMember {
@@ -53,7 +58,7 @@ export interface IPage {
   name: string;
   icon: IconType;
   color: IThemedColor;
-  content: string;
+  content: IPageContent;
   tags: Array<ObjectId>;
 }
 
@@ -67,7 +72,7 @@ export interface IProject {
   color: IThemedColor;
   pages: Array<IPage>;
   share: IShare;
-  defaultPage?: IPage;
+  defaultPageId?: Types.ObjectId;
 }
 
 export interface IUser {

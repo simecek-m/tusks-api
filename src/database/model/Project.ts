@@ -60,8 +60,9 @@ const ProjectSchema = new Schema<IProject>(
         team: null,
       },
     },
-    defaultPage: {
-      type: Page.schema,
+    defaultPageId: {
+      type: Schema.Types.ObjectId,
+      default: null,
     },
   },
   {

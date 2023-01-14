@@ -2,6 +2,7 @@ import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IPage } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
+import PageContent from "./PageContent";
 import Tag from "./Tag";
 import ThemedColor from "./ThemedColor";
 
@@ -21,10 +22,6 @@ const PageSchema = new Schema<IPage>(
         message: "Unsupported icon type!",
       },
     },
-    content: {
-      type: String,
-      default: "",
-    },
     color: {
       type: ThemedColor.schema,
       required: [true, "Color field of Page is required!"],
@@ -41,6 +38,9 @@ const PageSchema = new Schema<IPage>(
         },
         message: "Non-existent tag!",
       },
+    },
+    content: {
+      type: PageContent.schema,
     },
   },
   {
