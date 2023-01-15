@@ -1,4 +1,4 @@
-import { DEFAULT_XSS_OPTIONS } from "constant";
+import { DATABASE_UUID_FORMAT, DEFAULT_XSS_OPTIONS } from "constant";
 import { AVAILABLE_ICONS } from "types/icon";
 import xss from "xss";
 import { array, object, string } from "yup";
@@ -23,7 +23,12 @@ const projectSchema = object({
   tags: array().of(tagSchema).required(),
   color: colorSchema.required(),
   pages: array().of(pageSchema).required(),
-  defaultPage: pageSchema.nullable(),
+  defaultPageId: string()
+    .matches(
+      DATABASE_UUID_FORMAT,
+      "defaultPageId must be in correct ObjectID format (12-byte reference)"
+    )
+    .nullable(),
   share: shareSchema.required(),
 });
 
