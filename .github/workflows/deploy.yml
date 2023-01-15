@@ -2,6 +2,7 @@ name: Deploy
 on:
   push:
     branches:
+      - feature/deploy
       - master
 env: 
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
