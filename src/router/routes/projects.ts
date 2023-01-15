@@ -69,7 +69,7 @@ router.put(
         }
       );
       if (result) {
-        res.send(result);
+        res.send();
       } else {
         next(new HttpError(404, `Project (${req.params.id}) was not found!`));
       }
@@ -86,9 +86,8 @@ router.delete(`/${ROUTE_PROJECTS}/:id`, async (req, res, next) => {
       _id: req.params.id,
       author: req.auth.payload.sub,
     });
-
     if (result) {
-      res.send(result);
+      res.send();
     } else {
       next(new HttpError(404, `Project (${req.params.id}) was not found!`));
     }
