@@ -7,7 +7,8 @@ env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
-    name: Deploy server
+    name: Deploy to Fly.io
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
