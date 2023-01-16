@@ -1,58 +1,15 @@
-name: Build & Deploy
+name: deploy
 on:
   push:
     branches:
       - master
-env:
-  PROJECT_ID: leafs-365818
-  GAR_LOCATION: europe-west1
-  REPOSITORY: leafs
-  SERVICE: leafs-server
-  REGION: europe-west1
+env: 
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
-    environment: deploy
-    permissions:
-      contents: "read"
-      id-token: "write"
+    name: Deploy server
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Google Auth
-        id: auth
-        uses: "google-github-actions/auth@v0"
-        with:
-          token_format: "access_token"
-          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
-          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
-      - name: Docker Auth
-        uses: "docker/login-action@v1"
-        with:
-          username: "oauth2accesstoken"
-          password: "${{ steps.auth.outputs.access_token }}"
-          registry: "${{ env.GAR_LOCATION }}-docker.pkg.dev"
-      - name: Build and Push Container
-        run: |-
-          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
-      - name: Deploy to Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v0
-        with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
-          env_vars: |
-            MODE=${{secrets.MODE}}
-            LOG_LEVEL=${{secrets.LOG_LEVEL}}
-            LOG_FOLDER=${{secrets.LOG_FOLDER}}
-            MONGO_CONNECTION_STRING_FORMAT=${{secrets.MONGO_CONNECTION_STRING_FORMAT}}
-            MONGO_SERVER_HOST=${{secrets.MONGO_SERVER_HOST}}
-            MONGO_DATABASE_NAME=${{secrets.MONGO_DATABASE_NAME}}
-            MONGO_AUTHENTICATION=${{secrets.MONGO_AUTHENTICATION}}
-            MONGO_USER=${{secrets.MONGO_USER}}
-            MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}}
-            AUTH_AUDIENCE=${{secrets.AUTH_AUDIENCE}}
-            AUTH_ISSUER_BASE_URL=${{secrets.AUTH_ISSUER_BASE_URL}}
-            TREBLLE_API_KEY=${{secrets.TREBLLE_API_KEY}}
-            TREBLLE_PROJECT_ID=${{secrets.TREBLLE_PROJECT_ID}}
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
