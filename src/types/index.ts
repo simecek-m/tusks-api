@@ -85,3 +85,22 @@ export interface IUser {
 }
 
 export type PAGE_TYPE = "tasklist" | "markdown";
+
+export type HttpStatusName =
+  | "OK"
+  | "OK_NO_CONTENT"
+  | "BAD_REQUEST"
+  | "NOT_FOUND"
+  | "INTERNAL_SERVER_ERROR";
+
+export type HttpStatusCode = 200 | 204 | 400 | 404 | 500;
+
+export type HttpStatusType = Record<HttpStatusName, HttpStatusCode>;
+
+export const HttpStatus: HttpStatusType = {
+  OK: 200,
+  OK_NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+};
