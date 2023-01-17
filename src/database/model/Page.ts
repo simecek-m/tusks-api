@@ -4,7 +4,7 @@ import { IPage } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
 import PageContent from "./PageContent";
 import Tag from "./Tag";
-import ThemedColor from "./ThemedColor";
+import Color from "./Color";
 
 const PageSchema = new Schema<IPage>(
   {
@@ -23,7 +23,7 @@ const PageSchema = new Schema<IPage>(
       },
     },
     color: {
-      type: ThemedColor.schema,
+      type: Color.schema,
       required: [true, "Color field of Page is required!"],
     },
     tags: {

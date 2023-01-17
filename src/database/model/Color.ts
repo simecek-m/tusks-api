@@ -1,8 +1,8 @@
 import { COLOR_HEX_FORMAT } from "constant";
 import { Schema, model } from "mongoose";
-import { IThemedColor } from "types";
+import { IColor } from "types";
 
-const ThemedColorSchema = new Schema<IThemedColor>(
+const ColorSchema = new Schema<IColor>(
   {
     light: {
       type: String,
@@ -27,4 +27,4 @@ const ThemedColorSchema = new Schema<IThemedColor>(
   }
 );
 
-export default model<IThemedColor>("themedColor", ThemedColorSchema);
+export default model<IColor>("color", ColorSchema);
