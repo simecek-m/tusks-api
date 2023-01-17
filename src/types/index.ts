@@ -7,7 +7,7 @@ export interface IFieldError {
   message: string;
 }
 
-export interface IThemedColor {
+export interface IColor {
   light: string;
   dark: string;
 }
@@ -26,7 +26,7 @@ export interface IMember {
 
 export interface ITeam {
   name: string;
-  color: IThemedColor;
+  color: IColor;
   icon: IconType;
   members: Array<IMember>;
   description?: string;
@@ -41,7 +41,7 @@ export interface ITag {
   id: ObjectId;
   owner: string;
   label: string;
-  color: IThemedColor;
+  color: IColor;
 }
 
 export interface ITask {
@@ -57,7 +57,7 @@ export interface IPage {
   id: Types.ObjectId;
   name: string;
   icon: IconType;
-  color: IThemedColor;
+  color: IColor;
   content: IPageContent;
   tags: Array<ObjectId>;
 }
@@ -69,7 +69,7 @@ export interface IProject {
   owner: string;
   description: string;
   tags: Array<ObjectId>;
-  color: IThemedColor;
+  color: IColor;
   pages: Array<IPage>;
   share: IShare;
   defaultPageId?: Types.ObjectId;

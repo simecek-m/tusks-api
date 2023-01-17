@@ -1,4 +1,4 @@
-import ThemedColor from "database/model/ThemedColor";
+import Color from "database/model/Color";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, Schema } from "mongoose";
 import { IMember, ITeam } from "types";
@@ -21,7 +21,7 @@ const TeamSchema = new Schema<ITeam>({
     },
   },
   color: {
-    type: ThemedColor.schema,
+    type: Color.schema,
     required: [true, "Color of Team is required field!"],
   },
   members: {

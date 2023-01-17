@@ -1,7 +1,7 @@
 import Page from "database/model/Page";
 import Share from "database/model/Share";
 import Tag from "database/model/Tag";
-import ThemedColor from "database/model/ThemedColor";
+import Color from "database/model/Color";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IProject } from "types";
@@ -44,7 +44,7 @@ const ProjectSchema = new Schema<IProject>(
       },
     },
     color: {
-      type: ThemedColor.schema,
+      type: Color.schema,
       required: [true, "Color of Project is required field!"],
     },
     pages: {
