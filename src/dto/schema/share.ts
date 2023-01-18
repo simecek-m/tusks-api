@@ -1,9 +1,8 @@
-import { array, object } from "yup";
+import { array, object, string } from "yup";
 import teamSchema from "./team";
-import userSchema from "./user";
 
 const shareSchema = object({
-  users: array().of(userSchema).required(),
+  users: array().of(string()).required(),
   team: teamSchema.nullable(),
 });
 

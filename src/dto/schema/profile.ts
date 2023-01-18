@@ -2,9 +2,10 @@ import { DEFAULT_XSS_OPTIONS, URL_ADDRESS_FORMAT } from "constant";
 import xss from "xss";
 import { object, string } from "yup";
 
-const userSchema = object({
-  username: string()
+const profileSchema = object({
+  email: string()
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
+    .email()
     .trim()
     .required(),
   firstName: string()
@@ -15,8 +16,10 @@ const userSchema = object({
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()
     .required(),
-  profilePicure: string().matches(URL_ADDRESS_FORMAT).nullable(),
-  email: string().email().required(),
+  picture: string()
+    .matches(URL_ADDRESS_FORMAT, "Profile picture has to be valid URL address!")
+    .trim()
+    .required(),
 });
 
-export default userSchema;
+export default profileSchema;

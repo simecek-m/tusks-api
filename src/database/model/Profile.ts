@@ -1,3 +1,4 @@
+import { URL_ADDRESS_FORMAT } from "constant";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, Schema } from "mongoose";
 import { IProfile } from "types";
@@ -20,8 +21,10 @@ const ProfileSchema = new Schema<IProfile>(
       type: String,
       required: [true, "E-mail field of Profile is required!"],
     },
-    profilePicture: {
+    picture: {
       type: String,
+      required: [true, "Picture field of Profile is required!"],
+      match: [URL_ADDRESS_FORMAT, "Picture field has to be valid URL address!"],
     },
   },
   {

@@ -79,7 +79,7 @@ export interface IProfile {
   _id: string;
   firstName: string;
   lastName: string;
-  profilePicture: string;
+  picture: string;
   email: string;
 }
 
