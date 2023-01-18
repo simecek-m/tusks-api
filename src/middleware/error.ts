@@ -4,6 +4,7 @@ import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "express-oauth2-jwt-bearer";
 import logger from "logger";
+import { HttpStatus } from "types";
 
 interface ErrorResponse {
   code: number;
@@ -19,7 +20,7 @@ export function errorHandler(
 ): void {
   if (error instanceof ValidationError) {
     logger.error("Error while validating DTO!");
-    res.status(400).send(error);
+    res.status(HttpStatus.BAD_REQUEST).send(error);
   } else if (error instanceof UnexpectedError) {
     logger.error(`${error.message} -> ${req.path}:`, error.cause);
     const response: ErrorResponse = {
@@ -38,7 +39,7 @@ export function errorHandler(
     res.status(error.status).send(response);
   } else {
     logger.error(error.message);
-    res.status(error.status || 400).send(error);
+    res.status(error.status || HttpStatus.BAD_REQUEST).send(error);
   }
   next();
 }

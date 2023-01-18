@@ -2,6 +2,7 @@ import { ROUTE_STATS } from "constant";
 import Project from "database/model/Project";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
+import { HttpStatus } from "types";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get(`/${ROUTE_STATS}`, async function (req, res, next) {
       });
     const lastActiveProject = projects[0] ?? null;
     const projectsCount = projects.length;
-    res.send({ lastActiveProject, projectsCount });
+    res.status(HttpStatus.OK).send({ lastActiveProject, projectsCount });
   } catch (e) {
     next(new UnexpectedError(e));
   }

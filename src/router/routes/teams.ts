@@ -3,7 +3,7 @@ import Team from "database/model/Team";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
-import { IMember } from "types";
+import { HttpStatus, IMember } from "types";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.get(`/${ROUTE_TEAMS}`, async function (req, res, next) {
     const result = await Team.find({
       members: { $elemMatch: { user: req.auth.payload.sub } },
     });
-    res.send(result);
+    res.status(HttpStatus.OK).send(result);
   } catch (e) {
     next(new UnexpectedError(e));
   }
@@ -27,7 +27,7 @@ router.post(`/${ROUTE_TEAMS}`, async function (req, res, next) {
       role: "owner",
     };
     const result = await Team.create({ ...req.body, members: [member] });
-    res.send(result);
+    res.status(HttpStatus.OK).send(result);
   } catch (e) {
     next(new UnexpectedError(e));
   }
@@ -45,9 +45,14 @@ router.put(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
       { runValidators: true, new: true }
     );
     if (result) {
-      res.send(result);
+      res.status(HttpStatus.OK).send(result);
     } else {
-      next(new HttpError(404, `Team (${req.params.id}) was not found!`));
+      next(
+        new HttpError(
+          HttpStatus.NOT_FOUND,
+          `Team (${req.params.id}) was not found!`
+        )
+      );
     }
   } catch (e) {
     next(new UnexpectedError(e));
@@ -62,9 +67,14 @@ router.delete(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
       members: { $elemMatch: { user: req.auth.payload.sub, role: "owner" } },
     });
     if (result) {
-      res.send(result);
+      res.status(HttpStatus.OK).send(result);
     } else {
-      next(new HttpError(404, `Team (${req.params.id}) was not found!`));
+      next(
+        new HttpError(
+          HttpStatus.NOT_FOUND,
+          `Team (${req.params.id}) was not found!`
+        )
+      );
     }
   } catch (e) {
     next(new UnexpectedError(e));

@@ -6,6 +6,7 @@ import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 import { validate } from "middleware/validation/validate";
+import { HttpStatus } from "types";
 
 const router = Router();
 
@@ -20,9 +21,14 @@ router.get(
         _id: projectId,
       });
       if (result) {
-        res.send(result.pages);
+        res.status(HttpStatus.OK).send(result.pages);
       } else {
-        next(new HttpError(404, `Project (${projectId}) was not found!`));
+        next(
+          new HttpError(
+            HttpStatus.NOT_FOUND,
+            `Project (${projectId}) was not found!`
+          )
+        );
       }
     } catch (e) {
       next(new UnexpectedError(e));
@@ -44,9 +50,16 @@ router.post(
         { runValidators: true, new: true }
       );
       if (result) {
-        res.send(result.pages.find((page) => page.id === newPage.id));
+        res
+          .status(HttpStatus.OK)
+          .send(result.pages.find((page) => page.id === newPage.id));
       } else {
-        next(new HttpError(404, `Project (${projectId}) was not found!`));
+        next(
+          new HttpError(
+            HttpStatus.NOT_FOUND,
+            `Project (${projectId}) was not found!`
+          )
+        );
       }
     } catch (e) {
       next(new UnexpectedError(e));
@@ -67,12 +80,22 @@ router.get(
       if (result) {
         const page = result.pages.find((page) => page.id.toString() === id);
         if (page) {
-          res.send(page);
+          res.status(HttpStatus.OK).send(page);
         } else {
-          next(new HttpError(404, `Page (${req.params.id}) was not found!`));
+          next(
+            new HttpError(
+              HttpStatus.NOT_FOUND,
+              `Page (${req.params.id}) was not found!`
+            )
+          );
         }
       } else {
-        next(new HttpError(404, `Project (${req.params.id}) was not found!`));
+        next(
+          new HttpError(
+            HttpStatus.NOT_FOUND,
+            `Project (${req.params.id}) was not found!`
+          )
+        );
       }
     } catch (e) {
       next(new UnexpectedError(e));
@@ -92,11 +115,18 @@ router.delete(
       );
       if (result) {
         if (result.pages.some((page) => page.id.toString() === id)) {
-          res.send();
+          res.status(HttpStatus.OK_NO_CONTENT).send();
         }
-        next(new HttpError(404, `Page (${id}) was not found!`));
+        next(
+          new HttpError(HttpStatus.NOT_FOUND, `Page (${id}) was not found!`)
+        );
       } else {
-        next(new HttpError(404, `Project (${projectId}) was not found!`));
+        next(
+          new HttpError(
+            HttpStatus.NOT_FOUND,
+            `Project (${projectId}) was not found!`
+          )
+        );
       }
     } catch (e) {
       next(new UnexpectedError(e));
@@ -132,11 +162,11 @@ router.put(
         }
       );
       if (result) {
-        res.send();
+        res.status(HttpStatus.OK_NO_CONTENT).send();
       } else {
         next(
           new HttpError(
-            404,
+            HttpStatus.NOT_FOUND,
             `Project (${projectId}) or Page (${id}) was not found!`
           )
         );
