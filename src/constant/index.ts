@@ -34,5 +34,5 @@ export const AVAILABLE_MEMEBR_ROLES = [
   "owner",
   "admin",
   "editor",
-  "view",
+  "viewer",
 ] as const;
