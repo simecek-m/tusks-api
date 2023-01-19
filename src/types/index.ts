@@ -1,5 +1,5 @@
 import { AVAILABLE_MEMEBR_ROLES } from "constant";
-import { ObjectId, Types } from "mongoose";
+import { ObjectId } from "mongoose";
 import { IconType } from "types/icon";
 
 export interface IFieldError {
@@ -12,7 +12,7 @@ export interface IColor {
   dark: string;
 }
 
-export interface IPageContent {
+export interface IMdt {
   tasks: object;
   template: string;
 }
@@ -54,16 +54,16 @@ export interface ITask {
 }
 
 export interface IPage {
-  id: Types.ObjectId;
+  id: ObjectId;
   name: string;
   icon: IconType;
   color: IColor;
-  content: IPageContent;
+  content: IMdt;
   tags: Array<ObjectId>;
 }
 
 export interface IProject {
-  id: Types.ObjectId;
+  id: ObjectId;
   name: string;
   icon: IconType;
   owner: string;
@@ -72,7 +72,7 @@ export interface IProject {
   color: IColor;
   pages: Array<IPage>;
   share: IShare;
-  defaultPageId?: Types.ObjectId;
+  defaultPageId?: ObjectId;
 }
 
 export interface IProfile {
@@ -82,8 +82,6 @@ export interface IProfile {
   picture: string;
   email: string;
 }
-
-export type PAGE_TYPE = "tasklist" | "markdown";
 
 export type HttpStatusName =
   | "OK"

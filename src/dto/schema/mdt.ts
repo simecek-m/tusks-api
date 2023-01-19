@@ -1,7 +1,8 @@
-import { lazy, object, string } from "yup";
+import { IMdt } from "types";
+import { lazy, object, SchemaOf, string } from "yup";
 import taskSchema from "./task";
 
-const mdtSchema = object({
+const mdtSchema: SchemaOf<IMdt> = object({
   tasks: lazy((value) =>
     object()
       .shape(
