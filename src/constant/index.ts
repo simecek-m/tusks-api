@@ -27,6 +27,7 @@ export const ROUTE_PROJECTS = "projects";
 export const ROUTE_TASKS = "tasks";
 export const ROUTE_TEAMS = "teams";
 export const ROUTE_PAGES = "pages";
+export const ROUTE_PROFILE = "profile";
 
 // type values
 export const AVAILABLE_MEMEBR_ROLES = [

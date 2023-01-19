@@ -75,12 +75,11 @@ export interface IProject {
   defaultPageId?: Types.ObjectId;
 }
 
-export interface IUser {
-  id: Types.ObjectId;
-  username: string;
+export interface IProfile {
+  _id: string;
   firstName: string;
   lastName: string;
-  profilePicture: string;
+  picture: string;
   email: string;
 }
 
@@ -91,9 +90,10 @@ export type HttpStatusName =
   | "OK_NO_CONTENT"
   | "BAD_REQUEST"
   | "NOT_FOUND"
+  | "CONFLICT"
   | "INTERNAL_SERVER_ERROR";
 
-export type HttpStatusCode = 200 | 204 | 400 | 404 | 500;
+export type HttpStatusCode = 200 | 204 | 400 | 404 | 409 | 500;
 
 export type HttpStatusType = Record<HttpStatusName, HttpStatusCode>;
 
@@ -102,5 +102,6 @@ export const HttpStatus: HttpStatusType = {
   OK_NO_CONTENT: 204,
   BAD_REQUEST: 400,
   NOT_FOUND: 404,
+  CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500,
 };
