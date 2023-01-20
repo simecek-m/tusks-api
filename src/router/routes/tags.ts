@@ -5,7 +5,7 @@ import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 import { validate } from "middleware/validation/validate";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 
 const router = Router();
 

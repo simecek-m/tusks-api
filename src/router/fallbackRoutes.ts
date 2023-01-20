@@ -1,7 +1,7 @@
 // imports
 import { HttpError } from "error/HttpError";
 import { Router } from "express";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 const router = Router();
 
 // unknown /api/ endpoints middleware

@@ -1,9 +1,9 @@
-import { ROUTE_TEAMS } from "constant";
+import { HttpStatus, ROUTE_TEAMS } from "constant";
 import Team from "database/model/Team";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
-import { HttpStatus, IMember } from "types";
+import { IMember } from "types";
 
 const router = Router();
 

@@ -1,3 +1,4 @@
+import { HttpStatusCode, HttpStatusName } from "types";
 import { IFilterXSSOptions } from "xss";
 
 // logger
@@ -36,3 +37,12 @@ export const AVAILABLE_MEMEBR_ROLES = [
   "editor",
   "viewer",
 ] as const;
+
+export const HttpStatus: Record<HttpStatusName, HttpStatusCode> = {
+  OK: 200,
+  OK_NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  INTERNAL_SERVER_ERROR: 500,
+};

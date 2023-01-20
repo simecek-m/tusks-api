@@ -92,14 +92,3 @@ export type HttpStatusName =
   | "INTERNAL_SERVER_ERROR";
 
 export type HttpStatusCode = 200 | 204 | 400 | 404 | 409 | 500;
-
-export type HttpStatusType = Record<HttpStatusName, HttpStatusCode>;
-
-export const HttpStatus: HttpStatusType = {
-  OK: 200,
-  OK_NO_CONTENT: 204,
-  BAD_REQUEST: 400,
-  NOT_FOUND: 404,
-  CONFLICT: 409,
-  INTERNAL_SERVER_ERROR: 500,
-};

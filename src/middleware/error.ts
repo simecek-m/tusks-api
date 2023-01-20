@@ -4,7 +4,7 @@ import { ValidationError } from "error/ValidationError";
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "express-oauth2-jwt-bearer";
 import logger from "logger";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 
 interface ErrorResponse {
   code: number;
