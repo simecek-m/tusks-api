@@ -1,5 +1,5 @@
 import { AVAILABLE_MEMEBR_ROLES } from "constant";
-import { ObjectId } from "mongoose";
+import { Types } from "mongoose";
 import { IconType } from "types/icon";
 
 export interface IFieldError {
@@ -22,6 +22,7 @@ export type Role = typeof AVAILABLE_MEMEBR_ROLES[number];
 export interface IMember {
   user: string;
   role: Role;
+  pending: boolean;
 }
 
 export interface ITeam {
@@ -32,20 +33,15 @@ export interface ITeam {
   description?: string;
 }
 
-export interface IShare {
-  users: Array<string>;
-  team?: ITeam;
-}
-
 export interface ITag {
-  id: ObjectId;
+  id: Types.ObjectId;
   owner: string;
   label: string;
   color: IColor;
 }
 
 export interface ITask {
-  id: ObjectId;
+  id: Types.ObjectId;
   text: string;
   isCompleted: boolean;
   priority: number;
@@ -54,25 +50,25 @@ export interface ITask {
 }
 
 export interface IPage {
-  id: ObjectId;
+  id: Types.ObjectId;
   name: string;
   icon: IconType;
   color: IColor;
   content: IMdt;
-  tags: Array<ObjectId>;
+  tags: Array<Types.ObjectId>;
 }
 
 export interface IProject {
-  id: ObjectId;
+  id: Types.ObjectId;
   name: string;
   icon: IconType;
   owner: string;
   description: string;
-  tags: Array<ObjectId>;
+  tags: Array<Types.ObjectId>;
   color: IColor;
   pages: Array<IPage>;
-  share: IShare;
-  defaultPageId?: ObjectId;
+  share: Types.ObjectId;
+  defaultPageId?: Types.ObjectId;
 }
 
 export interface IProfile {

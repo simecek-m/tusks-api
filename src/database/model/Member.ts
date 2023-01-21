@@ -16,6 +16,10 @@ const MemberSchema = new Schema<IMember>(
         message: `Unknown role. Available values: ${AVAILABLE_MEMEBR_ROLES}`,
       },
     },
+    pending: {
+      type: Boolean,
+      required: [true, "Pending field of Member is required."],
+    },
   },
   {
     _id: false,

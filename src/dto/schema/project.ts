@@ -4,7 +4,6 @@ import xss from "xss";
 import { array, object, string } from "yup";
 import colorSchema from "./color";
 import pageSchema from "./page";
-import shareSchema from "./share";
 import tagSchema from "./tag";
 
 const projectSchema = object({
@@ -29,7 +28,12 @@ const projectSchema = object({
       "defaultPageId must be in correct ObjectID format (12-byte reference)"
     )
     .nullable(),
-  share: shareSchema.required(),
+  share: string()
+    .matches(
+      DATABASE_UUID_FORMAT,
+      "share must be in correct ObjectID format (12-byte reference)"
+    )
+    .nullable(),
 });
 
 export default projectSchema;

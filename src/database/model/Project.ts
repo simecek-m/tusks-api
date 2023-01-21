@@ -1,11 +1,11 @@
 import Page from "database/model/Page";
-import Share from "database/model/Share";
 import Tag from "database/model/Tag";
 import Color from "database/model/Color";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IProject } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
+import Team from "./Team";
 
 const ProjectSchema = new Schema<IProject>(
   {
@@ -53,11 +53,14 @@ const ProjectSchema = new Schema<IProject>(
       default: [],
     },
     share: {
-      type: Share.schema,
-      required: [true, "Share of Project is required field!"],
-      default: {
-        users: [],
-        team: null,
+      type: Schema.Types.ObjectId,
+      ref: "team",
+      validate: {
+        validator: async (teamId: ObjectId) => {
+          const team = await Team.findById(teamId);
+          return team !== null;
+        },
+        message: "Non-existent tag!",
       },
     },
     defaultPageId: {
