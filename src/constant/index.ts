@@ -10,6 +10,7 @@ export const DATABASE_UUID_FORMAT = /^[0-9a-fA-F]{24}$/;
 export const DATE_FORMAT = /^\d{4}(-\d{2}){2}(T)(\d{2}:){2}\d{2}\.\d{3}Z/g;
 export const URL_ADDRESS_FORMAT =
   /^(http(s):\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/gi;
+export const USERNAME_FORMAT = /^@[a-zA-Z0-9]+$/g;
 
 // database
 export const DEFAULT_DB_TIMEOUT = 3000;
