@@ -23,6 +23,20 @@ router.get(`/${ROUTE_PROFILES}/me`, async (req, res, next) => {
   }
 });
 
+// delete profile of currently logged in user
+router.delete(`/${ROUTE_PROFILES}/me`, async (req, res, next) => {
+  try {
+    const result = await Profile.findByIdAndDelete(req.auth.payload.sub);
+    if (result) {
+      res.status(HttpStatus.OK).send(result);
+    } else {
+      next(new HttpError(HttpStatus.NOT_FOUND, `User profile was not found!`));
+    }
+  } catch (e) {
+    next(new UnexpectedError(e));
+  }
+});
+
 // create new user profile
 router.post(
   `/${ROUTE_PROFILES}`,
