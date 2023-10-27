@@ -14,6 +14,8 @@ export const USERNAME_FORMAT = /^@[a-zA-Z0-9]+$/g;
 
 // database
 export const DEFAULT_DB_TIMEOUT = 3000;
+export const DB_CONNECTION_STRING_STANDARD_PREFIX = "mongodb";
+export const DB_CONNECTION_STRING_DNS_PREFIX = "mongodb+srv";
 
 // xss
 export const DEFAULT_XSS_OPTIONS: IFilterXSSOptions = {
