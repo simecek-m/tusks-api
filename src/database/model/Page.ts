@@ -12,6 +12,9 @@ const PageSchema = new Schema<IPage>(
       type: String,
       required: [true, "Name field of Page is required!"],
     },
+    description: {
+      type: String,
+    },
     icon: {
       type: String,
       required: [true, "Icon field of Page is required!"],

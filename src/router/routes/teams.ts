@@ -21,7 +21,7 @@ router.get(`/${ROUTE_TEAMS}`, async function (req, res, next) {
   }
 });
 
-// create new team and set user as member
+// create new team and set current user as owner
 router.post(
   `/${ROUTE_TEAMS}`,
   validate(teamSchema),

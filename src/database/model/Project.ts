@@ -13,6 +13,9 @@ const ProjectSchema = new Schema<IProject>(
       type: String,
       required: [true, "Name field of Project is required!"],
     },
+    description: {
+      type: String,
+    },
     icon: {
       type: String,
       required: [true, "Icon field of Project is required!"],
@@ -23,12 +26,24 @@ const ProjectSchema = new Schema<IProject>(
         message: "Unsupported icon type!",
       },
     },
+    color: {
+      type: Color.schema,
+      required: [true, "Color of Project is required field!"],
+    },
+    share: {
+      type: Schema.Types.ObjectId,
+      ref: "team",
+      validate: {
+        validator: async (teamId: ObjectId) => {
+          const team = await Team.findById(teamId);
+          return team !== null;
+        },
+        message: "Non-existent tag!",
+      },
+    },
     owner: {
       type: String,
       required: [true, "Owner field of Project is required!"],
-    },
-    description: {
-      type: String,
     },
     tags: {
       type: [Schema.Types.ObjectId],
@@ -43,25 +58,10 @@ const ProjectSchema = new Schema<IProject>(
         message: "Non-existent tag!",
       },
     },
-    color: {
-      type: Color.schema,
-      required: [true, "Color of Project is required field!"],
-    },
     pages: {
       type: [Page.schema],
       required: [true, "Pages of Project is required field!"],
       default: [],
-    },
-    share: {
-      type: Schema.Types.ObjectId,
-      ref: "team",
-      validate: {
-        validator: async (teamId: ObjectId) => {
-          const team = await Team.findById(teamId);
-          return team !== null;
-        },
-        message: "Non-existent tag!",
-      },
     },
     defaultPageId: {
       type: Schema.Types.ObjectId,

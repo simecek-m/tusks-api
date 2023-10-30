@@ -13,6 +13,18 @@ const TaskSchema = new Schema<ITask>(
       default: false,
       required: [true, "State of task is required!"],
     },
+    priority: {
+      type: Number,
+      min: [0, "Priority must be in 0 - 5 interval."],
+      max: [5, "Priority must be in 0 - 5 interval."],
+      default: 0,
+    },
+    deadline: {
+      type: Date,
+    },
+    reminder: {
+      type: Date,
+    },
   },
   {
     autoCreate: false,

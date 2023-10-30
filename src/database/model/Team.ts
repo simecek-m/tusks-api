@@ -11,6 +11,9 @@ const TeamSchema = new Schema<ITeam>({
     type: String,
     required: [true, "Name field of Team is required!"],
   },
+  description: {
+    type: String,
+  },
   icon: {
     type: String,
     default: "people-group",

@@ -52,10 +52,11 @@ export interface ITask {
 export interface IPage {
   id: Types.ObjectId;
   name: string;
+  description: string;
   icon: IconType;
   color: IColor;
-  content: IMdt;
   tags: Array<Types.ObjectId>;
+  content: IMdt;
 }
 
 export interface IProject {
