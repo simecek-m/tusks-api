@@ -68,7 +68,10 @@ export interface IProject {
   tags: Array<Types.ObjectId>;
   color: IColor;
   pages: Array<IPage>;
-  share: Types.ObjectId;
+  share: {
+    users: [string];
+    team: Types.ObjectId;
+  };
   defaultPageId?: Types.ObjectId;
 }
 
@@ -79,6 +82,11 @@ export interface IProfile {
   lastName: string;
   picture: string;
   email: string;
+}
+
+export interface IShare {
+  team: Types.ObjectId | null;
+  users: Array<string>;
 }
 
 export type HttpStatusName =

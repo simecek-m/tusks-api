@@ -5,7 +5,7 @@ import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IProject } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
-import Team from "./Team";
+import Share from "database/model/Share";
 
 const ProjectSchema = new Schema<IProject>(
   {
@@ -31,15 +31,7 @@ const ProjectSchema = new Schema<IProject>(
       required: [true, "Color of Project is required field!"],
     },
     share: {
-      type: Schema.Types.ObjectId,
-      ref: "team",
-      validate: {
-        validator: async (teamId: ObjectId) => {
-          const team = await Team.findById(teamId);
-          return team !== null;
-        },
-        message: "Non-existent tag!",
-      },
+      type: Share.schema,
     },
     owner: {
       type: String,
