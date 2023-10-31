@@ -30,7 +30,7 @@ export interface ITeam {
   color: IColor;
   icon: IconType;
   members: Array<IMember>;
-  description?: string;
+  description: string | null;
 }
 
 export interface ITag {
@@ -68,11 +68,8 @@ export interface IProject {
   tags: Array<Types.ObjectId>;
   color: IColor;
   pages: Array<IPage>;
-  share: {
-    users: [string];
-    team: Types.ObjectId;
-  };
-  defaultPageId?: Types.ObjectId;
+  share: Types.ObjectId | null;
+  defaultPageId: Types.ObjectId | null;
 }
 
 export interface IProfile {
@@ -82,11 +79,6 @@ export interface IProfile {
   lastName: string;
   picture: string;
   email: string;
-}
-
-export interface IShare {
-  team: Types.ObjectId | null;
-  users: Array<string>;
 }
 
 export type HttpStatusName =

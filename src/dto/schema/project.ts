@@ -28,15 +28,12 @@ const projectSchema = object({
       "defaultPageId must be in correct ObjectID format (12-byte reference)"
     )
     .nullable(),
-  share: object({
-    users: array().of(string()),
-    team: string()
-      .matches(
-        DATABASE_UUID_FORMAT,
-        "share must be in correct ObjectID format (12-byte reference)"
-      )
-      .nullable(),
-  }),
+  share: string()
+    .matches(
+      DATABASE_UUID_FORMAT,
+      "share must be in correct ObjectID format (12-byte reference)"
+    )
+    .nullable(),
 });
 
 export default projectSchema;
