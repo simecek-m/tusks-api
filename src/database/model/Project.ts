@@ -35,8 +35,12 @@ const ProjectSchema = new Schema<IProject>(
       ref: "team",
       validate: {
         validator: async (teamId: ObjectId) => {
-          const team = await Team.findById(teamId);
-          return team !== null;
+          if (teamId === null) {
+            return true;
+          } else {
+            const team = await Team.findById(teamId);
+            return team !== null;
+          }
         },
         message: "Non-existent team!",
       },

@@ -4,7 +4,6 @@ import xss from "xss";
 import { array, object, string } from "yup";
 import colorSchema from "./color";
 import pageSchema from "./page";
-import tagSchema from "./tag";
 
 const projectSchema = object({
   name: string()
@@ -19,7 +18,7 @@ const projectSchema = object({
     .transform((data) => xss(data, DEFAULT_XSS_OPTIONS))
     .trim()
     .nullable(),
-  tags: array().of(tagSchema).required(),
+  tags: array().of(string()).required(),
   color: colorSchema.required(),
   pages: array().of(pageSchema).required(),
   defaultPageId: string()
