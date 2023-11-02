@@ -5,7 +5,7 @@ import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 import { validate } from "middleware/validation/validate";
-import { IMember, ITeam } from "types";
+import { IMember } from "types";
 
 const router = Router();
 
@@ -27,12 +27,15 @@ router.post(
   validate(teamSchema),
   async function (req, res, next) {
     try {
-      const member: IMember = {
+      const currentUserAsOwner: IMember = {
         user: req.auth.payload.sub,
         role: "owner",
         pending: false,
       };
-      const result = await Team.create({ ...req.body, members: [member] });
+      const result = await Team.create({
+        ...req.body,
+        members: [currentUserAsOwner],
+      });
       res.status(HttpStatus.OK).send(result);
     } catch (e) {
       next(new UnexpectedError(e));
@@ -40,49 +43,37 @@ router.post(
   }
 );
 
-// update team
+// update team info
 router.put(
   `/${ROUTE_TEAMS}/:id`,
   validate(teamSchema),
   async function (req, res, next) {
     try {
-      const team: ITeam = req.body;
-      if (
-        !team.members.some(
-          (member) => member.role === "owner" && member.pending === false
-        )
-      ) {
+      const currentUser = req.auth.payload.sub;
+      const result = await Team.findOneAndUpdate(
+        {
+          _id: req.params.id,
+          members: {
+            $elemMatch: {
+              $or: [
+                { user: currentUser, role: "owner", pending: false },
+                { user: currentUser, role: "admin", pending: false },
+              ],
+            },
+          },
+        },
+        req.body,
+        { runValidators: true, new: true, rawResult: true }
+      );
+      if (result.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(result.value);
+      } else {
         next(
           new HttpError(
             HttpStatus.BAD_REQUEST,
-            "Team needs to have at least one owner"
+            `Team was not found or you don't have permission for this action!`
           )
         );
-      } else {
-        const result = await Team.findOneAndUpdate(
-          {
-            _id: req.params.id,
-            members: {
-              $elemMatch: {
-                user: req.auth.payload.sub,
-                role: "owner",
-                pending: false,
-              },
-            },
-          },
-          req.body,
-          { runValidators: true, new: true }
-        );
-        if (result) {
-          res.status(HttpStatus.OK).send(result);
-        } else {
-          next(
-            new HttpError(
-              HttpStatus.BAD_REQUEST,
-              `Team was not found or you don't have permission for this action!`
-            )
-          );
-        }
       }
     } catch (e) {
       next(new UnexpectedError(e));
