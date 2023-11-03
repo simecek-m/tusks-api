@@ -1,6 +1,7 @@
 import { HttpStatus, ROUTE_MEMBERS, ROUTE_TEAMS } from "constant";
 import Team from "database/model/Team";
 import memberSchema from "dto/schema/member";
+import memberRoleSchema from "dto/schema/memberRole";
 import teamSchema from "dto/schema/team";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
@@ -165,6 +166,48 @@ router.delete(
           "members.user": memberId,
         },
         { $pull: { members: { user: memberId } } },
+        { runValidators: true, new: true, rawResult: true }
+      );
+      if (response.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(response.value);
+      } else {
+        next(
+          new HttpError(
+            HttpStatus.BAD_REQUEST,
+            "You dont't have permission for this action or the user is not a member."
+          )
+        );
+      }
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
+  }
+);
+
+// update team member role
+router.put(
+  `/${ROUTE_TEAMS}/:teamId/${ROUTE_MEMBERS}/:memberId`,
+  validate(memberRoleSchema),
+  async function (req, res, next) {
+    const currentUser = req.auth.payload.sub;
+    const memberId = req.params.memberId;
+    try {
+      const response = await Team.findOneAndUpdate(
+        {
+          _id: req.params.teamId,
+          members: {
+            $elemMatch: {
+              $or: [
+                { user: currentUser, pending: false, role: "owner" },
+                { user: currentUser, pending: false, role: "admin" },
+              ],
+            },
+          },
+          "members.user": memberId,
+        },
+        {
+          $set: { "members.$.role": req.body.role },
+        },
         { runValidators: true, new: true, rawResult: true }
       );
       if (response.lastErrorObject.updatedExisting === true) {
