@@ -32,6 +32,7 @@ export const ROUTE_TASKS = "tasks";
 export const ROUTE_TEAMS = "teams";
 export const ROUTE_PAGES = "pages";
 export const ROUTE_PROFILES = "profiles";
+export const ROUTE_MEMBERS = "members";
 
 // type values
 export const AVAILABLE_MEMEBR_ROLES = [

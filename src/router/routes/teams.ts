@@ -1,5 +1,6 @@
-import { HttpStatus, ROUTE_TEAMS } from "constant";
+import { HttpStatus, ROUTE_MEMBERS, ROUTE_TEAMS } from "constant";
 import Team from "database/model/Team";
+import memberSchema from "dto/schema/member";
 import teamSchema from "dto/schema/team";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
@@ -81,7 +82,7 @@ router.put(
   }
 );
 
-//delete team by id
+//delete team
 router.delete(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
   try {
     const result = await Team.findOneAndDelete({
@@ -102,5 +103,84 @@ router.delete(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
     next(new UnexpectedError(e));
   }
 });
+
+//add new member to the team
+router.post(
+  `/${ROUTE_TEAMS}/:teamId/${ROUTE_MEMBERS}`,
+  validate(memberSchema),
+  async function (req, res, next) {
+    const currentUser = req.auth.payload.sub;
+    const member: IMember = req.body;
+    try {
+      const response = await Team.findOneAndUpdate(
+        {
+          _id: req.params.teamId,
+          members: {
+            $elemMatch: {
+              $or: [
+                { user: currentUser, pending: false, role: "owner" },
+                { user: currentUser, pending: false, role: "admin" },
+              ],
+            },
+          },
+          "members.user": { $ne: member.user },
+        },
+        { $push: { members: { ...member } } },
+        { runValidators: true, new: true, rawResult: true }
+      );
+      if (response.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(response.value);
+      } else {
+        next(
+          new HttpError(
+            HttpStatus.BAD_REQUEST,
+            "You dont't have permission for this action or the user is already a member."
+          )
+        );
+      }
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
+  }
+);
+
+// remove member from the team
+router.delete(
+  `/${ROUTE_TEAMS}/:teamId/${ROUTE_MEMBERS}/:memberId`,
+  async function (req, res, next) {
+    const currentUser = req.auth.payload.sub;
+    const memberId = req.params.memberId;
+    try {
+      const response = await Team.findOneAndUpdate(
+        {
+          _id: req.params.teamId,
+          members: {
+            $elemMatch: {
+              $or: [
+                { user: currentUser, pending: false, role: "owner" },
+                { user: currentUser, pending: false, role: "admin" },
+              ],
+            },
+          },
+          "members.user": memberId,
+        },
+        { $pull: { members: { user: memberId } } },
+        { runValidators: true, new: true, rawResult: true }
+      );
+      if (response.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(response.value);
+      } else {
+        next(
+          new HttpError(
+            HttpStatus.BAD_REQUEST,
+            "You dont't have permission for this action or the user is not a member."
+          )
+        );
+      }
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
+  }
+);
 
 export default router;
