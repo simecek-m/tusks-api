@@ -1,4 +1,4 @@
-import { HttpStatus, ROUTE_MEMBERS, ROUTE_TEAMS } from "constant";
+import { HttpStatus, ROUTE_LEAVE, ROUTE_MEMBERS, ROUTE_TEAMS } from "constant";
 import Team from "database/model/Team";
 import memberSchema from "dto/schema/member";
 import memberRoleSchema from "dto/schema/memberRole";
@@ -217,6 +217,36 @@ router.put(
           new HttpError(
             HttpStatus.BAD_REQUEST,
             "You dont't have permission for this action or the user is not a member."
+          )
+        );
+      }
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
+  }
+);
+
+router.post(
+  `/${ROUTE_TEAMS}/:teamId/${ROUTE_LEAVE}`,
+  async function (req, res, next) {
+    const currentUser = req.auth.payload.sub;
+    try {
+      const response = await Team.findOneAndUpdate(
+        {
+          _id: req.params.teamId,
+          members: { $elemMatch: { user: currentUser } },
+        },
+        { $pull: { members: { user: currentUser } } },
+        { runValidators: true, new: true, rawResult: true }
+      );
+      console.log(response);
+      if (response.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(response.value);
+      } else {
+        next(
+          new HttpError(
+            HttpStatus.BAD_REQUEST,
+            "You are not member of this team."
           )
         );
       }
