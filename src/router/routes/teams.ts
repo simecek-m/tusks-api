@@ -126,7 +126,7 @@ router.post(
           },
           "members.user": { $ne: member.user },
         },
-        { $push: { members: { ...member } } },
+        { $push: { members: { ...member, pending: true } } },
         { runValidators: true, new: true, rawResult: true }
       );
       if (response.lastErrorObject.updatedExisting === true) {
