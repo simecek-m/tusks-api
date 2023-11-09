@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "654164c6da4db65c9e906f8b"
+  },
+  "name": "Shop",
+  "icon": "shop",
+  "color": {
+    "light": "#FAFAFA",
+    "dark": "#010101"
+  },
+  "share": null,
+  "owner": "auth0|6408f6ec38b3e02b77fce1eb",
+  "tags": [],
+  "pages": [],
+  "defaultPageId": null,
+  "createdAt": {
+    "$date": "2023-10-31T20:34:14.381Z"
+  },
+  "updatedAt": {
+    "$date": "2023-10-31T20:34:14.381Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65416518da4db65c9e906f8f"
+  },
+  "name": "Work",
+  "icon": "hammer",
+  "color": {
+    "light": "#FAFAFA",
+    "dark": "#010101"
+  },
+  "share": {
+    "$oid": "6541657bda4db65c9e906f95"
+  },
+  "owner": "auth0|6408f6ec38b3e02b77fce1eb",
+  "tags": [
+    {
+      "$oid": "6542abb0b6eecdd188bec33a"
+    }
+  ],
+  "pages": [],
+  "defaultPageId": null,
+  "createdAt": {
+    "$date": "2023-10-31T20:35:36.961Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-01T19:56:01.778Z"
+  },
+  "__v": 0
+}]

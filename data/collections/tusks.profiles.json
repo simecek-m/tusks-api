@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "auth0|6408f6ec38b3e02b77fce1eb",
+    "username": "@simecek",
+    "firstName": "Martin",
+    "lastName": "Šimeček",
+    "email": "simecek.m@seznam.cz",
+    "picture": "https://s.gravatar.com/avatar/d49d109be46fd5ca52db0cf7e1d787c2?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsi.png",
+    "createdAt": {
+      "$date": "2023-03-08T20:58:51.728Z"
+    },
+    "updatedAt": {
+      "$date": "2023-03-08T20:58:51.728Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "google-oauth2|106118014621122316349",
+    "username": "@dev",
+    "firstName": "Martin",
+    "lastName": "Šimeček",
+    "email": "developer.simecek@gmail.com",
+    "picture": "https://lh3.googleusercontent.com/a/AGNmyxYXMHENBz9xgIltNBbjhxa9rLnK34Tth46PbCs=s96-c",
+    "createdAt": {
+      "$date": "2023-03-31T18:45:53.394Z"
+    },
+    "updatedAt": {
+      "$date": "2023-03-31T18:45:53.394Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "google-oauth2|103801777294402873916",
+    "username": "@simecek",
+    "firstName": "Martin",
+    "lastName": "Šimeček",
+    "email": "simecek.mar@gmail.com",
+    "picture": "https://lh3.googleusercontent.com/a/AGNmyxbOzWjqtBl0JnJwERfRDNIxuBYi8wz0SL1VoPkpTQ=s96-c",
+    "createdAt": {
+      "$date": "2023-04-04T19:00:48.733Z"
+    },
+    "updatedAt": {
+      "$date": "2023-04-04T19:00:48.733Z"
+    },
+    "__v": 0
+  }
+]

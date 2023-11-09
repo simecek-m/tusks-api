@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "642dd03d06c23c22fa169c21"
+  },
+  "owner": "google-oauth2|103801777294402873916",
+  "label": "games",
+  "color": {
+    "light": "#F44016",
+    "dark": "#F4502A"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "642dd06a06c23c22fa169c24"
+  },
+  "owner": "google-oauth2|103801777294402873916",
+  "label": "code",
+  "color": {
+    "light": "#8726F4",
+    "dark": "#AD51F4"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "642dd48306c23c22fa169c4b"
+  },
+  "owner": "google-oauth2|103801777294402873916",
+  "label": "autogard",
+  "color": {
+    "light": "#071CE7",
+    "dark": "#4853F4"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6542abb0b6eecdd188bec33a"
+  },
+  "owner": "auth0|6408f6ec38b3e02b77fce1eb",
+  "label": "work",
+  "color": {
+    "light": "#212DCF",
+    "dark": "#5B5EF0"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6542ac05b6eecdd188bec33d"
+  },
+  "owner": "auth0|6408f6ec38b3e02b77fce1eb",
+  "label": "code",
+  "color": {
+    "light": "#CC2B3B",
+    "dark": "#F05B6A"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6542ac37b6eecdd188bec340"
+  },
+  "owner": "auth0|6408f6ec38b3e02b77fce1eb",
+  "label": "game",
+  "color": {
+    "light": "#16DB5E",
+    "dark": "#4CE684"
+  },
+  "__v": 0
+}]

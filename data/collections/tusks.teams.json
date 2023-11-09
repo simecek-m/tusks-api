@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "6541657bda4db65c9e906f95"
+  },
+  "name": "co-workers",
+  "icon": "people-group",
+  "color": {
+    "light": "#123123",
+    "dark": "#FEFEFE"
+  },
+  "members": [
+    {
+      "user": "google-oauth2|103801777294402873916",
+      "role": "owner",
+      "pending": false
+    }
+  ],
+  "__v": 0
+}]
