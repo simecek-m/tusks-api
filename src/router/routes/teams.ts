@@ -1,4 +1,10 @@
-import { HttpStatus, ROUTE_LEAVE, ROUTE_MEMBERS, ROUTE_TEAMS } from "constant";
+import {
+  HttpStatus,
+  ROUTE_APPROVE,
+  ROUTE_LEAVE,
+  ROUTE_MEMBERS,
+  ROUTE_TEAMS,
+} from "constant";
 import Team from "database/model/Team";
 import memberSchema from "dto/schema/member";
 import memberRoleSchema from "dto/schema/memberRole";
@@ -226,6 +232,7 @@ router.put(
   }
 );
 
+// leave team
 router.post(
   `/${ROUTE_TEAMS}/:teamId/${ROUTE_LEAVE}`,
   async function (req, res, next) {
@@ -239,7 +246,6 @@ router.post(
         { $pull: { members: { user: currentUser } } },
         { runValidators: true, new: true, rawResult: true }
       );
-      console.log(response);
       if (response.lastErrorObject.updatedExisting === true) {
         res.status(HttpStatus.OK).send(response.value);
       } else {
@@ -247,6 +253,39 @@ router.post(
           new HttpError(
             HttpStatus.BAD_REQUEST,
             "You are not member of this team."
+          )
+        );
+      }
+    } catch (e) {
+      next(new UnexpectedError(e));
+    }
+  }
+);
+
+// approve team invitation
+router.post(
+  `/${ROUTE_TEAMS}/:teamId/${ROUTE_APPROVE}`,
+  async function (req, res, next) {
+    const currentUser = req.auth.payload.sub;
+    try {
+      const response = await Team.findOneAndUpdate(
+        {
+          _id: req.params.teamId,
+          members: { $elemMatch: { user: currentUser, pending: true } },
+          "members.user": currentUser,
+        },
+        {
+          $set: { "members.$.pending": false },
+        },
+        { runValidators: true, new: true, rawResult: true }
+      );
+      if (response.lastErrorObject.updatedExisting === true) {
+        res.status(HttpStatus.OK).send(response.value);
+      } else {
+        next(
+          new HttpError(
+            HttpStatus.BAD_REQUEST,
+            "You are not invited to this team."
           )
         );
       }
