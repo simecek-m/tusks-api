@@ -33,8 +33,10 @@ export const ROUTE_TEAMS = "teams";
 export const ROUTE_PAGES = "pages";
 export const ROUTE_PROFILES = "profiles";
 export const ROUTE_MEMBERS = "members";
+export const ROUTE_INVITATIONS = "invitations";
 export const ROUTE_LEAVE = "leave";
 export const ROUTE_APPROVE = "approve";
+export const ROUTE_DECLINE = "decline";
 
 // type values
 export const AVAILABLE_MEMEBR_ROLES = [
