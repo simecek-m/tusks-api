@@ -29,6 +29,7 @@ const ProfileSchema = new Schema<IProfile>(
     email: {
       type: String,
       required: [true, "E-mail field of Profile is required!"],
+      unique: true,
     },
     picture: {
       type: String,
