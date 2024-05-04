@@ -50,7 +50,7 @@
   "scripts": {
     "build": "eslint ./src --ext .ts & tsc",
     "start": "cross-env MODE=production NODE_PATH=dist node dist/start",
-    "start:dev": "cross-env MODE=development NODE_PATH=src nodemon ./src/start.ts",
+    "dev": "cross-env MODE=development NODE_PATH=src nodemon ./src/start.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier **/*.ts",
     "test": "cross-env MODE=test nyc --silent mocha ./test/**/**.ts",
