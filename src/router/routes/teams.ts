@@ -115,22 +115,14 @@ router.delete(
         {
           _id: req.params.teamId,
           members: {
-            $and: [
-              {
-                $elemMatch: {
-                  $or: [
-                    { user: currentUser, pending: false, role: "owner" },
-                    { user: currentUser, pending: false, role: "admin" },
-                  ],
-                },
-              },
-              {
-                $elemMatch: {
-                  user: memberId,
-                },
-              },
-            ],
+            $elemMatch: {
+              $or: [
+                { user: currentUser, pending: false, role: "owner" },
+                { user: currentUser, pending: false, role: "admin" },
+              ],
+            },
           },
+          "members.user": memberId,
         },
         { $pull: { members: { user: memberId } } },
         { runValidators: true, new: true, rawResult: true }
@@ -146,6 +138,7 @@ router.delete(
         );
       }
     } catch (e) {
+      console.log(e);
       next(new UnexpectedError(e));
     }
   }
