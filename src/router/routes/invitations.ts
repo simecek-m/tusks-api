@@ -76,7 +76,6 @@ router.post(
         {
           _id: req.params.teamId,
           members: { $elemMatch: { user: currentUser, pending: true } },
-          "members.user": currentUser,
         },
         {
           $set: { "members.$.pending": false },
@@ -128,3 +127,5 @@ router.post(
     }
   }
 );
+
+export default router;
