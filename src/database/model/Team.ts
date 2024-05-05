@@ -4,11 +4,15 @@ import { model, Schema } from "mongoose";
 import { IMember, ITeam } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
 import Member from "./Member";
+import Profile from "./Profile";
 
 const TeamSchema = new Schema<ITeam>({
   name: {
     type: String,
     required: [true, "Name field of Team is required!"],
+  },
+  description: {
+    type: String,
   },
   icon: {
     type: String,
@@ -28,8 +32,13 @@ const TeamSchema = new Schema<ITeam>({
     type: [Member.schema],
     required: [true, "Members of Team is required field!"],
     validate: {
-      validator: (members: IMember[]) => members.length > 0,
-      message: "Team must have at least one member!",
+      validator: async (members: IMember[]) => {
+        const profiles = await Profile.find({
+          _id: { $in: members.map((member) => member.user) },
+        });
+        return members.length === profiles.length;
+      },
+      message: "Team members could not be found!",
     },
   },
 });

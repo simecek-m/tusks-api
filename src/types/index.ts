@@ -1,5 +1,5 @@
 import { AVAILABLE_MEMEBR_ROLES } from "constant";
-import { ObjectId, Types } from "mongoose";
+import { Types } from "mongoose";
 import { IconType } from "types/icon";
 
 export interface IFieldError {
@@ -12,7 +12,7 @@ export interface IColor {
   dark: string;
 }
 
-export interface IPageContent {
+export interface IMdt {
   tasks: object;
   template: string;
 }
@@ -22,6 +22,7 @@ export type Role = typeof AVAILABLE_MEMEBR_ROLES[number];
 export interface IMember {
   user: string;
   role: Role;
+  pending: boolean;
 }
 
 export interface ITeam {
@@ -29,23 +30,18 @@ export interface ITeam {
   color: IColor;
   icon: IconType;
   members: Array<IMember>;
-  description?: string;
-}
-
-export interface IShare {
-  users: Array<string>;
-  team?: ITeam;
+  description: string | null;
 }
 
 export interface ITag {
-  id: ObjectId;
+  id: Types.ObjectId;
   owner: string;
   label: string;
   color: IColor;
 }
 
 export interface ITask {
-  id: ObjectId;
+  id: Types.ObjectId;
   text: string;
   isCompleted: boolean;
   priority: number;
@@ -56,10 +52,11 @@ export interface ITask {
 export interface IPage {
   id: Types.ObjectId;
   name: string;
+  description: string;
   icon: IconType;
   color: IColor;
-  content: IPageContent;
-  tags: Array<ObjectId>;
+  tags: Array<Types.ObjectId>;
+  content: IMdt;
 }
 
 export interface IProject {
@@ -68,22 +65,21 @@ export interface IProject {
   icon: IconType;
   owner: string;
   description: string;
-  tags: Array<ObjectId>;
+  tags: Array<Types.ObjectId>;
   color: IColor;
   pages: Array<IPage>;
-  share: IShare;
-  defaultPageId?: Types.ObjectId;
+  share: Types.ObjectId | null;
+  defaultPageId: Types.ObjectId | null;
 }
 
 export interface IProfile {
   _id: string;
+  username: string;
   firstName: string;
   lastName: string;
   picture: string;
   email: string;
 }
-
-export type PAGE_TYPE = "tasklist" | "markdown";
 
 export type HttpStatusName =
   | "OK"
@@ -94,14 +90,3 @@ export type HttpStatusName =
   | "INTERNAL_SERVER_ERROR";
 
 export type HttpStatusCode = 200 | 204 | 400 | 404 | 409 | 500;
-
-export type HttpStatusType = Record<HttpStatusName, HttpStatusCode>;
-
-export const HttpStatus: HttpStatusType = {
-  OK: 200,
-  OK_NO_CONTENT: 204,
-  BAD_REQUEST: 400,
-  NOT_FOUND: 404,
-  CONFLICT: 409,
-  INTERNAL_SERVER_ERROR: 500,
-};

@@ -5,16 +5,44 @@ import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 import { validate } from "middleware/validation/validate";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 
 const router = Router();
 
 // retrieve all user's projects
 router.get(`/${ROUTE_PROJECTS}`, async (req, res, next) => {
+  const currentUser = req.auth.payload.sub;
   try {
-    const result = await Project.find({
-      author: req.auth.payload.sub,
-    }).populate("tags");
+    const result = await Project.aggregate([
+      {
+        $lookup: {
+          from: "teams",
+          localField: "share",
+          foreignField: "_id",
+          as: "share",
+        },
+      },
+      {
+        $lookup: {
+          from: "tags",
+          localField: "tags",
+          foreignField: "_id",
+          as: "tags",
+        },
+      },
+      {
+        $match: {
+          $or: [{ owner: currentUser }, { "share.members.user": currentUser }],
+        },
+      },
+      {
+        $set: {
+          share: {
+            $ifNull: [{ $arrayElemAt: ["$share", 0] }, null],
+          },
+        },
+      },
+    ]);
     res.status(HttpStatus.OK).send(result);
   } catch (e) {
     next(new UnexpectedError(e));

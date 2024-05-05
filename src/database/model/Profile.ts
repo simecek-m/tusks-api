@@ -1,4 +1,4 @@
-import { URL_ADDRESS_FORMAT } from "constant";
+import { URL_ADDRESS_FORMAT, USERNAME_FORMAT } from "constant";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, Schema } from "mongoose";
 import { IProfile } from "types";
@@ -8,6 +8,15 @@ const ProfileSchema = new Schema<IProfile>(
     _id: {
       type: String,
       required: [true, "ID field of Profile is required!"],
+    },
+    username: {
+      type: String,
+      required: [true, "Username field of Profile is required!"],
+      match: [
+        USERNAME_FORMAT,
+        "Wrong format. Username has to looks like this: @username",
+      ],
+      unique: true,
     },
     firstName: {
       type: String,
@@ -20,6 +29,7 @@ const ProfileSchema = new Schema<IProfile>(
     email: {
       type: String,
       required: [true, "E-mail field of Profile is required!"],
+      unique: true,
     },
     picture: {
       type: String,

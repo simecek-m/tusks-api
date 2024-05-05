@@ -1,4 +1,4 @@
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 import { HttpError } from "./HttpError";
 
 export class UnexpectedError extends HttpError {

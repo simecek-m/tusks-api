@@ -1,16 +1,16 @@
-import { ROUTE_PROFILE } from "constant";
+import { ROUTE_PROFILES } from "constant";
 import Profile from "database/model/Profile";
 import profileSchema from "dto/schema/profile";
 import { HttpError } from "error/HttpError";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
 import { validate } from "middleware/validation/validate";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 
 const router = Router();
 
 // retrieve profile of currently logged in user
-router.get(`/${ROUTE_PROFILE}`, async (req, res, next) => {
+router.get(`/${ROUTE_PROFILES}/me`, async (req, res, next) => {
   try {
     const result = await Profile.findById(req.auth.payload.sub);
     if (result) {
@@ -23,9 +23,23 @@ router.get(`/${ROUTE_PROFILE}`, async (req, res, next) => {
   }
 });
 
+// delete profile of currently logged in user
+router.delete(`/${ROUTE_PROFILES}/me`, async (req, res, next) => {
+  try {
+    const result = await Profile.findByIdAndDelete(req.auth.payload.sub);
+    if (result) {
+      res.status(HttpStatus.OK).send(result);
+    } else {
+      next(new HttpError(HttpStatus.NOT_FOUND, `User profile was not found!`));
+    }
+  } catch (e) {
+    next(new UnexpectedError(e));
+  }
+});
+
 // create new user profile
 router.post(
-  `/${ROUTE_PROFILE}`,
+  `/${ROUTE_PROFILES}`,
   validate(profileSchema),
   async (req, res, next) => {
     try {
@@ -45,5 +59,18 @@ router.post(
     }
   }
 );
+
+// retrieve all registered profiles
+router.get(`/${ROUTE_PROFILES}`, async (req, res, next) => {
+  try {
+    const result = await Profile.find(
+      {},
+      { _id: true, email: true, firstName: true, lastName: true, picture: true }
+    );
+    res.status(HttpStatus.OK).send(result);
+  } catch (e) {
+    next(new UnexpectedError(e));
+  }
+});
 
 export default router;

@@ -1,12 +1,12 @@
-import taskSchema from "dto/schema/task";
+import Task from "database/model/Task";
 import { model, Schema } from "mongoose";
-import { IPageContent } from "types";
+import { IMdt } from "types";
 
-const PageContentSchema = new Schema<IPageContent>(
+const PageContentSchema = new Schema<IMdt>(
   {
     tasks: {
       type: Map,
-      of: taskSchema,
+      of: Task.schema,
     },
     template: {
       type: String,
@@ -18,4 +18,4 @@ const PageContentSchema = new Schema<IPageContent>(
   }
 );
 
-export default model<IPageContent>("pageContent", PageContentSchema);
+export default model<IMdt>("pageContent", PageContentSchema);

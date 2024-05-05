@@ -1,9 +1,8 @@
 import { DEFAULT_XSS_OPTIONS } from "constant";
 import { AVAILABLE_ICONS } from "types/icon";
 import xss from "xss";
-import { array, object, string } from "yup";
+import { object, string } from "yup";
 import colorSchema from "./color";
-import memberSchema from "./member";
 
 const teamSchema = object({
   name: string()
@@ -11,7 +10,6 @@ const teamSchema = object({
     .trim()
     .required(),
   color: colorSchema,
-  members: array().of(memberSchema).required(),
   icon: string()
     .oneOf([...AVAILABLE_ICONS])
     .trim()

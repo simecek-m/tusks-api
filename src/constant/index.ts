@@ -1,3 +1,4 @@
+import { HttpStatusCode, HttpStatusName } from "types";
 import { IFilterXSSOptions } from "xss";
 
 // logger
@@ -9,9 +10,12 @@ export const DATABASE_UUID_FORMAT = /^[0-9a-fA-F]{24}$/;
 export const DATE_FORMAT = /^\d{4}(-\d{2}){2}(T)(\d{2}:){2}\d{2}\.\d{3}Z/g;
 export const URL_ADDRESS_FORMAT =
   /^(http(s):\/\/.)[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/gi;
+export const USERNAME_FORMAT = /^@[a-zA-Z0-9]+$/g;
 
 // database
 export const DEFAULT_DB_TIMEOUT = 3000;
+export const DB_CONNECTION_STRING_STANDARD_PREFIX = "mongodb";
+export const DB_CONNECTION_STRING_DNS_PREFIX = "mongodb+srv";
 
 // xss
 export const DEFAULT_XSS_OPTIONS: IFilterXSSOptions = {
@@ -27,12 +31,26 @@ export const ROUTE_PROJECTS = "projects";
 export const ROUTE_TASKS = "tasks";
 export const ROUTE_TEAMS = "teams";
 export const ROUTE_PAGES = "pages";
-export const ROUTE_PROFILE = "profile";
+export const ROUTE_PROFILES = "profiles";
+export const ROUTE_MEMBERS = "members";
+export const ROUTE_INVITATIONS = "invitations";
+export const ROUTE_LEAVE = "leave";
+export const ROUTE_APPROVE = "approve";
+export const ROUTE_DECLINE = "decline";
 
 // type values
 export const AVAILABLE_MEMEBR_ROLES = [
   "owner",
   "admin",
   "editor",
-  "view",
+  "viewer",
 ] as const;
+
+export const HttpStatus: Record<HttpStatusName, HttpStatusCode> = {
+  OK: 200,
+  OK_NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  INTERNAL_SERVER_ERROR: 500,
+};

@@ -9,7 +9,8 @@ import tagsRoutes from "router/routes/tags";
 import projectsRoutes from "router/routes/projects";
 import teamsRoutes from "router/routes/teams";
 import pagesRoutes from "router/routes/pages";
-import profileRoutes from "router/routes/profile";
+import profilesRoutes from "router/routes/profiles";
+import invitationsRoutes from "router/routes/invitations";
 
 // authentication middleware
 router.use(checkJwt);
@@ -20,6 +21,7 @@ router.use(tagsRoutes);
 router.use(projectsRoutes);
 router.use(teamsRoutes);
 router.use(pagesRoutes);
-router.use(profileRoutes);
+router.use(profilesRoutes);
+router.use(invitationsRoutes);
 
 export default router;

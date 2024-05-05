@@ -2,7 +2,7 @@ import { ROUTE_STATS } from "constant";
 import Project from "database/model/Project";
 import { UnexpectedError } from "error/UnexpectedError";
 import { Router } from "express";
-import { HttpStatus } from "types";
+import { HttpStatus } from "constant";
 
 const router = Router();
 

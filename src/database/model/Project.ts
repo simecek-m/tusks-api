@@ -1,17 +1,20 @@
 import Page from "database/model/Page";
-import Share from "database/model/Share";
 import Tag from "database/model/Tag";
 import Color from "database/model/Color";
 import { NORMALIZED_OUTPUT } from "database/utils";
 import { model, ObjectId, Schema } from "mongoose";
 import { IProject } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
+import Team from "database/model/Team";
 
 const ProjectSchema = new Schema<IProject>(
   {
     name: {
       type: String,
       required: [true, "Name field of Project is required!"],
+    },
+    description: {
+      type: String,
     },
     icon: {
       type: String,
@@ -23,12 +26,28 @@ const ProjectSchema = new Schema<IProject>(
         message: "Unsupported icon type!",
       },
     },
+    color: {
+      type: Color.schema,
+      required: [true, "Color of Project is required field!"],
+    },
+    share: {
+      type: Schema.Types.ObjectId,
+      ref: "team",
+      validate: {
+        validator: async (teamId: ObjectId) => {
+          if (teamId === null) {
+            return true;
+          } else {
+            const team = await Team.findById(teamId);
+            return team !== null;
+          }
+        },
+        message: "Non-existent team!",
+      },
+    },
     owner: {
       type: String,
       required: [true, "Owner field of Project is required!"],
-    },
-    description: {
-      type: String,
     },
     tags: {
       type: [Schema.Types.ObjectId],
@@ -43,22 +62,10 @@ const ProjectSchema = new Schema<IProject>(
         message: "Non-existent tag!",
       },
     },
-    color: {
-      type: Color.schema,
-      required: [true, "Color of Project is required field!"],
-    },
     pages: {
       type: [Page.schema],
       required: [true, "Pages of Project is required field!"],
       default: [],
-    },
-    share: {
-      type: Share.schema,
-      required: [true, "Share of Project is required field!"],
-      default: {
-        users: [],
-        team: null,
-      },
     },
     defaultPageId: {
       type: Schema.Types.ObjectId,
