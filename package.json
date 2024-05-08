@@ -17,7 +17,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-oauth2-jwt-bearer": "^1.1.0",
-    "mongoose": "^6.6.7",
+    "mongoose": "^6.11.3",
     "morgan": "^1.10.0",
     "swagger-ui-express": "^4.5.0",
     "treblle": "^1.2.1",
