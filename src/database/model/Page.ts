@@ -1,10 +1,10 @@
 import { NORMALIZED_OUTPUT } from "database/utils";
-import { model, ObjectId, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IPage } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
+import Color from "./Color";
 import PageContent from "./PageContent";
 import Tag from "./Tag";
-import Color from "./Color";
 
 const PageSchema = new Schema<IPage>(
   {
@@ -33,7 +33,7 @@ const PageSchema = new Schema<IPage>(
       type: [Schema.Types.ObjectId],
       ref: "tag",
       validate: {
-        validator: async (tags: [ObjectId]) => {
+        validator: async (tags: Array<Schema.Types.ObjectId>) => {
           const exitedTagsCount = await Tag.countDocuments({
             _id: { $in: tags },
           });

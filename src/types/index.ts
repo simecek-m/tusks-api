@@ -1,5 +1,5 @@
 import { AVAILABLE_MEMEBR_ROLES } from "constant";
-import { Types } from "mongoose";
+import { Schema } from "mongoose";
 import { IconType } from "types/icon";
 
 export interface IFieldError {
@@ -34,14 +34,14 @@ export interface ITeam {
 }
 
 export interface ITag {
-  id: Types.ObjectId;
+  id: Schema.Types.ObjectId;
   owner: string;
   label: string;
   color: IColor;
 }
 
 export interface ITask {
-  id: Types.ObjectId;
+  id: Schema.Types.ObjectId;
   text: string;
   isCompleted: boolean;
   priority: number;
@@ -50,26 +50,26 @@ export interface ITask {
 }
 
 export interface IPage {
-  id: Types.ObjectId;
+  id: Schema.Types.ObjectId;
   name: string;
   description: string;
   icon: IconType;
   color: IColor;
-  tags: Array<Types.ObjectId>;
+  tags: Array<Schema.Types.ObjectId>;
   content: IMdt;
 }
 
 export interface IProject {
-  id: Types.ObjectId;
+  id: Schema.Types.ObjectId;
   name: string;
   icon: IconType;
   owner: string;
   description: string;
-  tags: Array<Types.ObjectId>;
+  tags: Array<Schema.Types.ObjectId>;
   color: IColor;
   pages: Array<IPage>;
-  share: Types.ObjectId | null;
-  defaultPageId: Types.ObjectId | null;
+  share: Schema.Types.ObjectId | null;
+  defaultPageId: Schema.Types.ObjectId | null;
 }
 
 export interface IProfile {

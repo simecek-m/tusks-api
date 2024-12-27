@@ -1,11 +1,11 @@
+import Color from "database/model/Color";
 import Page from "database/model/Page";
 import Tag from "database/model/Tag";
-import Color from "database/model/Color";
+import Team from "database/model/Team";
 import { NORMALIZED_OUTPUT } from "database/utils";
-import { model, ObjectId, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IProject } from "types";
 import { AVAILABLE_ICONS, IconType } from "types/icon";
-import Team from "database/model/Team";
 
 const ProjectSchema = new Schema<IProject>(
   {
@@ -34,7 +34,7 @@ const ProjectSchema = new Schema<IProject>(
       type: Schema.Types.ObjectId,
       ref: "team",
       validate: {
-        validator: async (teamId: ObjectId) => {
+        validator: async (teamId: Schema.Types.ObjectId) => {
           if (teamId === null) {
             return true;
           } else {
@@ -53,7 +53,7 @@ const ProjectSchema = new Schema<IProject>(
       type: [Schema.Types.ObjectId],
       ref: "tag",
       validate: {
-        validator: async (tags: [ObjectId]) => {
+        validator: async (tags: [Schema.Types.ObjectId]) => {
           const exitedTagsCount = await Tag.countDocuments({
             _id: { $in: tags },
           });
