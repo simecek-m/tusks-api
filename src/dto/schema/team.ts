@@ -14,6 +14,7 @@ const teamSchema = object({
     .oneOf([...AVAILABLE_ICONS])
     .trim()
     .required(),
+  description: string(),
 });
 
 export default teamSchema;
