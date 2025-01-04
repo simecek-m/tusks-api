@@ -1,4 +1,5 @@
 import { AVAILABLE_MEMEBR_ROLES } from "constant";
+import Profile from "database/model/Profile";
 import { model, Schema } from "mongoose";
 import { IMember, Role } from "types";
 
@@ -6,6 +7,7 @@ const MemberSchema = new Schema<IMember>(
   {
     user: {
       type: String,
+      ref: Profile,
       required: [true, "User reference field of Member is required."],
     },
     role: {
