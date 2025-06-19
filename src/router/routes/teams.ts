@@ -22,6 +22,28 @@ router.get(`/${ROUTE_TEAMS}`, async function (req, res, next) {
   }
 });
 
+// get specific team and its membes
+router.get(`/${ROUTE_TEAMS}/:id`, async function (req, res, next) {
+  try {
+    const result = await Team.findOne({
+      _id: req.params.id,
+      members: { $elemMatch: { user: req.auth.payload.sub, pending: false } },
+    }).populate("members.user");
+    if (result) {
+      res.status(HttpStatus.OK).send(result);
+    } else {
+      next(
+        new HttpError(
+          HttpStatus.NOT_FOUND,
+          `Team (${req.params.id}) was not found!`
+        )
+      );
+    }
+  } catch (e) {
+    next(new UnexpectedError(e));
+  }
+});
+
 // create new team and set current user as owner
 router.post(
   `/${ROUTE_TEAMS}`,
